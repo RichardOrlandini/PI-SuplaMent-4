@@ -1,0 +1,1 @@
+--INSERT INTO usuario VALUES (1, TRUE, 'usuario.padrao@gmail.com', '11987649983', TRUE, 1);
