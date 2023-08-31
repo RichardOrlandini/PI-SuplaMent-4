@@ -11,6 +11,7 @@ CREATE TABLE endereco (
 CREATE TABLE usuario (
     id                       bigint NOT NULL,
     active                   boolean NOT NULL,
+    nome                     VARCHAR(255) NOT NULL,
     email                    VARCHAR(255) NOT NULL,
     senha                    VARCHAR(255) NOT NULL,
     telefone                 VARCHAR(255),
@@ -20,4 +21,7 @@ CREATE TABLE usuario (
     FOREIGN KEY (endereco_id) REFERENCES endereco(id)
 );
 
-INSERT INTO endereco VALUES (1, 'Rua Saloá', '123', 'Rua', 'Jardim Mutinga','05159-040');
+insert into usuario values(1, TRUE, 'adm@teste', true,  'adm', '$2a$10$Y50UaMFOxteibQEYLrwuHeehHYfcoafCopUazP12.rqB41bsolF5.'
+, '11987634487',  NULL);
+-- senha 123456
+--INSERT INTO endereco VALUES (1, 'Rua Saloá', '123', 'Rua', 'Jardim Mutinga','05159-040');

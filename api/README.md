@@ -11,3 +11,11 @@
   - Rode o container do banco: 
   ` docker run -itd -e POSTGRES_USER=suplament -e POSTGRES_PASSWORD=suplament123 -e POSTGRES_DB=suplament -p 5433:5432 -v /var/lib/postgresql/data:/data --name supla-ment postgres:14.2`
   - teste a conexão e rode o app.
+
+### Login adm padrão
+- http://localhost:8081/api/login
+- POST
+  - {
+  "email": "adm@teste",
+  "senha": "123456"
+  } 

@@ -1,5 +1,6 @@
-package com.br.SuplaMent.model.endereco;
+package com.br.SuplaMent.domain.endereco;
 
+import com.br.SuplaMent.domain.endereco.dto.DtoEndereco;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -22,4 +23,7 @@ public class Endereco {
     private String logradouro;
     private String bairro;
     private String cep;
+
+    public void atualizarInformacoes(DtoEndereco endereco) {
+    }
 }
