@@ -37,7 +37,7 @@ public class UsuarioController {
     @PutMapping
     @Transactional
     public ResponseEntity atualizar(@RequestBody @Valid DtoAtualizarUsuario dto) {
-        var usuario = repository.getReferenceById(dto.id());
+        Usuario usuario = repository.getReferenceById(dto.id());
         usuario.atualizarInformacoes(dto);
         return ResponseEntity.ok(new DtoDetalhamentoUsuario(usuario));
     }
