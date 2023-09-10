@@ -1,11 +1,11 @@
 package com.br.SuplaMent.controller;
 
-import com.br.SuplaMent.domain.usuario.DTOAutenticacao;
+import com.br.SuplaMent.domain.usuario.autenticacaoDTO;
 import com.br.SuplaMent.domain.usuario.Usuario;
 import com.br.SuplaMent.domain.usuario.UsuarioRepository;
-import com.br.SuplaMent.domain.usuario.dto.DtoDetalhamentoUsuario;
-import com.br.SuplaMent.domain.usuario.dto.DtoLogin;
-import com.br.SuplaMent.infra.security.DTOtokenJWT;
+import com.br.SuplaMent.domain.usuario.dto.detalhamentoUsuarioDTO;
+import com.br.SuplaMent.domain.usuario.dto.loginDTO;
+import com.br.SuplaMent.infra.security.tokenJwtDTO;
 import com.br.SuplaMent.infra.security.TokenService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +28,7 @@ public class AutenticacaoController {
     private TokenService tokenService;
 
     @PostMapping
-    public ResponseEntity efetuarLogin(@RequestBody @Valid DTOAutenticacao dados) {
+    public ResponseEntity efetuarLogin(@RequestBody @Valid autenticacaoDTO dados) {
         try {
             System.out.println(dados);
             var authenticationToken = new UsernamePasswordAuthenticationToken(dados.email(), dados.senha());
@@ -37,8 +37,8 @@ public class AutenticacaoController {
 
             Usuario user = (Usuario) repository.findByEmail(dados.email());
             if (user != null) {
-                var response = new DtoLogin(new DTOtokenJWT(tokenJWT),
-                        new DtoDetalhamentoUsuario(user.getId(), user.getNome(), user.getEmail(), user.getGrupo()));
+                var response = new loginDTO(new tokenJwtDTO(tokenJWT),
+                        new detalhamentoUsuarioDTO(user.getId(), user.getNome(), user.getEmail(), user.getGrupo()));
                 return ResponseEntity.ok(response);
             } else {
                 return ResponseEntity.badRequest().body("Usuário não encontrado");

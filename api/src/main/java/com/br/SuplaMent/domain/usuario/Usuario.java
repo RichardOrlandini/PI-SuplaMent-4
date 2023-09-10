@@ -1,13 +1,10 @@
 package com.br.SuplaMent.domain.usuario;
 
 import com.br.SuplaMent.domain.endereco.Endereco;
-import com.br.SuplaMent.domain.usuario.dto.DtoAtualizarUsuario;
-import com.br.SuplaMent.domain.usuario.dto.DtoCadastroUsuario;
+import com.br.SuplaMent.domain.usuario.dto.atualizarUsuarioDTO;
+import com.br.SuplaMent.domain.usuario.dto.cadastroUsuarioDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -37,7 +34,7 @@ public class Usuario implements UserDetails {
     public Usuario () {
 
     }
-    public Usuario(DtoCadastroUsuario dto) {
+    public Usuario(cadastroUsuarioDTO dto) {
         this.active = true;
         this.nome = dto.nome();
         this.email = dto.email();
@@ -47,7 +44,7 @@ public class Usuario implements UserDetails {
         this.endereco = null;
     }
 
-    public void atualizarInformacoes(DtoAtualizarUsuario dto) {
+    public void atualizarInformacoes(atualizarUsuarioDTO dto) {
 
         if (dto.email() != null) {
             this.email = dto.email();

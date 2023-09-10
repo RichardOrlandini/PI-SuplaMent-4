@@ -1,29 +1,24 @@
 package com.br.SuplaMent.domain.usuario.dto;
 
-import com.br.SuplaMent.domain.endereco.dto.DtoEndereco;
+import com.br.SuplaMent.domain.endereco.dto.CadastroEnderecoDTO;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
-public record DtoAtualizarUsuario(
-
+public record atualizarUsuarioDTO(
         @NotNull
         Long id,
         @NotNull
         String nome,
-        @NotBlank @Email
+        @NotNull
+        @Email
         String email,
-
-        @NotBlank
+        @NotNull
         String senha,
         String telefone,
-
-        @NotBlank
+        @NotNull
         Boolean grupo,
         @NotNull @Valid
-        DtoEndereco endereco
+        CadastroEnderecoDTO endereco
         ) {
 }
-
-

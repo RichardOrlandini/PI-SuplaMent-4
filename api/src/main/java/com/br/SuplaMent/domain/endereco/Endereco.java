@@ -1,5 +1,6 @@
 package com.br.SuplaMent.domain.endereco;
 
+import com.br.SuplaMent.domain.endereco.dto.CadastroEnderecoDTO;
 import com.br.SuplaMent.domain.endereco.dto.DtoEndereco;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -24,6 +25,21 @@ public class Endereco {
     private String bairro;
     private String cep;
 
-    public void atualizarInformacoes(DtoEndereco endereco) {
+    public void atualizarInformacoes(CadastroEnderecoDTO dto) {
+        if (dto.complemento() != null) {
+            this.complemento = dto.complemento();
+        }
+        if (dto.numero() != null) {
+            this.numero = dto.numero();
+        }
+        if (dto.logradouro() != null) {
+            this.logradouro = dto.logradouro();
+        }
+        if (dto.bairro() != null) {
+            this.bairro = dto.bairro();
+        }
+        if (dto.cep() != null) {
+            this.cep = dto.cep();
+        }
     }
 }

@@ -2,10 +2,10 @@ package com.br.SuplaMent.controller;
 
 import com.br.SuplaMent.domain.usuario.Usuario;
 import com.br.SuplaMent.domain.usuario.UsuarioRepository;
-import com.br.SuplaMent.domain.usuario.dto.DtoAtualizarUsuario;
-import com.br.SuplaMent.domain.usuario.dto.DtoCadastroUsuario;
-import com.br.SuplaMent.domain.usuario.dto.DtoDetalhamentoUsuario;
-import com.br.SuplaMent.domain.usuario.dto.DtoListagemUsuario;
+import com.br.SuplaMent.domain.usuario.dto.atualizarUsuarioDTO;
+import com.br.SuplaMent.domain.usuario.dto.cadastroUsuarioDTO;
+import com.br.SuplaMent.domain.usuario.dto.detalhamentoUsuarioDTO;
+import com.br.SuplaMent.domain.usuario.dto.listagemUsuarioDTO;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -23,23 +23,23 @@ public class UsuarioController {
     private UsuarioRepository repository;
     @PostMapping
     @Transactional
-    public ResponseEntity cadastrar(@RequestBody @Valid DtoCadastroUsuario dto, UriComponentsBuilder uriBuilder) {
+    public ResponseEntity cadastrar(@RequestBody @Valid cadastroUsuarioDTO dto, UriComponentsBuilder uriBuilder) {
         var usuario = new Usuario(dto);
         repository.save(usuario);
         var uri = uriBuilder.path("/usuarios/{id}").buildAndExpand(usuario.getId()).toUri();
-        return ResponseEntity.created(uri).body(new DtoDetalhamentoUsuario(usuario));
+        return ResponseEntity.created(uri).body(new detalhamentoUsuarioDTO(usuario));
     }
     @GetMapping
-    public ResponseEntity<Page<DtoListagemUsuario>> listar(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
-        var page = repository.findAllByActiveTrue(paginacao).map(DtoListagemUsuario::new);
+    public ResponseEntity<Page<listagemUsuarioDTO>> listar(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
+        var page = repository.findAllByActiveTrue(paginacao).map(listagemUsuarioDTO::new);
         return ResponseEntity.ok(page);
     }
     @PutMapping
     @Transactional
-    public ResponseEntity atualizar(@RequestBody @Valid DtoAtualizarUsuario dto) {
+    public ResponseEntity atualizar(@RequestBody @Valid atualizarUsuarioDTO dto) {
         Usuario usuario = repository.getReferenceById(dto.id());
         usuario.atualizarInformacoes(dto);
-        return ResponseEntity.ok(new DtoDetalhamentoUsuario(usuario));
+        return ResponseEntity.ok(new detalhamentoUsuarioDTO(usuario));
     }
     @DeleteMapping("/{id}")
     @Transactional
@@ -51,6 +51,6 @@ public class UsuarioController {
     @GetMapping("/{id}")
     public ResponseEntity detalhar(@PathVariable Long id) {
         var usuario = repository.getReferenceById(id);
-        return ResponseEntity.ok(new DtoDetalhamentoUsuario(usuario));
+        return ResponseEntity.ok(new detalhamentoUsuarioDTO(usuario));
     }
 }
