@@ -1,11 +1,12 @@
 package com.br.SuplaMent.domain.usuario.dto;
 
 import com.br.SuplaMent.domain.endereco.dto.CadastroEnderecoDTO;
+import com.br.SuplaMent.domain.usuario.UserRole;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 
-public record atualizarUsuarioDTO(
+public record AtualizarUsuarioDTO(
         @NotNull
         Long id,
         @NotNull
@@ -19,6 +20,8 @@ public record atualizarUsuarioDTO(
         @NotNull
         Boolean grupo,
         @NotNull @Valid
-        CadastroEnderecoDTO endereco
+        CadastroEnderecoDTO endereco,
+
+        @NotNull UserRole role
         ) {
 }

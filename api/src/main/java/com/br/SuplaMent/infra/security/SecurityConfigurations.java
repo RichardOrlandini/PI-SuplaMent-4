@@ -27,6 +27,8 @@ public class SecurityConfigurations {
                 .and().csrf().disable()
                 .authorizeHttpRequests(req -> {
                     req.requestMatchers(HttpMethod.POST, "/login").permitAll();
+                    req.requestMatchers(HttpMethod.POST, "/usuario").hasRole("ADMIN ");
+                    req.requestMatchers(HttpMethod.POST, "/produto").hasRole("ADMIN ");
                     req.anyRequest().authenticated();
                 })
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)

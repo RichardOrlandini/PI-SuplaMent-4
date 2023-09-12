@@ -1,10 +1,11 @@
 package com.br.SuplaMent.domain.usuario;
 
 import com.br.SuplaMent.domain.endereco.Endereco;
-import com.br.SuplaMent.domain.usuario.dto.atualizarUsuarioDTO;
-import com.br.SuplaMent.domain.usuario.dto.cadastroUsuarioDTO;
+import com.br.SuplaMent.domain.usuario.dto.AtualizarUsuarioDTO;
+import com.br.SuplaMent.domain.usuario.dto.CadastroUsuarioDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,6 +17,7 @@ import java.util.Objects;
 @Entity(name = "Usuario")
 @Table(name = "usuario")
 @AllArgsConstructor
+@Getter
 public class Usuario implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,7 +27,7 @@ public class Usuario implements UserDetails {
 
     private String email;
     private String senha;
-    private Boolean grupo;
+    private UserRole role;
 
     private String telefone;
     @OneToOne
@@ -34,17 +36,24 @@ public class Usuario implements UserDetails {
     public Usuario () {
 
     }
-    public Usuario(cadastroUsuarioDTO dto) {
+    public Usuario(CadastroUsuarioDTO dto) {
         this.active = true;
         this.nome = dto.nome();
         this.email = dto.email();
         this.senha = dto.senha();
-        this.grupo = false;
+        this.role = dto.role();
         this.telefone = null;
         this.endereco = null;
     }
 
-    public void atualizarInformacoes(atualizarUsuarioDTO dto) {
+    public Usuario(String nome, String email, String senha, UserRole role) {
+        this.nome = nome;
+        this.email = email;
+        this.senha = senha;
+        this.role = role;
+    }
+
+    public void atualizarInformacoes(AtualizarUsuarioDTO dto) {
 
         if (dto.email() != null) {
             this.email = dto.email();
@@ -58,8 +67,8 @@ public class Usuario implements UserDetails {
         if (dto.telefone() != null) {
             this.telefone = dto.telefone();
         }
-        if (dto.grupo() != null) {
-            this.grupo = dto.grupo();
+        if (dto.role() != null) {
+            this.role = dto.role();
         }
         if (dto.endereco() != null) {
             this.endereco.atualizarInformacoes(dto.endereco());
@@ -71,86 +80,10 @@ public class Usuario implements UserDetails {
     }
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("ROLE_USER"));
-    } //deixando por padrão o perfil user, ver como funciona  a questão de perfil de usuario do
-    //spring security.
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Usuario usuario)) return false;
-        return Objects.equals(getId(), usuario.getId());
+
+        if (this.role == UserRole.ADMIN) return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_USER"));
+        else return List.of(new SimpleGrantedAuthority("ROLE_USER"));
     }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getId());
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setActive(Boolean active) {
-        this.active = active;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
-
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
-    }
-
-    public void setGrupo(Boolean grupo) {
-        this.grupo = grupo;
-    }
-
-    public void setEndereco(Endereco endereco) {
-        this.endereco = endereco;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-
-    public Long getId() {
-        return id;
-    }
-
-    public Boolean getActive() {
-        return active;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public String getTelefone() {
-        return telefone;
-    }
-
-    public Boolean getGrupo() {
-        return grupo;
-    }
-
-    public Endereco getEndereco() {
-        return endereco;
-    }
-
     @Override
     public String getPassword() {
         return senha;

@@ -21,7 +21,7 @@ public class TokenService {
         try {
             var algoritmo = Algorithm.HMAC256(secret);
             return JWT.create()
-                    .withIssuer("API Suplament")
+                    .withIssuer("API-Suplament")
                     .withSubject(usuario.getUsername())
                     .withSubject(usuario.getEmail())
                     .withClaim("id", usuario.getId())
@@ -36,7 +36,7 @@ public class TokenService {
         try {
             var algoritmo = Algorithm.HMAC256(secret);
             return JWT.require(algoritmo)
-                    .withIssuer("API Suplament")
+                    .withIssuer("API-Suplament")
                     .build()
                     .verify(tokenJWT)
                     .getSubject();
