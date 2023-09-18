@@ -1,15 +1,25 @@
-import axios, { AxiosInstance } from "axios";
-import { useAuth } from "../hooks/auth";
-
-const baseURL: string = "http://localhost:8000/api";
-
-export const api: AxiosInstance = axios.create({
-  baseURL,
+import axios from "axios";
+export const api = axios.create({
+  baseURL: 'http://localhost:8000/api',
   headers: {
-    "Access-Control-Allow-Origin": "http://localhost:5173",
-    "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE",
-    "Access-Control-Allow-Headers": "Content-Type",
+    Accept: 'application/json',
+    Content: 'application/json',
   }
+})
+
+//https://github.com/axios/axios#interceptors
+
+api.interceptors.request.use(function (config) {
+  const token = localStorage.getItem('@suplament:token');
+  if (token) {
+    api.defaults.headers.common['Authorization'] = "Bearer " + token;
+  }
+  return config;
+}, function (error) {
+  console.log('Erro no interceptor do axios')
+  return Promise.reject(error);
 });
 
-export const existingHeaders = api.defaults.headers.common;
+
+
+

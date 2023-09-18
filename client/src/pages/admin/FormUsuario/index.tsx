@@ -1,29 +1,28 @@
 
 import { Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material"
 import { useEffect, useState } from "react"
-import { IProduto } from "../../../shared/interfaces/IProduto"
 import { api } from "../../../services/api";
 import { Link as RouterLink } from 'react-router-dom'
-import { useAuth } from "../../../hooks/auth";
 import { IPaginacao } from "../../../shared/interfaces/IPaginacao";
+import { IUsuario } from "../../../shared/interfaces/IUsuario";
 
-export function FormProduto() {
+export function FormUsuario() {
 
-    const [produtos, setProdutos] = useState<IProduto[]>([]);
+    const [usuarios, setUsuarios] = useState<IUsuario[]>([]);
 
     useEffect(() => {
 
-        api.get<IPaginacao<IProduto>>("/produtos")
+        api.get<IPaginacao<IUsuario>>("/usuarios")
             .then(resp => {
-                setProdutos(resp.data.content);
+                setUsuarios(resp.data.content);
             });
     }, []);
 
-    const excluir = (produtoAhSerExcluido: IProduto) => {
-        api.delete(`/produtos/${produtoAhSerExcluido.id}`,)
+    const excluir = (usuarioAhSerExcluido: IUsuario) => {
+        api.delete(`/usuarios/${usuarioAhSerExcluido.id}`,)
             .then(() => {
-                const produtosFiltrados = produtos.filter(produto => produto.id !== produtoAhSerExcluido.id);
-                setProdutos([...produtosFiltrados])
+                const usuariosFiltrados = usuarios.filter(usuario => usuario.id !== usuarioAhSerExcluido.id);
+                setUsuarios([...usuariosFiltrados])
             });
     }
 
@@ -35,8 +34,7 @@ export function FormProduto() {
                 <TableHead>
                     <TableRow>
                         <TableCell>Nome</TableCell>
-                        <TableCell>Quantidade</TableCell>
-                        <TableCell>Valor</TableCell>
+                        <TableCell>Grupo</TableCell>
                         <TableCell>Status</TableCell>
                         <TableCell>Editar</TableCell>
                         <TableCell>Excluir</TableCell>
@@ -45,16 +43,15 @@ export function FormProduto() {
 
                 <TableBody>
                     {
-                        produtos.map(p => <TableRow key={p.id}>
-                            <TableCell>{p.nome}</TableCell>
-                            <TableCell>{p.qtd}</TableCell>
-                            <TableCell>{p.valor}</TableCell>
-                            <TableCell>{p.ativo ? "ATIVO" : "INATIVADO"}</TableCell>
+                        usuarios.map(u => <TableRow key={u.id}>
+                            <TableCell>{u.nome}</TableCell>
+                            <TableCell>{u.role}</TableCell>
+                            <TableCell>{u.active ? "ATIVO" : "INATIVADO"}</TableCell>
                             <TableCell>
-                                [ <RouterLink to={`/admin/produtos/${p.id}`}>Editar</RouterLink> ]
+                                [ <RouterLink to={`/admin/usuarios/${u.id}`}>Editar</RouterLink> ]
                             </TableCell>
                             <TableCell>
-                                <Button variant="outlined" color="error" onClick={() => excluir(p)}>
+                                <Button variant="outlined" color="error" onClick={() => excluir(u)}>
                                     Excluir
                                 </Button>
                             </TableCell>
@@ -62,9 +59,7 @@ export function FormProduto() {
                         )
                     }
                 </TableBody>
-
             </Table>
-
         </TableContainer>
     )
 }

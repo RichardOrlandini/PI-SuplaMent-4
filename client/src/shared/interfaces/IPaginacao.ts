@@ -26,3 +26,4 @@ export interface IPaginacao<T> {
     first: boolean,
     empty: boolean
 }
+
