@@ -6,12 +6,13 @@ import { AppRoutes } from './app.routes';
 import { AuthRoutes } from './auth.routes';
 
 export function Routes() {
-    const  context = useAuth(); //poderiamos peg
-    const usuario = context?.data?.user
+    const  context = useAuth(); 
+    const usuario = context?.data?.user;
+    console.log(context);
     return (
         <BrowserRouter>
             {   
-                usuario?.role === "admin" ? <AdmRoutes/> : (usuario?.role !== "admin" ? <AppRoutes/> : <AuthRoutes/>)
+                usuario?.role === "ADMIN" ? <AdmRoutes/> : (usuario?.role === undefined ? <AuthRoutes/> : <AppRoutes/>)
             }
         </BrowserRouter>
     )

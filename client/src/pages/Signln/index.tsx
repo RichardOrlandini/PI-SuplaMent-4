@@ -1,21 +1,19 @@
 import { useState } from 'react';
 import { FiMail, FiLock } from 'react-icons/fi';
-import { Link } from 'react-router-dom';
-import axios from 'axios';
 
-import { Input } from '../../components/Input'
-import { Button } from '../../components/Button'
 
 import { Container, Form, Background } from './styles';
 import { useAuth } from '../../hooks/auth';
+import { IAuthContext } from '../../shared/interfaces/IAuthContext';
+import { Button, TextField } from "@mui/material"
 
 export function Signln() {
   const [email, setEmail] = useState('')
   const [senha, setSenha] = useState('')
-  const { signIn } = useAuth();
+  const context: IAuthContext | null = useAuth();
 
   function handleSignIN() {
-    signIn({ email, senha });
+    context?.signIn(email, senha);
   }
 
   return (
@@ -25,21 +23,31 @@ export function Signln() {
         <p>Compre os melhores suplementos</p>
 
         <h2>Faça seu login</h2>
-        <Input
-          placeholder="E-mail"
+        <TextField 
+          label="E-mail" 
+          color="warning"
+          placeholder="Digite seu E-mail"
           type="text"
-          icon={FiMail}
+          variant="standard"
+          fullWidth
+          required
+         // icon={FiMail}
           onChange={e => setEmail(e.target.value)}
         />
 
-        <Input
-          placeholder="Senha"
-          type="senha"
-          icon={FiLock}
+        <TextField
+          label="Senha"
+          color="warning"
+          placeholder="digite sua senha"
+          type="password"
+          variant="standard"
+          fullWidth
+          required
+          //icon={FiLock}
           onChange={e => setSenha(e.target.value)}
         />
 
-        <Button title="Entrar" onClick={handleSignIN} />
+        <Button title="Entrar"  variant="contained" onClick={handleSignIN} />
       </Form>
 
       <Background />

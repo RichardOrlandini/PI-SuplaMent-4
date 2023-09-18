@@ -55,7 +55,7 @@ function AuthProvider({ children }: AuthProviderProps){
   )
 }
 
-function useAuth() :  IAuthContext | null{
+function useAuth() : IAuthContext | null{
   const context = useContext(AuthContext);
   return context;
 }
