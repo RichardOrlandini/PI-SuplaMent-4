@@ -32,9 +32,11 @@ public class SecurityConfigurations {
                 .and().csrf().disable()
                 .authorizeHttpRequests(req -> {
                     req.requestMatchers(HttpMethod.POST, "/login").permitAll();
+                    //req.requestMatchers(HttpMethod.POST, "/usuarios").permitAll();
                     req.requestMatchers(HttpMethod.POST, "/usuarios").hasRole("ADMIN");
-                    req.requestMatchers(HttpMethod.POST, "/produtos").hasRole("ADMIN");
-                   req.requestMatchers(HttpMethod.POST, "/estoque").hasRole("ESTOQUISTA");
+                    req.requestMatchers(HttpMethod.POST, "/produtos").permitAll();
+                    //req.requestMatchers(HttpMethod.POST, "/produtos").hasRole("ADMIN");
+                    req.requestMatchers(HttpMethod.POST, "/estoque").hasRole("ESTOQUISTA");
                     req.anyRequest().authenticated();
                 })
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)

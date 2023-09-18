@@ -40,6 +40,9 @@ CREATE TABLE produto (
     id                       bigint NOT NULL,
     active                   boolean NOT NULL,
     nome                     VARCHAR(255) NOT NULL,
+    descri                   TEXT,
+    qtd                      INT,
+    valor                    NUMERIC(10,9)
     PRIMARY KEY (id)
 );
 

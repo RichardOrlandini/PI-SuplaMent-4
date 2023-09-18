@@ -23,12 +23,15 @@ public class ProdutoController {
     @PostMapping
     @Transactional
     public ResponseEntity cadastrar(@RequestBody @Valid CadastroProdutoDTO dto, UriComponentsBuilder uriBuilder) {
-        if (this.repository.findByNome(dto.nome()) != null) return ResponseEntity.badRequest().build();
-        var produto = new Produto(dto.nome(), dto.descri(), dto.valor(), dto.qtd());
+        if (repository.findByNome(dto.nome()) != null)  {
+            return ResponseEntity.badRequest().body("O nome do produto já existe");
+        }
+        var produto = new Produto(dto);
         repository.save(produto);
-        var uri = uriBuilder.path("/produto/{id}").buildAndExpand(produto.getId()).toUri();
+        var uri = uriBuilder.path("/produtos/{id}").buildAndExpand(produto.getId()).toUri();
         return ResponseEntity.created(uri).body(new DetalhamentoProdutoDTO(produto));
     }
+
     @GetMapping
     public ResponseEntity<Page<ListagemProdutoDTO>> listar(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
         var page = repository.findAllByActiveTrue(paginacao).map(ListagemProdutoDTO::new);
@@ -54,8 +57,5 @@ public class ProdutoController {
         var produto = repository.getReferenceById(id);
         return ResponseEntity.ok(new DetalhamentoProdutoDTO(produto));
     }
-
-
-
 }
 

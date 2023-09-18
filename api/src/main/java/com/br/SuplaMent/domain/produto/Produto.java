@@ -37,7 +37,6 @@ public class Produto {
 
     public Produto(CadastroProdutoDTO dto) {
         this.active = true;
-        this.id = id;
         this.nome = dto.nome();
         this.descri = dto.descri();
         this.valor = dto.valor();

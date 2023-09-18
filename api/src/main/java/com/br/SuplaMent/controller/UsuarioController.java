@@ -6,6 +6,7 @@ import com.br.SuplaMent.domain.usuario.dto.AtualizarUsuarioDTO;
 import com.br.SuplaMent.domain.usuario.dto.CadastroUsuarioDTO;
 import com.br.SuplaMent.domain.usuario.dto.DetalhamentoUsuarioDTO;
 import com.br.SuplaMent.domain.usuario.dto.ListagemUsuarioDTO;
+import com.br.SuplaMent.services.UsuarioService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -22,16 +23,22 @@ import org.springframework.web.util.UriComponentsBuilder;
 public class UsuarioController {
     @Autowired
     private UsuarioRepository repository;
+
+    @Autowired
+    private UsuarioService service;
+
     @PostMapping
     @Transactional
     public ResponseEntity cadastrar(@RequestBody @Valid CadastroUsuarioDTO dto, UriComponentsBuilder uriBuilder) {
-        if (this.repository.findByEmail(dto.email()) != null) return ResponseEntity.badRequest().build();
-        String senhaEncriptada = new BCryptPasswordEncoder().encode(dto.senha());
-        var usuario = new Usuario(dto.nome(), dto.email(), dto.senha(), dto.role());
-        repository.save(usuario);
-        var uri = uriBuilder.path("/usuarios/{id}").buildAndExpand(usuario.getId()).toUri();
-        return ResponseEntity.created(uri).body(new DetalhamentoUsuarioDTO(usuario));
+        try {
+            Usuario usuario = service.cadastrar(dto);
+            var uri = uriBuilder.path("/usuarios/{id}").buildAndExpand(usuario.getId()).toUri();
+            return ResponseEntity.created(uri).body(new DetalhamentoUsuarioDTO(usuario));
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
+
     @GetMapping
     public ResponseEntity<Page<ListagemUsuarioDTO>> listar(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
         var page = repository.findAllByActiveTrue(paginacao).map(ListagemUsuarioDTO::new);
