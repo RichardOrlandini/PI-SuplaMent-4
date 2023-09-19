@@ -26,22 +26,31 @@ public class SecurityConfigurations {
     @Autowired
     private SecurityFilter securityFilter;
 
+
     @Bean
-    public SecurityFilterChain configureHtpp(HttpSecurity http) throws Exception {
-        return http.cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues())
-                .and().csrf().disable()
+    public SecurityFilterChain configureHttp(HttpSecurity http) throws Exception {
+        return http
+                .cors().configurationSource(request -> getCorsConfiguration())
+                .and()
+                .csrf().disable()
                 .authorizeHttpRequests(req -> {
                     req.requestMatchers(HttpMethod.POST, "/login").permitAll();
-                    //req.requestMatchers(HttpMethod.POST, "/usuarios").permitAll();
                     req.requestMatchers(HttpMethod.POST, "/usuarios").hasRole("ADMIN");
-                    req.requestMatchers(HttpMethod.POST, "/produtos").permitAll();
-                    //req.requestMatchers(HttpMethod.POST, "/produtos").hasRole("ADMIN");
+                    req.requestMatchers("/produtos/*").permitAll();
                     req.requestMatchers(HttpMethod.POST, "/estoque").hasRole("ESTOQUISTA");
                     req.anyRequest().authenticated();
                 })
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
+    private CorsConfiguration getCorsConfiguration() {
+        CorsConfiguration config = new CorsConfiguration();
+        config.applyPermitDefaultValues();
+        config.addAllowedOrigin("*"); // Allow all origins
+        return config;
+    }
+
+
     // caso queria adicionar a rota de cadastro, manipular acima
 //    @Bean
 //    public UserDetailsService userDetailsService() {
@@ -71,3 +80,4 @@ public class SecurityConfigurations {
         return new BCryptPasswordEncoder();
     }
 }
+
