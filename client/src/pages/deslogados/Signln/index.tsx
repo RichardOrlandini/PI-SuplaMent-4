@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import { FiMail, FiLock } from 'react-icons/fi';
+//import { FiMail, FiLock } from 'react-icons/fi';
 
 
 import { Container, Form, Background } from './styles';
-import { useAuth } from '../../hooks/auth';
-import { IAuthContext } from '../../shared/interfaces/IAuthContext';
 import { Button, TextField } from "@mui/material"
+import { IAuthContext } from '../../../shared/interfaces/IAuthContext';
+import { useAuth } from '../../../hooks/auth';
 
 export function Signln() {
   const [email, setEmail] = useState('')

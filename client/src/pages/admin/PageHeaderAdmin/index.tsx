@@ -1,11 +1,13 @@
 import { Box, Button, Typography, AppBar, Container, Toolbar, Link, Paper } from "@mui/material"
 import { Link as RouterLink, Outlet } from 'react-router-dom'
+import { Header } from "../../../components/Header"
 
 
 export function PageHeaderAdmin() {
 
     return (
         <>
+            <Header/>
             <AppBar position="static">
 
                 <Container maxWidth="xl">
