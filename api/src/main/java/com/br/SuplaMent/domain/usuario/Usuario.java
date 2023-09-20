@@ -5,6 +5,7 @@ import com.br.SuplaMent.domain.usuario.dto.AtualizarUsuarioDTO;
 import com.br.SuplaMent.domain.usuario.dto.CadastroUsuarioDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -18,6 +19,7 @@ import java.util.Objects;
 @Table(name = "usuario")
 @AllArgsConstructor
 @Getter
+@EqualsAndHashCode(of = "id")
 public class Usuario implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

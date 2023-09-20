@@ -26,7 +26,6 @@ public class SecurityConfigurations {
     @Autowired
     private SecurityFilter securityFilter;
 
-
     @Bean
     public SecurityFilterChain configureHttp(HttpSecurity http) throws Exception {
         return http
@@ -35,7 +34,8 @@ public class SecurityConfigurations {
                 .csrf().disable()
                 .authorizeHttpRequests(req -> {
                     req.requestMatchers(HttpMethod.POST, "/login").permitAll();
-                    req.requestMatchers(HttpMethod.POST, "/usuarios").hasRole("ADMIN");
+                   // req.requestMatchers(HttpMethod.POST, "/usuarios").hasRole("ADMIN");
+                    req.requestMatchers("/usuarios/*").permitAll();
                     req.requestMatchers("/produtos/*").permitAll();
                     req.requestMatchers(HttpMethod.POST, "/estoque").hasRole("ESTOQUISTA");
                     req.anyRequest().authenticated();
@@ -49,7 +49,6 @@ public class SecurityConfigurations {
         config.addAllowedOrigin("*"); // Allow all origins
         return config;
     }
-
 
     // caso queria adicionar a rota de cadastro, manipular acima
 //    @Bean

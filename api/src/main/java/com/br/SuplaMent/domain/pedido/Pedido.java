@@ -8,6 +8,7 @@ import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.Calendar;
+import java.util.Date;
 
 @Entity(name = "Pedido")
 @Table(name = "pedido")
@@ -32,10 +33,12 @@ public class Pedido {
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
 
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "produto_id")
     private Produto produto;
 
+    private Long total;
+
+    private Date dtEntrega;
     //private LocalDateTime data;
 }
