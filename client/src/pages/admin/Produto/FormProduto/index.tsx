@@ -1,18 +1,19 @@
 import { Box, Button, TextField, Typography } from "@mui/material"
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom"
-import { api } from "../../../services/api";
-import ICategoria from "../../../shared/interfaces/ICategoria";
+import { api } from "../../../../services/api";
+import ICategoria from "../../../../shared/interfaces/ICategoria";
+import { IProduto } from "../../../../shared/interfaces/IProduto";
 
-export function FormAdmin() {
+export function FormProduto() {
 
     const params = useParams();
-    const [nomeCategoria, setNomeCategoria] = useState('')
+    const [nome, setNome] = useState('');
 
     useEffect(() => {
         if (params.id) {
-            api.get<ICategoria>(`/categorias/${params.id}`)
-                .then(resp => setNomeCategoria(resp.data.nome));
+            api.get<IProduto>(`/produtos/${params.id}`)
+                .then(resp => setNome(resp.data.nome));
         }
     }, [params]);
 
@@ -21,21 +22,21 @@ export function FormAdmin() {
         e.preventDefault();
 
         if (params.id) {
-            api.put(`/categorias/${params.id}`, {
-                nome: nomeCategoria
+            api.put(`/produtos/${params.id}`, {
+                nome: nome
             })
                 .then(() => {
-                    alert("Categoria atualizada com suceso!");
+                    alert("Produto atualizada com suceso!");
                 })
                 .catch(e => {
                     console.log(e)
                 })
         } else {
-            api.post(`/categorias`, {
-                nome: nomeCategoria
+            api.post(`/produtos`, {
+                nome: nome
             })
                 .then(() => {
-                    alert("Categoria cadastrada com suceso!");
+                    alert("Produto cadastrada com suceso!");
                 })
                 .catch(e => {
                     console.log(e)
@@ -45,12 +46,12 @@ export function FormAdmin() {
 
     return (
         <Box sx={{ display: 'flex', flexDirection: "column", alignItems: "center", flexGrow: 1}} >
-            <Typography component="h1" variant="h6"> Formulário de Categorias </Typography>
+            <Typography component="h1" variant="h6"> Formulário de Produtos </Typography>
             <Box component="form" sx={{ width: '100%'}} onSubmit={aoSubmeterForm}>
                 <TextField
-                    value={nomeCategoria}
-                    onChange={e => setNomeCategoria(e.target.value)}
-                    label="Nome da Categoria"
+                    value={nome}
+                    onChange={e => setNome(e.target.value)}
+                    label="Nome do Produto"
                     variant="standard"
                     fullWidth
                     required

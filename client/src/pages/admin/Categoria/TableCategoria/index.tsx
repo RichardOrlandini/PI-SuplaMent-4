@@ -2,10 +2,10 @@ import { Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, 
 import { useEffect, useState } from "react"
 
 import { Link as RouterLink } from 'react-router-dom'
-import ICategoria from "../../../shared/interfaces/ICategoria"
-import { api } from "../../../services/api";
+import ICategoria from "../../../../shared/interfaces/ICategoria"
+import { api } from "../../../../services/api";
 
-export function CategoriaAdmin() {
+export function TableCategoria() {
     const [categorias, setCategorias] = useState<ICategoria[]>([]);
 
     useEffect(() => {
@@ -23,7 +23,14 @@ export function CategoriaAdmin() {
 
     return (
         <TableContainer component={Paper}>
-            <Table>
+
+<RouterLink  to="/novo">
+                <Button sx={{ backgroundColor: '#666360', color: '#F4EDE8', marginLeft: 5, marginTop: 2 }}>
+                    Novo
+                </Button>
+            </RouterLink>
+
+            <Table sx={{marginTop: 5}}>
 
                 <TableHead>
                     <TableRow>

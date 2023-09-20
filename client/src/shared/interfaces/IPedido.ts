@@ -1,3 +1,4 @@
+import { IProduto } from "./IProduto";
 
 
 export interface IPedido {
@@ -6,7 +7,7 @@ export interface IPedido {
     insertionDate: Date;
     active: boolean;
     client_id: number;
-    produto_id: number;
+    produtos: IProduto[];
     total: number;
     dtEntrega: Date;
 }

@@ -8,7 +8,6 @@ import { AuthRoutes } from './auth.routes';
 export function Routes() {
     const  context = useAuth(); 
     const usuario = context?.data?.user;
-    console.log(context);
     return (
         <BrowserRouter>
             {   
