@@ -1,5 +1,5 @@
 
-import { Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material"
+import { Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow , Box} from "@mui/material"
 import { useEffect, useState } from "react"
 import { IProduto } from "../../../../shared/interfaces/IProduto"
 import { api } from "../../../../services/api";
@@ -11,23 +11,26 @@ import { AxiosError } from "axios";
 export function TableProduto() {
 
     const [produtos, setProdutos] = useState<IProduto[]>([]);
+    const [proximaPagina, setProximaPagina] = useState('');
+    const [paginaAnterior, setPaginaAnterior] = useState('');
     const context = useAuth();
     const navigate = useNavigate();
 
-    useEffect(() => {
-
-        api.get<IPaginacao<IProduto>>("/produtos")
-            .then(resp => {
-                setProdutos(resp.data.content);
-            })
-            .catch(e => {
-                if (e.message && e.code === "ERR_BAD_REQUEST") {
-                    alert(`Token de acesso inspirado, faça login novamente`)
-                    context?.signOut();
-                    navigate("/");
-                }
-            })
-    }, []);
+    const getDados  = (url : string) => {
+        api.get<IPaginacao<IProduto>>(url)
+        .then(resp => {
+            setProdutos(resp.data.content);
+            setProximaPagina(resp.data.last ? '' : `/usuarios?page=${resp.data.number + 1}`);
+            setPaginaAnterior(resp.data.first ? '' : `/usuarios?page=${resp.data.number - 1}`);
+        })
+        .catch(e => {
+            if (e.message && e.code === "ERR_BAD_REQUEST") {
+                alert(`Token de acesso inspirado ou inválido, faça login novamente`)
+                context?.signOut();
+                navigate("/");
+            }
+        })
+    }
 
     const excluir = (produtoAhSerExcluido: IProduto) => {
         api.delete(`/produtos/${produtoAhSerExcluido.id}`)
@@ -38,6 +41,11 @@ export function TableProduto() {
             }) 
             .catch(e => console.log(e))
     }
+
+    useEffect(() => {
+        getDados("/produtos");
+    }, []);
+
 
     return (
         <TableContainer component={Paper} >
@@ -81,6 +89,16 @@ export function TableProduto() {
                 </TableBody>
 
             </Table>
+
+            <Box sx={{ marginTop: 2, marginLeft: 50, marginRight: 50 }}>
+                {<Button onClick={() => getDados(paginaAnterior)} disabled={!paginaAnterior}>
+                    Página Anterior
+                </Button>}
+
+                {<Button onClick={() => getDados(proximaPagina)} disabled={!proximaPagina}>
+                    Próxima página
+                </Button>}
+            </Box>
 
         </TableContainer>
     )

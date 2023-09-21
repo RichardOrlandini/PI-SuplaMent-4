@@ -6,9 +6,10 @@ import {
 } from "@mui/material"
 import { useEffect, useState } from "react"
 import { api } from "../../../../services/api";
-import { Link as RouterLink } from 'react-router-dom'
+import { Link as RouterLink, useNavigate } from 'react-router-dom'
 import { IPaginacao } from "../../../../shared/interfaces/IPaginacao";
 import { IUsuario } from "../../../../shared/interfaces/IUsuario";
+import { useAuth } from "../../../../hooks/auth";
 
 export function TableUsuario() {
 
@@ -18,7 +19,9 @@ export function TableUsuario() {
     const [selectedUserId, setSelectedUserId] = useState(0);
     const [proximaPagina, setProximaPagina] = useState('');
     const [paginaAnterior, setPaginaAnterior] = useState('');
-
+    const context = useAuth();
+    const navigate = useNavigate();
+    
     const carregarDados = (url: string) => {
         const token = localStorage.getItem("@suplament:token")
         console.log(token)
@@ -31,7 +34,14 @@ export function TableUsuario() {
                 setUsuarios(resp.data.content);
                 setProximaPagina(resp.data.last ? '' : `/usuarios?page=${resp.data.number + 1}`);
                 setPaginaAnterior(resp.data.first ? '' : `/usuarios?page=${resp.data.number - 1}`);
-            });
+            })
+            .catch(e => {
+                if (e.message && e.code === "ERR_BAD_REQUEST") {
+                    alert(`Token de acesso inspirado, faça login novamente`)
+                    context?.signOut();
+                    navigate("/");
+                }
+            })
     }
 
     const atualizarStatus = () => {
@@ -137,6 +147,8 @@ export function TableUsuario() {
                     variant="standard"
                     color="primary"
                 >
+                    <MenuItem defaultValue={ativo ? "Ativo" : "Inativo"}></MenuItem>
+
                     <MenuItem value={"A"}>Ativo</MenuItem>
                     <MenuItem value={"B"}>Inativo</MenuItem>
                 </Select>

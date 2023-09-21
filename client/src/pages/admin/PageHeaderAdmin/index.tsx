@@ -14,7 +14,11 @@ export function PageHeaderAdmin() {
                 <Container maxWidth="xl">
                     <Toolbar>
                         <Typography variant="h6" sx={{ marginRight: 10 }}>
-                            Supla Adm
+                        <Link component={RouterLink} to="/">
+                                <Button sx={{ my: 2, color: 'white' }}>
+                                    Supla Adm
+                                </Button>
+                            </Link>
                         </Typography>
 
                         <Box sx={{ display: 'flex', flexGrow: 1 }}>
