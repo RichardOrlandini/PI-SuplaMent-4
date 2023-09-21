@@ -5,6 +5,7 @@ export interface IProduto {
     descri: string;
     valor: number;
     qtd: number;
+    imagem?: string;
 }
 
 

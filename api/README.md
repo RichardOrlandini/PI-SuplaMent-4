@@ -3,7 +3,7 @@
 
 ### Passos para rodar o APP: 
 
-- 1: Rode o banco postgres, ele deve ter o nome de supla-ment, as credênciais estão em aplication.properties
+1: Rode o banco postgres, ele deve ter o nome de supla-ment, as credênciais estão em aplication.properties
   (sujestão: rode o container do banco em docker: )
   - instale o docker
   - instale a imagem do postgres:14:2 : 

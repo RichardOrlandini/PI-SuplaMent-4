@@ -104,6 +104,8 @@ export function TableProduto() {
                         <TableCell>Quantidade</TableCell>
                         <TableCell>Valor</TableCell>
                         <TableCell>Status</TableCell>
+                        <TableCell>Quantidade</TableCell>
+                        <TableCell>Imagem</TableCell>
                         <TableCell>Editar</TableCell>
                         <TableCell>Excluir</TableCell>
                     </TableRow>
@@ -116,6 +118,8 @@ export function TableProduto() {
                             <TableCell>{p.qtd}</TableCell>
                             <TableCell>{p.valor}</TableCell>
                             <TableCell>{p.ativo ? "ATIVO" : "INATIVADO"}</TableCell>
+                            <TableCell>{p.qtd}</TableCell>
+                            <TableCell>{p.imagem}</TableCell>
                             <TableCell>
                                 [ <RouterLink to={`/admin/produtos/${p.id}`}>Editar</RouterLink> ]
                             </TableCell>
