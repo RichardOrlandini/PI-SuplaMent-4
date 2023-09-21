@@ -1,6 +1,6 @@
 
 import {
-    Button, Paper, Table, TableBody, TableCell, Typography,
+    Button, Paper, Table, TableBody, TableCell, Typography, TextField,
     TableContainer, TableHead, TableRow, Box, InputLabel,
     Select, MenuItem, Dialog, DialogActions, DialogTitle, DialogContent, DialogContentText
 } from "@mui/material"
@@ -10,6 +10,8 @@ import { Link as RouterLink, useNavigate } from 'react-router-dom'
 import { IPaginacao } from "../../../../shared/interfaces/IPaginacao";
 import { IUsuario } from "../../../../shared/interfaces/IUsuario";
 import { useAuth } from "../../../../hooks/auth";
+import { IParametrosBusca } from "../../../../shared/interfaces/IParametrosBusca";
+import { AxiosRequestConfig } from "axios";
 
 export function TableUsuario() {
 
@@ -19,13 +21,15 @@ export function TableUsuario() {
     const [selectedUserId, setSelectedUserId] = useState(0);
     const [proximaPagina, setProximaPagina] = useState('');
     const [paginaAnterior, setPaginaAnterior] = useState('');
+    const [busca, setBusca] = useState('');
     const context = useAuth();
     const navigate = useNavigate();
-    
-    const carregarDados = (url: string) => {
+
+    const carregarDados = (url: string, opcoes: AxiosRequestConfig = {} ) => {
         const token = localStorage.getItem("@suplament:token")
         console.log(token)
         api.get<IPaginacao<IUsuario>>(url, {
+            ...opcoes,
             headers: {
                 'Authorization': `Bearer ${token}`
             }
@@ -76,13 +80,51 @@ export function TableUsuario() {
             });
     }
 
+
+    const buscar = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+
+        if (!busca) {
+            alert("Digite o nome de um produto");
+            return;
+        }
+
+        const opcoes = {
+            params: {
+
+            } as IParametrosBusca
+        }
+
+        if (busca) {
+            opcoes.params.nome = busca;
+        }
+        carregarDados('/usuarios/busca', opcoes)
+    }
+
     return (
         <TableContainer component={Paper} >
-            <RouterLink to="novo">
-                <Button sx={{ backgroundColor: '#666360', color: '#F4EDE8', marginLeft: 5, marginTop: 2 }}>
-                    Novo
-                </Button>
-            </RouterLink>
+
+            <Box sx={{ display: 'flex', alignItems: 'center', width: '800px' }}>
+                <RouterLink to="novo">
+                    <Button sx={{ backgroundColor: '#666360', color: '#F4EDE8', marginLeft: 5, marginTop: 2, flex: '0 0 50%' }}>
+                        Novo +
+                    </Button>
+                </RouterLink>
+
+                <form onSubmit={buscar} style={{ display: 'flex', flex: '0 0 50%', marginLeft: '60px' }}>
+                    <TextField
+                        value={busca}
+                        onChange={evento => setBusca(evento.target.value)}
+                        label="Digite o nome do Usuário"
+                        placeholder="Digite o nome do Usuário"
+                        variant="standard"
+                        type="text"
+                        required
+                        style={{ flex: '1' }}
+                    />
+                    <Button type='submit'>buscar</Button>
+                </form>
+            </Box>
 
             <Table sx={{ marginTop: 5 }}>
 
@@ -102,16 +144,16 @@ export function TableUsuario() {
                             <TableCell>{u.nome}</TableCell>
                             <TableCell  >{u.role}</TableCell>
                             <TableCell sx={{ width: 6 }} >
-                            <Typography component="h6" sx={{marginLeft:4}} variant="h6">{u.ativo ? "Ativo" : "Inativo"}</Typography>
+                                <Typography component="h6" sx={{ marginLeft: 4 }} variant="h6">{u.ativo ? "Ativo" : "Inativo"}</Typography>
 
                                 <Button
                                     variant="outlined"
                                     color="primary"
-                                    onClick={ () => {
+                                    onClick={() => {
                                         atualizarStatus();
                                         setAtivo(u.ativo)
                                         setSelectedUserId(u.id);
-                                    } }
+                                    }}
                                 >
                                     Atualizar
                                 </Button>

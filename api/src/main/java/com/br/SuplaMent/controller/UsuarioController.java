@@ -21,6 +21,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
 @RequestMapping("usuarios")
+@CrossOrigin("http://localhost:5173/**")
 public class UsuarioController {
     @Autowired
     private UsuarioRepository repository;
@@ -65,7 +66,7 @@ public class UsuarioController {
         return ResponseEntity.ok(new DetalhamentoUsuarioDTO(usuario));
     }
 
-    @GetMapping("/search")
+    @GetMapping("/busca")
     public ResponseEntity<Page<ListagemUsuarioDTO>> listar(@RequestParam String nome, @PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
         var page = repository.findByNomeContaining(nome, paginacao).map(ListagemUsuarioDTO::new);
         return ResponseEntity.ok(page);

@@ -48,9 +48,11 @@ export function PageHeaderAdmin() {
          <Box>
                 <Container maxWidth="lg" sx={{ mt: 1 }}>
                     <Paper sx={{ p: 2 }}>
-                        <Outlet />
+                        <Outlet  />
                     </Paper>
                 </Container>
+
+                
             </Box>
         </>
     )

@@ -1,35 +1,58 @@
 
-import { Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow , Box} from "@mui/material"
+import { Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Box, TextField } from "@mui/material"
 import { useEffect, useState } from "react"
 import { IProduto } from "../../../../shared/interfaces/IProduto"
 import { api } from "../../../../services/api";
 import { Link as RouterLink, useNavigate } from 'react-router-dom'
 import { useAuth } from "../../../../hooks/auth";
 import { IPaginacao } from "../../../../shared/interfaces/IPaginacao";
-import { AxiosError } from "axios";
+import { AxiosRequestConfig } from "axios";
+import { IParametrosBusca } from "../../../../shared/interfaces/IParametrosBusca";
 
 export function TableProduto() {
 
     const [produtos, setProdutos] = useState<IProduto[]>([]);
     const [proximaPagina, setProximaPagina] = useState('');
     const [paginaAnterior, setPaginaAnterior] = useState('');
+    const [busca, setBusca] = useState('');
+
     const context = useAuth();
     const navigate = useNavigate();
 
-    const getDados  = (url : string) => {
-        api.get<IPaginacao<IProduto>>(url)
-        .then(resp => {
-            setProdutos(resp.data.content);
-            setProximaPagina(resp.data.last ? '' : `/usuarios?page=${resp.data.number + 1}`);
-            setPaginaAnterior(resp.data.first ? '' : `/usuarios?page=${resp.data.number - 1}`);
-        })
-        .catch(e => {
-            if (e.message && e.code === "ERR_BAD_REQUEST") {
-                alert(`Token de acesso inspirado ou inválido, faça login novamente`)
-                context?.signOut();
-                navigate("/");
-            }
-        })
+    const getDados = (url: string, opcoes: AxiosRequestConfig = {}) => {
+        api.get<IPaginacao<IProduto>>(url, opcoes)
+            .then(resp => {
+                setProdutos([...resp.data.content]);
+                setProximaPagina(resp.data.last ? '' : `/usuarios?page=${resp.data.number + 1}`);
+                setPaginaAnterior(resp.data.first ? '' : `/usuarios?page=${resp.data.number - 1}`);
+            })
+            .catch(e => {
+                if (e.message && e.code === "ERR_BAD_REQUEST") {
+                    alert(`Token de acesso inspirado ou inválido, faça login novamente`)
+                    context?.signOut();
+                    navigate("/");
+                }
+            })
+    }
+
+    const buscar = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+
+        if (!busca) {
+            alert("Digite o nome de um produto");
+            return;
+        }
+
+        const opcoes = {
+            params: {
+
+            } as IParametrosBusca
+        }
+
+        if (busca) {
+            opcoes.params.nome = busca;
+        }
+        getDados('/produtos/busca', opcoes)
     }
 
     const excluir = (produtoAhSerExcluido: IProduto) => {
@@ -38,7 +61,7 @@ export function TableProduto() {
                 console.log(resp)
                 const produtosFiltrados = produtos.filter(produto => produto.id !== produtoAhSerExcluido.id);
                 setProdutos([...produtosFiltrados])
-            }) 
+            })
             .catch(e => console.log(e))
     }
 
@@ -49,13 +72,31 @@ export function TableProduto() {
 
     return (
         <TableContainer component={Paper} >
-            <RouterLink  to="novo">
-                <Button sx={{ backgroundColor: '#666360', color: '#F4EDE8', marginLeft: 5, marginTop: 2 }}>
-                    Novo
-                </Button>
-            </RouterLink>
+            <Box sx={{ display: 'flex', alignItems: 'center', width: '800px'}}>
+                <RouterLink to="novo">
+                    <Button sx={{ backgroundColor: '#666360', color: '#F4EDE8', marginLeft: 5, marginTop: 2, flex: '0 0 50%' }}>
+                        Novo +
+                    </Button>
+                </RouterLink>
 
-            <Table sx={{marginTop: 5}}>
+                <form onSubmit={buscar} style={{ display: 'flex', flex: '0 0 50%' ,  marginLeft: '60px'}}>
+                    <TextField
+                        value={busca}
+                        onChange={evento => setBusca(evento.target.value)}
+                        label="Digite o nome do Produto"
+                        placeholder="Digite o nome do Produto"
+                        variant="standard"
+                        type="text"
+                        required
+                        style={{ flex: '1' }}
+                    />
+                    <Button type='submit'>buscar</Button>
+                </form>
+            </Box>
+
+
+
+            <Table sx={{ marginTop: 5 }}>
 
                 <TableHead>
                     <TableRow>

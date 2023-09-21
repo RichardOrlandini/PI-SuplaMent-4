@@ -38,7 +38,7 @@ public class ProdutoController {
         return ResponseEntity.ok(page);
     }
 
-    @GetMapping("/search")
+    @GetMapping("/busca")
     public ResponseEntity<Page<ListagemProdutoDTO>> listar(@RequestParam String nome, @PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
         var page = repository.findByNomeContaining(nome, paginacao).map(ListagemProdutoDTO::new);
         return ResponseEntity.ok(page);
