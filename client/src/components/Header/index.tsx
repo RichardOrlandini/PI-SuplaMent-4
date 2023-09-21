@@ -12,6 +12,7 @@ export function Header() {
     const navigation = useNavigate();
 
     function handleSignOut() {
+        alert("Sessão terminada!");
         context?.signOut();
         navigation("/");
     }
