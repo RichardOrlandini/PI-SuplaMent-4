@@ -38,6 +38,7 @@ CREATE TABLE cliente (
 
 CREATE TABLE produto (
     id                       bigint NOT NULL,
+    insertion_date           TIMESTAMP,
     active                   boolean NOT NULL,
     nome                     VARCHAR(255) NOT NULL,
     descri                   TEXT,

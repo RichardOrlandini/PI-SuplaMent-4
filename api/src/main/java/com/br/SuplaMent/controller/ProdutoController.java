@@ -34,7 +34,7 @@ public class ProdutoController {
 
     @GetMapping
     public ResponseEntity<Page<ListagemProdutoDTO>> listar(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
-        var page = repository.findAllByActiveTrue(paginacao).map(ListagemProdutoDTO::new);
+        var page = repository.findAllByOrderByInsertionDateDesc(paginacao).map(ListagemProdutoDTO::new);
         return ResponseEntity.ok(page);
     }
 
