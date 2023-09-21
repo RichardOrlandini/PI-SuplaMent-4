@@ -4,16 +4,18 @@ import com.br.SuplaMent.domain.endereco.dto.CadastroEnderecoDTO;
 import com.br.SuplaMent.domain.usuario.UserRole;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import org.hibernate.validator.constraints.br.CPF;
 
 public record AtualizarUsuarioDTO(
+
         @NotNull
         Long id,
         @NotNull
-        String nome,
+        boolean active,
         @NotNull
-        @Email
-        String email,
+        String nome,
         @NotNull
         String senha,
         String telefone,
@@ -22,6 +24,7 @@ public record AtualizarUsuarioDTO(
         @NotNull @Valid
         CadastroEnderecoDTO endereco,
 
-        @NotNull UserRole role
+        @NotNull UserRole role,
+        @CPF @NotBlank String cpf
         ) {
 }

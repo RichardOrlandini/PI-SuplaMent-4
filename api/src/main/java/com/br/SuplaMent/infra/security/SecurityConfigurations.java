@@ -34,7 +34,9 @@ public class SecurityConfigurations {
                 .csrf().disable()
                 .authorizeHttpRequests(req -> {
                     req.requestMatchers(HttpMethod.POST, "/login").permitAll();
-                   // req.requestMatchers(HttpMethod.POST, "/usuarios").hasRole("ADMIN");
+                   req.requestMatchers(HttpMethod.POST, "/usuarios").hasRole("ADMIN");
+                   req.requestMatchers(HttpMethod.DELETE, "/usuarios").hasRole("ADMIN");
+
                     req.requestMatchers("/usuarios/*").permitAll();
                     req.requestMatchers("/produtos/*").permitAll();
                     req.requestMatchers(HttpMethod.POST, "/estoque").hasRole("ESTOQUISTA");

@@ -31,6 +31,7 @@ public class Usuario implements UserDetails {
     private String senha;
     private UserRole role;
 
+    private String cpf;
     private String telefone;
     @OneToOne
     private Endereco endereco;
@@ -44,6 +45,7 @@ public class Usuario implements UserDetails {
         this.email = dto.email();
         this.senha = dto.senha();
         this.role = dto.role();
+        this.cpf = dto.cpf();
         this.telefone = null;
         this.endereco = null;
     }
@@ -57,9 +59,8 @@ public class Usuario implements UserDetails {
 
     public void atualizarInformacoes(AtualizarUsuarioDTO dto) {
 
-        if (dto.email() != null) {
-            this.email = dto.email();
-        }
+        this.active = dto.active();
+
         if (dto.senha() != null) {
             this.senha = dto.senha();
         }
@@ -71,6 +72,9 @@ public class Usuario implements UserDetails {
         }
         if (dto.role() != null) {
             this.role = dto.role();
+        }
+        if (dto.cpf() != null) {
+            this.cpf = dto.cpf();
         }
         if (dto.endereco() != null) {
             this.endereco.atualizarInformacoes(dto.endereco());

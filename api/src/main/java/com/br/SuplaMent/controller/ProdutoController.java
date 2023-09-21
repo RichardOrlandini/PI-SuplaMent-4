@@ -38,6 +38,12 @@ public class ProdutoController {
         return ResponseEntity.ok(page);
     }
 
+    @GetMapping("/search")
+    public ResponseEntity<Page<ListagemProdutoDTO>> listar(@RequestParam String nome, @PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
+        var page = repository.findByNomeContaining(nome, paginacao).map(ListagemProdutoDTO::new);
+        return ResponseEntity.ok(page);
+    }
+
     @PutMapping
     @Transactional
     public ResponseEntity atualizar(@RequestBody @Valid AtualizarProdutoDTO dto) {
@@ -48,6 +54,7 @@ public class ProdutoController {
     @DeleteMapping("/{id}")
     @Transactional
     public ResponseEntity deleta(@PathVariable Long id) {
+        System.out.println("Entrei no delete");
         var produto = repository.getReferenceById(id);
         produto.deleta();
         return ResponseEntity.noContent().build();

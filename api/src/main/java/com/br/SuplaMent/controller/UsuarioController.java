@@ -1,5 +1,6 @@
 package com.br.SuplaMent.controller;
 
+import com.br.SuplaMent.domain.produto.dto.ListagemProdutoDTO;
 import com.br.SuplaMent.domain.usuario.Usuario;
 import com.br.SuplaMent.domain.usuario.UsuarioRepository;
 import com.br.SuplaMent.domain.usuario.dto.AtualizarUsuarioDTO;
@@ -62,5 +63,11 @@ public class UsuarioController {
     public ResponseEntity detalhar(@PathVariable Long id) {
         var usuario = repository.getReferenceById(id);
         return ResponseEntity.ok(new DetalhamentoUsuarioDTO(usuario));
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<Page<ListagemUsuarioDTO>> listar(@RequestParam String nome, @PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
+        var page = repository.findByNomeContaining(nome, paginacao).map(ListagemUsuarioDTO::new);
+        return ResponseEntity.ok(page);
     }
 }

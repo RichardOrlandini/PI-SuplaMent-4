@@ -12,7 +12,8 @@ public interface ProdutoRepository extends JpaRepository<Produto, Long> {
 
     Page<Produto> findAllByOrderByInsertionDateDesc(Pageable paginacao);
 
-    // List<Produto> findAllByOrderByDataInsercaoDesc();
+    Page<Produto> findByNomeContaining(String nome, Pageable paginacao);
+
     // List<Produto> findByNomeContainingIgnoreCase(String nome);
     // List<Produto> findByNomeContainingIgnoreCaseOrderByDataInsercaoDesc(String nome);
 }
