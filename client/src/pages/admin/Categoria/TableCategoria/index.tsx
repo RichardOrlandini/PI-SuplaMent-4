@@ -24,7 +24,7 @@ export function TableCategoria() {
     return (
         <TableContainer component={Paper}>
 
-<RouterLink  to="/novo">
+<RouterLink  to="novo">
                 <Button sx={{ backgroundColor: '#666360', color: '#F4EDE8', marginLeft: 5, marginTop: 2 }}>
                     Novo
                 </Button>

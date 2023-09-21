@@ -2,6 +2,7 @@ import { useEffect, useState, createContext, useContext } from 'react';
 import { api } from '../services/api';
 import { AuthProviderProps, DataProps, IAuthContext } from '../shared/interfaces/IAuthContext';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 
 const AuthContext = createContext<IAuthContext | null>(null);
@@ -11,7 +12,8 @@ function AuthProvider({ children }: AuthProviderProps) {
 
   async function signIn(email: string, senha: string) {
     try {
-      const resp = await api.post("/login", { email, senha });
+      //BUG DE RELOAD COM TOKEN NO HEADER DA api, POR ISSO FOI OPTADO POR USAR OUTRA INSTÂNCIA DO AXIOS.
+      const resp = await axios.post("http://localhost:8000/api/login", { email, senha });
       const { user, token } = resp.data;
 
       localStorage.setItem("@suplament:user", JSON.stringify(user));

@@ -1,10 +1,11 @@
 export interface IUsuario {
     id: number;
-    active: boolean;
+    ativo: boolean;
     nome: string;
     email: string;
     senha: string;
     role: string;
+    cpf: string;
     telefone?: string;
     endereco?: IEndereco;
 }

@@ -1,80 +1,105 @@
-// import { useState } from 'react'; //Ruck para criar estados --
+import { useState } from 'react'; //Ruck para criar estados --
 
-// import { Link, useNavigate} from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
-// import {FiLogIn, FiMail, FiLock, FiUser} from 'react-icons/fi';
+import { FiLogIn, FiMail, FiLock, FiUser } from 'react-icons/fi';
+import { Button, TextField } from "@mui/material"
 
-// import { api } from "../../services/api";
+import { Container, Form, Background } from './styles';
+import { api } from '../../../services/api';
 
-// import { Input } from '../../components/Input'
-// import { Button } from '../../components/Button'
+export function SignUp() {
+    const [nome, setNome] = useState(""); //Quando criamos um estado, podemos informar um valor inicial --
+    const [email, setEmail] = useState("");
+    const [senha, setSenha] = useState("");
+    const [cofSenha, setCofSenha] = useState("");
 
-// import { Container , Form, Background} from './styles';
+    const navigate = useNavigate();
 
-// export function SignUp(){
-//     const [name, setName] = useState(""); //Quando criamos um estado, podemos informar um valor inicial --
-//     const [email, setEmail] = useState("");
-//     const [senha, setSenha] = useState("");
+    function handleSignUp() {
+        if (!nome || !email || !senha || !cofSenha) {
+            return alert("Preencha todos os campos")
+        }
 
-//     const navigate = useNavigate();
+        api.post("/usuario", { nome, email, senha , role : "CLIENTE" })
+            .then(() => {
+                alert("usuário cadastrado com sucesso!");
+                navigate("/");
+            })
+            .catch(error => {
+                if (error.response) {
+                    alert(error.response.data.message);
+                } else {
+                    alert("Não foi possivel cadastrar");
+                }
+            });
+    }
 
-//     function handleSignUp(){
-//         if (!name || !email || !senha){
-//             return   alert("Preencha todos os campos")
-//         }
+    return (
+        <Container>
+            <Background />
 
-//         api.post("/usuario", {name, email, senha})
-//         .then( () => {
-//             alert("usuário cadastrado com sucesso!");
-//             navigate("/");
-//         })  
-//         .catch(error => {
-//             if  (error.response){
-//                 alert(error.response.data.message);
-//             }else {
-//                 alert("Não foi possivel cadastrar");
-//             }
-//         });                  
-//     }
+            <Form>
+                <h1>Supla-Ment</h1>
+                <p>Compre os melhores suplementos</p>
 
-//     return (
-//         <Container>
-//              <Background/>
+                <h2>Cadastro</h2>
+                <TextField
+                      label="Nome"
+                      color="warning"
+                      placeholder="digite sua senha"
+                      type="text"
+                      variant="standard"
+                      fullWidth
+                      required
+                      //icon={FiLock}
+                      onChange={e => setNome(e.target.value)}
+                />
 
-//             <Form>
-//                 <h1>Supla-Ment</h1>
-//                 <p>Compre os melhores suplementos</p>
+                <TextField
+                      label="Email"
+                      color="warning"
+                      placeholder="digite sua senha"
+                      type="email"
+                      variant="standard"
+                      fullWidth
+                      required
+                      //icon={FiLock}
+                      onChange={e => setEmail(e.target.value)}
+                />
 
-//                 <h2>Cadastro</h2>
-//                 <Input
-//                 placeholder="Nome"
-//                 type="text"
-//                 icon={FiUser}
-//                 onChange= {event => setName(event.target.value)}
-//                 />
+                <TextField
+                    label="Senha"
+                    color="warning"
+                    placeholder="digite sua senha"
+                    type="password"
+                    variant="standard"
+                    fullWidth
+                    required
+                    //icon={FiLock}
+                    onChange={e => setSenha(e.target.value)}
+                />
 
-//                 <Input
-//                 placeholder="E-mail"
-//                 type="text"
-//                 icon={FiMail}
-//                 onChange= {event => setEmail(event.target.value)}
-//                 />
+                <TextField
+                    label="Confirme a senha"
+                    color="warning"
+                    placeholder="Confirme sua senha"
+                    type="password"
+                    variant="standard"
+                    fullWidth
+                    required
+                    //icon={FiLock}
+                    onChange={e => setCofSenha(e.target.value)}
+                />
 
-//                 <Input
-//                 placeholder="Senha"
-//                 type="senha"
-//                 icon={FiLock}
-//                 onChange= {event => setSenha(event.target.value)}
-//                 />
+                <Button title="Cadastrar" onClick={handleSignUp} />
 
-//                 <Button  title="Cadastrar" onClick={handleSignUp}/>
+                <Link to="/">
+                    Voltar para o login
+                </Link>
+            </Form>
 
-//                 <Link to="/">
-//                     Voltar para o login
-//                 </Link>
-//             </Form>
 
-           
-//         </Container>
-//     );
-// }
+        </Container>
+    );
+}

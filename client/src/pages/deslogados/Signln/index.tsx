@@ -6,6 +6,7 @@ import { Container, Form, Background } from './styles';
 import { Button, TextField } from "@mui/material"
 import { IAuthContext } from '../../../shared/interfaces/IAuthContext';
 import { useAuth } from '../../../hooks/auth';
+import { Link } from 'react-router-dom';
 
 export function Signln() {
   const [email, setEmail] = useState('')
@@ -13,6 +14,7 @@ export function Signln() {
   const context: IAuthContext | null = useAuth();
 
   function handleSignIN() {
+    //limpar o contexto do axios.
     context?.signIn(email, senha);
   }
 
@@ -23,15 +25,15 @@ export function Signln() {
         <p>Compre os melhores suplementos</p>
 
         <h2>Faça seu login</h2>
-        <TextField 
-          label="E-mail" 
+        <TextField
+          label="E-mail"
           color="warning"
           placeholder="Digite seu E-mail"
           type="text"
           variant="standard"
           fullWidth
           required
-         // icon={FiMail}
+          // icon={FiMail}
           onChange={e => setEmail(e.target.value)}
         />
 
@@ -47,7 +49,11 @@ export function Signln() {
           onChange={e => setSenha(e.target.value)}
         />
 
-        <Button title="Entrar"  variant="contained" onClick={handleSignIN} />
+        <Button title="Entrar" variant="contained" onClick={handleSignIN} />
+
+        <Link  to="/register">
+          Voltar para o login
+        </Link>
       </Form>
 
       <Background />

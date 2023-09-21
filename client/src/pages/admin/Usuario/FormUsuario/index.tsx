@@ -1,9 +1,10 @@
-import { Box, Button, TextField, Typography } from "@mui/material"
+import { Box, Button, TextField, Typography, Alert, InputLabel, Select, MenuItem } from "@mui/material"
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { api } from "../../../../services/api";
 import ICategoria from "../../../../shared/interfaces/ICategoria";
 import { IUsuario } from "../../../../shared/interfaces/IUsuario";
+import { IErroMessage } from "../../../../shared/interfaces/IErroMessage";
 
 export function FormUsuario() {
 
@@ -11,9 +12,14 @@ export function FormUsuario() {
     const [nome, setNome] = useState('');
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
+    const [confSenha, setConfSenha] = useState('');
     const [role, setRole] = useState('');
+    const [cpf, setCpf] = useState('');
     const [telefone, setTelefone] = useState('');
     const [endereco, setEndereco] = useState('');
+    const [erro, setErro] = useState<IErroMessage | null>(null);
+    const navigate = useNavigate();
+
 
 
     useEffect(() => {
@@ -21,33 +27,68 @@ export function FormUsuario() {
             api.get<IUsuario>(`/usuarios/${params.id}`)
                 .then(resp => {
                     setNome(resp.data.nome);
-                });
+                    setEmail(resp.data.email);
+                    setSenha(resp.data.senha);
+                    setRole(resp.data.role);
+                    setRole(resp.data.cpf);
+                    setTelefone(resp.data.telefone ? resp.data.telefone : '');
+                    // setEndereco(resp.data.endereco ? resp.data.endereco : '');
+
+                })
+                .catch(e => {
+                    console.log(e)
+                })
         }
     }, [params]);
 
     const aoSubmeterForm = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
+
+        if (senha !== confSenha) {
+            return alert("As senhas devem ser iguais");
+        }
+
         if (params.id) {
             api.put(`/usuarios/${params.id}`, {
-                nome: nome
+                nome: nome,
+                email: email,
+                senha: senha,
+                role: role
             })
                 .then(() => {
-                    alert("Usuario atualizado com suceso!");
+                    alert("Usuário atualizado com suceso!");
                 })
                 .catch(e => {
-                    console.log(e)
+                    if (typeof e.response.data === 'string') {
+                        setErro({ campo: 'Erro', mensagem: e.response.data });
+                    } else {
+                        const erro: IErroMessage = e.response.data[0];
+                        setErro(erro);
+                    }
                 })
         } else {
             api.post(`/usuarios`, {
-                nome: nome
+                nome,
+                email,
+                senha,
+                role,
+                cpf,
+                telefone
             })
                 .then(() => {
-                    alert("Categoria cadastrada com suceso!");
+                    alert("Usuário cadastrada com suceso!");
+                    navigate("/admin/usuarios");
                 })
                 .catch(e => {
-                    console.log(e)
+                    if (typeof e.response.data === 'string') {
+                        setErro({ campo: 'Erro', mensagem: e.response.data });
+                    } else {
+                        const erro: IErroMessage = e.response.data[0];
+                        setErro(erro);
+                    }
                 })
+
         }
     }
 
@@ -55,6 +96,8 @@ export function FormUsuario() {
         <Box sx={{ display: 'flex', flexDirection: "column", alignItems: "center", flexGrow: 1 }} >
             <Typography component="h1" variant="h6"> Formulário de Usuário </Typography>
             <Box component="form" sx={{ width: '100%' }} onSubmit={aoSubmeterForm}>
+
+                {erro && <Alert onClick={() => setErro(null)} severity="error">{erro.campo}, {erro.mensagem}!</Alert>}
 
                 <TextField
                     value={nome}
@@ -85,12 +128,41 @@ export function FormUsuario() {
                     required
                 />
 
-                <TextField // TODO: MUDAR PARA INPUT SELECT COM OS VALORES DE ROLES DISPÓNIVEIS PELO BACKEND.
-                    value={role}
-                    onChange={e => setRole(e.target.value)}
-                    label="Grupo"
+
+                <TextField
+                    value={confSenha}
+                    type="password"
+                    onChange={e => setConfSenha(e.target.value)}
+                    label="Confirme a Senha"
                     variant="standard"
                     fullWidth
+                    required
+                />
+
+                <InputLabel id="role" sx={{ marginTop: 2 }} >Grupo</InputLabel>
+                <Select
+                    value={role}
+                    labelId="role"
+                    label="Role"
+                    fullWidth
+                    required
+                    onChange={(e) => setRole(e.target.value)}
+                    variant="standard"
+                    color="primary"
+                    placeholder="Role"
+                >
+                    <MenuItem value={"ADMIN"}>ADMIN</MenuItem>
+                    <MenuItem value={"ESTOQUISTA"}>ESTOQUISTA</MenuItem>
+                    <MenuItem value={"CLIENTE"}>CLIENTE</MenuItem>
+                </Select>
+
+                <TextField
+                    value={cpf}
+                    onChange={e => setCpf(e.target.value)}
+                    label="Cpf"
+                    variant="standard"
+                    fullWidth
+                    type="cpf"
                     required
                 />
 
