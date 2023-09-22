@@ -1,8 +1,8 @@
 
 import {
     Button, Paper, Table, TableBody, TableCell, Typography, TextField,
-    TableContainer, TableHead, TableRow, Box, InputLabel,
-    Select, MenuItem, Dialog, DialogActions, DialogTitle, DialogContent, DialogContentText
+    TableContainer, TableHead, TableRow, Box, FormControl, InputLabel, Select, MenuItem,
+    Dialog, DialogActions, DialogTitle, DialogContent, DialogContentText
 } from "@mui/material"
 import { useEffect, useState } from "react"
 import { api } from "../../../../services/api";
@@ -25,9 +25,8 @@ export function TableUsuario() {
     const context = useAuth();
     const navigate = useNavigate();
 
-    const carregarDados = (url: string, opcoes: AxiosRequestConfig = {} ) => {
+    const carregarDados = (url: string, opcoes: AxiosRequestConfig = {}) => {
         const token = localStorage.getItem("@suplament:token")
-        console.log(token)
         api.get<IPaginacao<IUsuario>>(url, {
             ...opcoes,
             headers: {
@@ -48,18 +47,18 @@ export function TableUsuario() {
             })
     }
 
-    const atualizarStatus = () => {
-        setOpenConfirmationDialog(true);
-    }
+    const excluir = ( id: number) => {
+        const token = localStorage.getItem("@suplament:token");
 
-    const cancelarAtualizacaoStatus = () => {
-        setOpenConfirmationDialog(false);
-    }
+        let status = ativo;
 
-    const confirmarAtualizacaoStatus = () => {
-        setOpenConfirmationDialog(false);
-
-        api.put(`/usuarios/${selectedUserId}/status`, { ativo })
+        if (ativo === null || ativo === undefined) {
+            status = false;
+        }
+         api.put(`/usuarios/${id}/status`, { 
+            status,
+        
+        })
             .then(() => {
                 carregarDados("/usuarios");
             })
@@ -68,17 +67,26 @@ export function TableUsuario() {
             });
     }
 
+    const confirmarAtualizacaoStatus = () => {
+        setOpenConfirmationDialog(false);
+        excluir(selectedUserId)
+    }
+
+    const atualizarStatus = () => {
+        setOpenConfirmationDialog(true);
+    }
+
+    const cancelarAtualizacaoStatus = () => {
+        setOpenConfirmationDialog(false);
+    }
+
+
+
     useEffect(() => {
         carregarDados("/usuarios")
     }, []);
 
-    const excluir = (usuarioAhSerExcluido: IUsuario) => {
-        api.delete(`/usuarios/${usuarioAhSerExcluido.id}`)
-            .then(() => {
-                const usuariosFiltrados = usuarios.filter(usuario => usuario.id !== usuarioAhSerExcluido.id);
-                setUsuarios([...usuariosFiltrados])
-            });
-    }
+
 
 
     const buscar = (e: React.FormEvent<HTMLFormElement>) => {
@@ -163,7 +171,7 @@ export function TableUsuario() {
                                 [ <RouterLink to={`/admin/usuarios/${u.id}`}>Editar</RouterLink> ]
                             </TableCell>
                             <TableCell>
-                                <Button variant="outlined" color="error" onClick={() => excluir(u)}>
+                                <Button variant="outlined" color="error" onClick={() => excluir(u.id)}>
                                     Excluir
                                 </Button>
                             </TableCell>
@@ -180,20 +188,26 @@ export function TableUsuario() {
                 <DialogTitle>Confirmação</DialogTitle>
 
                 <Typography>Status Atual</Typography>
-                <Select
-                    required
-                    value={ativo ? "Ativo" : "Inativo"}
-                    onChange={(e) => {
-                        setAtivo(e.target.value === "A" ? true : false);
-                    }}
-                    variant="standard"
-                    color="primary"
-                >
-                    <MenuItem defaultValue={ativo ? "Ativo" : "Inativo"}></MenuItem>
 
-                    <MenuItem value={"A"}>Ativo</MenuItem>
-                    <MenuItem value={"B"}>Inativo</MenuItem>
-                </Select>
+                <FormControl margin="dense" fullWidth >
+                    <InputLabel id="select-atv">Status</InputLabel>
+                    <Select
+                        labelId="select-atv"
+                        required
+                        variant="standard"
+                        color="primary"
+                        value={ativo ? "Ativo" : "Inativo"}
+                        onChange={e => {
+                            if (e.target.value === "Ativo") {
+                                setAtivo(true);
+                            } else {
+                                setAtivo(false);
+                            }
+                        }}>
+                        <MenuItem value="Ativo">Ativo</MenuItem>
+                        <MenuItem value="Inativo">Inativo</MenuItem>
+                    </Select>
+                </FormControl>
 
                 <DialogContent>
                     <DialogContentText>

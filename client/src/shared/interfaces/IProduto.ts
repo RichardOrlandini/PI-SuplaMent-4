@@ -3,8 +3,8 @@ export interface IProduto {
     ativo: boolean;
     nome: string;
     descri: string;
-    valor: number;
-    qtd: number;
+    valor: string;
+    qtd: string;
     imagem?: string;
 }
 

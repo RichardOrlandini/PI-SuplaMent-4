@@ -1,5 +1,7 @@
 
-import { Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Box, TextField } from "@mui/material"
+import { Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Box, TextField,
+   
+} from "@mui/material"
 import { useEffect, useState } from "react"
 import { IProduto } from "../../../../shared/interfaces/IProduto"
 import { api } from "../../../../services/api";
@@ -8,6 +10,7 @@ import { useAuth } from "../../../../hooks/auth";
 import { IPaginacao } from "../../../../shared/interfaces/IPaginacao";
 import { AxiosRequestConfig } from "axios";
 import { IParametrosBusca } from "../../../../shared/interfaces/IParametrosBusca";
+import ICategoria from "../../../../shared/interfaces/ICategoria";
 
 export function TableProduto() {
 
@@ -65,6 +68,8 @@ export function TableProduto() {
             .catch(e => console.log(e))
     }
 
+
+
     useEffect(() => {
         getDados("/produtos");
     }, []);
@@ -119,10 +124,11 @@ export function TableProduto() {
                             <TableCell>{p.valor}</TableCell>
                             <TableCell>{p.ativo ? "ATIVO" : "INATIVADO"}</TableCell>
                             <TableCell>{p.qtd}</TableCell>
-                            <TableCell>{p.imagem}</TableCell>
+                            <TableCell>[<a href={p.imagem}  rel="noreferrer" target="_blank">Ver imagem</a>]</TableCell>
                             <TableCell>
                                 [ <RouterLink to={`/admin/produtos/${p.id}`}>Editar</RouterLink> ]
                             </TableCell>
+
                             <TableCell>
                                 <Button variant="outlined" color="error" onClick={() => excluir(p)}>
                                     Excluir

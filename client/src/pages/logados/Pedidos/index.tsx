@@ -3,6 +3,7 @@ import { api } from "../../../services/api";
 import { IPaginacao } from "../../../shared/interfaces/IPaginacao";
 import './pedidos.css'
 import { IPedido } from "../../../shared/interfaces/IPedido";
+import { Footer } from "../../../components/Footer";
 
 export function Pedidos() {
     const formatador = Intl.NumberFormat('pt-br', { style: 'currency', currency: 'BRL' });
@@ -15,7 +16,7 @@ export function Pedidos() {
           insertionDate: new Date('2023-10-10'),
           active: true,
           client_id: 1,
-          produto_id: 1,
+          produtos: [],
           total: 10,
           dtEntrega: new Date('2023-10-10'),
         },
@@ -24,7 +25,7 @@ export function Pedidos() {
           insertionDate: new Date('2023-10-11'),
           active: true,
           client_id: 2,
-          produto_id: 2,
+          produtos: [],
           total: 20,
           dtEntrega: new Date('2023-10-11'),
         },
@@ -33,7 +34,7 @@ export function Pedidos() {
           insertionDate: new Date('2023-10-12'),
           active: true,
           client_id: 3,
-          produto_id: 3,
+          produtos: [],
           total: 30,
           dtEntrega: new Date('2023-10-12'),
         },
@@ -42,7 +43,7 @@ export function Pedidos() {
           insertionDate: new Date('2023-10-13'),
           active: true,
           client_id: 4,
-          produto_id: 4,
+          produtos: [],
           total: 40,
           dtEntrega: new Date('2023-10-13'),
         },
@@ -51,7 +52,7 @@ export function Pedidos() {
           insertionDate: new Date('2023-10-14'),
           active: true,
           client_id: 5,
-          produto_id: 5,
+          produtos: [],
           total: 50,
           dtEntrega: new Date('2023-10-14'),
         },
@@ -60,7 +61,7 @@ export function Pedidos() {
           insertionDate: new Date(),
           active: true,
           client_id: 6,
-          produto_id: 6,
+          produtos: [],
           total: 60,
           dtEntrega: new Date(),
         },
@@ -88,6 +89,8 @@ export function Pedidos() {
             <button>Detalhe do pedido</button>
           </div>))}
         </section>
+
+        <Footer/>
       </>
     )
 }
