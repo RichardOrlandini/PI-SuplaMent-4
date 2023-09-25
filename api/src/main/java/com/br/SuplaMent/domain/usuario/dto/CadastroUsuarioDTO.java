@@ -1,5 +1,6 @@
 package com.br.SuplaMent.domain.usuario.dto;
 
+import com.br.SuplaMent.domain.endereco.Endereco;
 import com.br.SuplaMent.domain.usuario.UserRole;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -10,7 +11,9 @@ public record CadastroUsuarioDTO(
         @NotBlank String nome,
         @NotBlank @Email String email,
         @NotBlank String senha,
+        @CPF @NotBlank String cpf,
+        @NotNull String telefone,
         @NotNull UserRole role,
-        @CPF @NotBlank String cpf
+         Endereco endereco
 ) {
 }

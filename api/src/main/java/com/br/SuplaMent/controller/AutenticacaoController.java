@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -38,7 +39,7 @@ public class AutenticacaoController {
             Usuario user = (Usuario) repository.findByEmail(dados.email());
             if (user != null) {
                 var response = new LoginDTO(new tokenJwtDTO(tokenJWT),
-                        new DetalhamentoUsuarioDTO(user.getId(), user.getNome(), user.getEmail(), user.getRole()));
+                        new DetalhamentoUsuarioDTO(user.getId(), user.getNome(), user.getEmail(),user.getSenha(), user.getPassword(),user.getCpf(), user.getTelefone(),user.getRole(),user.getEndereco()));
                 return ResponseEntity.ok(response);
             } else {
                 return ResponseEntity.badRequest().body("Usuário não encontrado");
@@ -48,6 +49,8 @@ public class AutenticacaoController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
+
 
 
 }

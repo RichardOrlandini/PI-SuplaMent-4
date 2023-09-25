@@ -17,10 +17,10 @@ public class UsuarioService {
         if (repository.findByEmail(dto.email()) != null) {
             throw new IllegalArgumentException("O email já existe");
         }
-
-        String senhaEncriptada = new BCryptPasswordEncoder().encode(dto.senha());
+        String passwordEncoder = new BCryptPasswordEncoder().encode(dto.senha());
         Usuario usuario = new Usuario(dto);
         return repository.save(usuario);
     }
+
 }
 

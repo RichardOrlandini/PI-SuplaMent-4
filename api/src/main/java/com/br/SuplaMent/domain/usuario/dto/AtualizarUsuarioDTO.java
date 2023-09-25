@@ -18,13 +18,14 @@ public record AtualizarUsuarioDTO(
         String nome,
         @NotNull
         String senha,
+        @CPF  String cpf,
         String telefone,
-        @NotNull
-        Boolean grupo,
-        @NotNull @Valid
-        CadastroEnderecoDTO endereco,
 
-        @NotNull UserRole role,
-        @CPF @NotBlank String cpf
+        Boolean grupo,
+
+        @NotNull UserRole role
+//        @Valid
+//        CadastroEnderecoDTO endereco
+
         ) {
 }

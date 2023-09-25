@@ -4,12 +4,14 @@ import com.br.SuplaMent.domain.endereco.Endereco;
 import com.br.SuplaMent.domain.usuario.dto.AtualizarUsuarioDTO;
 import com.br.SuplaMent.domain.usuario.dto.CadastroUsuarioDTO;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.AssertTrue;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.Collection;
 import java.util.List;
@@ -26,15 +28,15 @@ public class Usuario implements UserDetails {
     private Long id;
     private Boolean active;
     private String nome;
-
+   // @Column(unique = true)
     private String email;
     private String senha;
-    private UserRole role;
-
     private String cpf;
     private String telefone;
+    private UserRole role;
     @OneToOne
     private Endereco endereco;
+
 
     public Usuario () {
 
@@ -57,6 +59,7 @@ public class Usuario implements UserDetails {
         this.role = role;
     }
 
+
     public void atualizarInformacoes(AtualizarUsuarioDTO dto) {
 
         this.active = dto.active();
@@ -76,14 +79,18 @@ public class Usuario implements UserDetails {
         if (dto.cpf() != null) {
             this.cpf = dto.cpf();
         }
-        if (dto.endereco() != null) {
-            this.endereco.atualizarInformacoes(dto.endereco());
-        }
+//        if (dto.endereco() != null) {
+//            this.endereco.atualizarInformacoes(dto.endereco());
+//        }
     }
 
     public void excluir() {
         this.active = false;
     }
+    public void ativa() {
+        this.active = true;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
 
@@ -120,6 +127,9 @@ public class Usuario implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+
+
 
 
 }
