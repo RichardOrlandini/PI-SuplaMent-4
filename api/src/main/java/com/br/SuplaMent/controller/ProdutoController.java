@@ -1,8 +1,10 @@
 package com.br.SuplaMent.controller;
 
 
+import com.br.SuplaMent.domain.Imagem.ImagemService;
 import com.br.SuplaMent.domain.produto.Produto;
 import com.br.SuplaMent.domain.produto.ProdutoRepository;
+import com.br.SuplaMent.domain.produto.ProdutoService;
 import com.br.SuplaMent.domain.produto.dto.*;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,14 +14,19 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.util.List;
 @RestController
 @RequestMapping("produtos")
 public class ProdutoController {
     @Autowired
     private ProdutoRepository repository;
+    @Autowired
+    private ProdutoService produtoService;
+    @Autowired
+    private ImagemService imageService;
+
     @PostMapping
     @Transactional
     public ResponseEntity cadastrar(@RequestBody @Valid CadastroProdutoDTO dto, UriComponentsBuilder uriBuilder) {
@@ -64,5 +71,15 @@ public class ProdutoController {
         var produto = repository.getReferenceById(id);
         return ResponseEntity.ok(new DetalhamentoProdutoDTO(produto));
     }
+    @PostMapping("/{produtoId}/upload-image")
+    public void uploadImage(
+            @PathVariable Long produtoId,
+            @RequestParam("file") MultipartFile file,
+            @RequestParam("principal") boolean principal
+    ) {
+        Produto produto = produtoService.getProdutoById(produtoId);
+        imageService.uploadImage(file, produto, principal);
+    }
+
 }
 

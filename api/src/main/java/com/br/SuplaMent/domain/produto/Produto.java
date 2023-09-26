@@ -1,6 +1,7 @@
 package com.br.SuplaMent.domain.produto;
 
 import ch.qos.logback.core.model.Model;
+import com.br.SuplaMent.domain.Imagem.Imagem;
 import com.br.SuplaMent.domain.produto.dto.AtualizarProdutoDTO;
 import com.br.SuplaMent.domain.produto.dto.CadastroProdutoDTO;
 
@@ -32,12 +33,14 @@ public class Produto {
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
     private Calendar insertionDate;
-
+    private float avaliacao;
     private Boolean active;
     private String nome;
     private String descri;
     private double valor;
     private int qtd;
+    @OneToMany(mappedBy = "produto", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Imagem> imagens;
 
     //private Categorias categoria;
 
@@ -48,13 +51,16 @@ public class Produto {
         this.valor = dto.valor();
         this.qtd = dto.qtd();
        // this.categoria = dto.categoria();
+        imagens = new ArrayList<>();
     }
+
     public Produto(String nome, String descri, double valor, int qtd/*Categorias categoria*/) {
         this.nome = nome;
         this.descri = descri;
         this.valor = valor;
         this.qtd = qtd;
         //this.categoria = categoria;
+        imagens = new ArrayList<>();
     }
 
     public void atualizarProduto(AtualizarProdutoDTO dto) {
@@ -72,51 +78,15 @@ public class Produto {
         }
     }
 
-    public void deleta() { // agr n tem q deletar somente ficar com status inativo e criar um modo de poder reativar
+    public void deleta() {
         this.active = false;
 
     }
 
-
-    public Long getId() {
-        return id;
+    public void setQtd(int newQtd) {
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
 
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getDescri() {
-        return descri;
-    }
-
-    public void setDescri(String descri) {
-        this.descri = descri;
-    }
-
-    public double getValor() {
-        return valor;
-    }
-
-    public void setValor(double valor) {
-        this.valor = valor;
-    }
-
-    public double getQtd() {
-        return qtd;
-    }
-
-    public void setQtd(int qtd) {
-        this.qtd = qtd;
-    }
 
 
 

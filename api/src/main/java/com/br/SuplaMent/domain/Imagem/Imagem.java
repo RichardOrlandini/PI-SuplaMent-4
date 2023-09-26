@@ -20,6 +20,7 @@ public class Imagem {
     private boolean principal;
 
     @ManyToOne
+    @JoinColumn(name = "produto_id")
     private Produto produto;
 
     public Imagem(Long id, String nome, boolean principal, Produto produto) {
@@ -27,6 +28,10 @@ public class Imagem {
         this.nome = nome;
         this.principal = principal;
         this.produto = produto;
+    }
+
+    public Imagem() {
+
     }
 
     public Long getId() {
@@ -62,6 +67,10 @@ public class Imagem {
     }
 
 
+    public void setImagePath(String filename) {
+    }
 
+    public void setDefault(boolean principal) {
+    }
 }
 

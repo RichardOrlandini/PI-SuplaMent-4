@@ -75,7 +75,7 @@ public class UsuarioController {
     @Transactional
     public ResponseEntity ativa(@PathVariable Long id) { /// so por enquanto
         var usuario = repository.getReferenceById(id);
-        usuario.excluir();
+        usuario.ativa();
         return ResponseEntity.noContent().build();
     }
     @GetMapping("/{id}")

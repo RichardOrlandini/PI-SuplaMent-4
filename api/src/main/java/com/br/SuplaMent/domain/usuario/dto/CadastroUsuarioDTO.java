@@ -12,7 +12,7 @@ public record CadastroUsuarioDTO(
         @NotBlank @Email String email,
         @NotBlank String senha,
         @CPF @NotBlank String cpf,
-        @NotNull String telefone,
+         String telefone,
         @NotNull UserRole role,
          Endereco endereco
 ) {
