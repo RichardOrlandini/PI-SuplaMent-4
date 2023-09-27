@@ -11,4 +11,10 @@ public enum UserRole {
     public String getRole() {
         return role;
     }
+
+
+
+    public boolean contains(String cliente) {
+        return  false;
+    }
 }

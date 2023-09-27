@@ -16,9 +16,8 @@ public record AtualizarClienteDTO (
     @NotNull
     String nome,
     @NotNull
-    String senha,
+    String senha
 
-    @NotNull UserRole role
 
 ) {
     }

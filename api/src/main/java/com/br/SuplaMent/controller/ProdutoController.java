@@ -4,6 +4,7 @@ package com.br.SuplaMent.controller;
 import com.br.SuplaMent.domain.produto.Produto;
 import com.br.SuplaMent.domain.produto.ProdutoRepository;
 import com.br.SuplaMent.domain.produto.dto.*;
+import com.br.SuplaMent.services.ProdutoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -20,6 +21,9 @@ import java.util.List;
 public class ProdutoController {
     @Autowired
     private ProdutoRepository repository;
+
+    @Autowired
+    private ProdutoService service;
     @PostMapping
     @Transactional
     public ResponseEntity cadastrar(@RequestBody @Valid CadastroProdutoDTO dto, UriComponentsBuilder uriBuilder) {
@@ -54,9 +58,15 @@ public class ProdutoController {
     @DeleteMapping("/{id}")
     @Transactional
     public ResponseEntity deleta(@PathVariable Long id) {
-        System.out.println("Entrei no delete");
         var produto = repository.getReferenceById(id);
         produto.deleta();
+        return ResponseEntity.noContent().build();
+    }
+    @PutMapping("/{id}")
+    @Transactional
+    public ResponseEntity ativa(@PathVariable Long id) {
+        var produto = repository.getReferenceById(id);
+        produto.ativa();
         return ResponseEntity.noContent().build();
     }
     @GetMapping("/{id}")
@@ -64,4 +74,5 @@ public class ProdutoController {
         var produto = repository.getReferenceById(id);
         return ResponseEntity.ok(new DetalhamentoProdutoDTO(produto));
     }
+
 }

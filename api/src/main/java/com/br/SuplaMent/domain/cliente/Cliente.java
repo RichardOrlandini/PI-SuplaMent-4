@@ -38,15 +38,14 @@ public class Cliente {
         this.nome = dto.nome();
         this.email = dto.email();
         this.senha = dto.senha();
-        this.role = dto.role();
+        this.role = UserRole.valueOf("CLIENTE");
 
     }
 
-    public Cliente(String nome, String email, String senha, UserRole role) {
+    public Cliente(String nome, String email, String senha) {
         this.nome = nome;
         this.email = email;
         this.senha = senha;
-        this.role = role;
 
     }
 
@@ -61,9 +60,7 @@ public class Cliente {
         if (dto.nome() != null) {
             this.nome = dto.nome();
         }
-        if (dto.role() != null) {
-            this.role = dto.role();
-        }
+
     }
 
 

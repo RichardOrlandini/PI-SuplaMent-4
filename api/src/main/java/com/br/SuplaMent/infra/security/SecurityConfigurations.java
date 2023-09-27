@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -33,9 +34,12 @@ public class SecurityConfigurations {
                    req.requestMatchers(HttpMethod.POST, "/usuarios").hasRole("ADMIN");
                    req.requestMatchers(HttpMethod.DELETE, "/usuarios").hasRole("ADMIN");
 
+
                     req.requestMatchers("/usuarios/*").permitAll();
                     req.requestMatchers("/produtos/*").permitAll();
+                    req.requestMatchers("/clientes/*").permitAll();
                     req.requestMatchers(HttpMethod.POST, "/estoque").hasRole("ESTOQUISTA");
+                    req.requestMatchers(HttpMethod.POST,"/cliente").hasRole("CLIENTE");
                     req.anyRequest().authenticated();
                 })
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
@@ -53,7 +57,6 @@ public class SecurityConfigurations {
 //        source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
 //        return source;
 //    }
-
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {

@@ -10,9 +10,9 @@ import jakarta.validation.constraints.NotNull;
 public record CadastroClienteDTO(
         @NotBlank String nome,
         @NotBlank @Email String email,
-        @NotBlank String senha,
+        @NotBlank String senha
 
-        @NotNull UserRole role
+
 
 ) {
 }

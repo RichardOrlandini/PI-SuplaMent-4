@@ -78,6 +78,9 @@ public class Produto {
         this.active = false;
 
     }
+    public void ativa() {
+        this.active = true;
+    }
 
     public void setQtd(int newQtd) {
     }

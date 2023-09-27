@@ -38,6 +38,7 @@ CREATE TABLE cliente (
     email                    VARCHAR(255) NOT NULL,
     senha                    VARCHAR(255) NOT NULL,
     role                    TEXT NOT NULL
+
     PRIMARY KEY (id)
 );
 
