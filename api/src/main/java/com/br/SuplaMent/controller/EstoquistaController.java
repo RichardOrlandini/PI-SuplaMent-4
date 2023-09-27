@@ -3,7 +3,7 @@
 //import ch.qos.logback.core.model.Model;
 //import com.br.SuplaMent.domain.produto.Produto;
 //import com.br.SuplaMent.domain.produto.ProdutoRepository;
-//import com.br.SuplaMent.domain.produto.ProdutoService;
+//import com.br.SuplaMent.services.ProdutoService;
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.data.domain.Page;
 //import org.springframework.data.domain.PageRequest;

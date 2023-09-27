@@ -5,7 +5,7 @@ package com.br.SuplaMent.domain.produto.dto;
 import com.br.SuplaMent.domain.produto.dto.CadastroProdutoDTO;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.validation.constraints.NotNull;
-@JsonIgnoreProperties(ignoreUnknown = true)
+
 public record AtualizarProdutoDTO (
 
     @NotNull

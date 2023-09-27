@@ -43,7 +43,6 @@ public class UsuarioController {
         try {
             Usuario usuario = service.cadastrar(dto);
             var uri = uriBuilder.path("/usuarios/{id}").buildAndExpand(usuario.getId()).toUri();
-
             return ResponseEntity.created(uri).body(new DetalhamentoUsuarioDTO(usuario));
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
@@ -52,9 +51,9 @@ public class UsuarioController {
     }
 
 
-    @GetMapping
+    @GetMapping //("/busca/todos")
     public ResponseEntity<Page<ListagemUsuarioDTO>> listar(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
-        var page = repository.findAllByActiveTrue(paginacao).map(ListagemUsuarioDTO::new);
+        var page = repository.findAll(paginacao).map(ListagemUsuarioDTO::new);
         return ResponseEntity.ok(page);
     }
     @PutMapping
@@ -73,7 +72,7 @@ public class UsuarioController {
     }
     @PutMapping("/{id}")
     @Transactional
-    public ResponseEntity ativa(@PathVariable Long id) { /// so por enquanto
+    public ResponseEntity ativa(@PathVariable Long id) {
         var usuario = repository.getReferenceById(id);
         usuario.ativa();
         return ResponseEntity.noContent().build();
@@ -84,10 +83,16 @@ public class UsuarioController {
         return ResponseEntity.ok(new DetalhamentoUsuarioDTO(usuario));
     }
 
-    @GetMapping("/busca?nome=valorDoNome") // so com o /busca n estava localizando o nome
+    @GetMapping("/busca")
     @ResponseBody
     public ResponseEntity<Page<ListagemUsuarioDTO>> listar(@RequestParam String nome, @PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
         var page = repository.findByNomeContaining(nome, paginacao).map(ListagemUsuarioDTO::new);
+        return ResponseEntity.ok(page);
+    }
+    @GetMapping("/busca/ativos")
+    @ResponseBody
+    public ResponseEntity<Page<ListagemUsuarioDTO>> listarAtivos(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
+        var page = repository.findAllByActiveTrue(paginacao).map(ListagemUsuarioDTO::new);
         return ResponseEntity.ok(page);
     }
 }

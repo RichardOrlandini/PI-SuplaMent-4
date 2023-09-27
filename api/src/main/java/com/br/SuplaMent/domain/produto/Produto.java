@@ -1,12 +1,9 @@
 package com.br.SuplaMent.domain.produto;
 
-import ch.qos.logback.core.model.Model;
-import com.br.SuplaMent.domain.Imagem.Imagem;
 import com.br.SuplaMent.domain.produto.dto.AtualizarProdutoDTO;
 import com.br.SuplaMent.domain.produto.dto.CadastroProdutoDTO;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import io.micrometer.common.lang.Nullable;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -33,14 +30,13 @@ public class Produto {
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
     private Calendar insertionDate;
-    private float avaliacao;
+    private double avaliacao;
     private Boolean active;
     private String nome;
     private String descri;
     private double valor;
     private int qtd;
-    @OneToMany(mappedBy = "produto", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Imagem> imagens;
+
 
     //private Categorias categoria;
 
@@ -50,17 +46,17 @@ public class Produto {
         this.descri = dto.descri();
         this.valor = dto.valor();
         this.qtd = dto.qtd();
-       // this.categoria = dto.categoria();
-        imagens = new ArrayList<>();
+
+
     }
 
-    public Produto(String nome, String descri, double valor, int qtd/*Categorias categoria*/) {
+    public Produto(String nome, String descri, double valor, int qtd) {
         this.nome = nome;
         this.descri = descri;
         this.valor = valor;
         this.qtd = qtd;
-        //this.categoria = categoria;
-        imagens = new ArrayList<>();
+
+
     }
 
     public void atualizarProduto(AtualizarProdutoDTO dto) {
@@ -87,16 +83,6 @@ public class Produto {
     }
 
 
-
-
-
-   /* public Categorias getCategoria() {
-        return categoria;
-    }
-
-    public void setCategoria(Categorias categoria) {
-        this.categoria = categoria;
-    } */
 
 
 }

@@ -39,7 +39,7 @@ public class AutenticacaoController {
             Usuario user = (Usuario) repository.findByEmail(dados.email());
             if (user != null) {
                 var response = new LoginDTO(new tokenJwtDTO(tokenJWT),
-                        new DetalhamentoUsuarioDTO(user.getId(), user.getNome(), user.getEmail(),user.getSenha(), user.getPassword(),user.getCpf(), user.getTelefone(),user.getRole(),user.getEndereco()));
+                        new DetalhamentoUsuarioDTO(user.getId(), user.getNome(), user.getEmail(), user.getRole()));
                 return ResponseEntity.ok(response);
             } else {
                 return ResponseEntity.badRequest().body("Usuário não encontrado");

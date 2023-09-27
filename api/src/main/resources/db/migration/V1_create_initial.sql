@@ -37,6 +37,7 @@ CREATE TABLE cliente (
     nome                     VARCHAR(255) NOT NULL,
     email                    VARCHAR(255) NOT NULL,
     senha                    VARCHAR(255) NOT NULL,
+    role                    TEXT NOT NULL
     PRIMARY KEY (id)
 );
 
@@ -47,7 +48,8 @@ CREATE TABLE produto (
     nome                     VARCHAR(255) NOT NULL,
     descri                   TEXT,
     qtd                      INT,
-    valor                    NUMERIC(10,9)
+    valor                    NUMERIC(10,9),
+    avaliacao                NUMERIC(5,9)
     PRIMARY KEY (id)
 );
 

@@ -54,25 +54,6 @@ public class SecurityConfigurations {
 //        return source;
 //    }
 
-    // caso queria adicionar a rota de cadastro, manipular acima
-//    @Bean
-//    public UserDetailsService userDetailsService() {
-//        PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
-//
-//        UserDetails admin = User.builder()
-//                .username("admin")
-//                .password(encoder.encode("12345"))
-//                .roles("ADMIN")
-//                .build();
-//
-//        UserDetails estoquista = User.builder()
-//                .username("estoquista")
-//                .password(encoder.encode("12345"))
-//                .roles("ESTOQUISTA")
-//                .build();
-//
-//        return new InMemoryUserDetailsManager(admin, estoquista);
-//    }
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
