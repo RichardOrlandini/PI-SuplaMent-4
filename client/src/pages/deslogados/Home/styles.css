@@ -1,0 +1,10 @@
+
+.home form.buscar {
+    max-width: 600px;
+    margin: 0 auto;
+}
+.titulo-interno {
+    text-align: center;
+    color: #EB9B00;
+    margin: 16px 0;
+}

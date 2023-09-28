@@ -18,7 +18,6 @@ public class ClienteService {
             throw new IllegalArgumentException("O email já existe");
         }
         Cliente cliente = new Cliente(dto);
-        cliente.setRole(UserRole.valueOf("client"));
         return clienteRepository.save(cliente);
     }
 

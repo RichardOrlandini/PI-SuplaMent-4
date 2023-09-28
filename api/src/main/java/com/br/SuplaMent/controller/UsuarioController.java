@@ -34,8 +34,6 @@ public class UsuarioController {
     private UsuarioRepository repository;
     @Autowired
     private UsuarioService service;
-//    String str = "{id}";Long id = Long.valueOf(str); so pra caso queria transforma depois mas nem vai usa sepa
-
 
     @PostMapping
     @Transactional
@@ -50,8 +48,7 @@ public class UsuarioController {
         }
     }
 
-
-    @GetMapping //("/busca/todos")
+    @GetMapping
     public ResponseEntity<Page<ListagemUsuarioDTO>> listar(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
         var page = repository.findAll(paginacao).map(ListagemUsuarioDTO::new);
         return ResponseEntity.ok(page);

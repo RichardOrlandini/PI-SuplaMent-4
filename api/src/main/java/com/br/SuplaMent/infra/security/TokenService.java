@@ -18,7 +18,6 @@ public class TokenService {
     private String secret;
     public String gerarToken(Usuario usuario) {
 
-        if (!usuario.getRole().contains("CLIENTE")) {
             try {
                 var algoritmo = Algorithm.HMAC256(secret);
                 return JWT.create()
@@ -30,9 +29,6 @@ public class TokenService {
                         .sign(algoritmo);
             } catch (JWTCreationException exception){
                 throw new RuntimeException("Erro ao gerar token JWT", exception);
-            }
-        } else {
-            return null;
         }
     }
 

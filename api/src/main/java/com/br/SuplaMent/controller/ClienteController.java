@@ -23,7 +23,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
-@RequestMapping("/api/clientes")
+@RequestMapping("/clientes")
+@CrossOrigin("http://localhost:5173/**")
 public class ClienteController {
 
         @Autowired
