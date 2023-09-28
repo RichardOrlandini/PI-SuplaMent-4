@@ -6,6 +6,7 @@ import { TableProduto } from '../pages/admin/Produto/TableProduto'
 import { TableUsuario } from '../pages/admin/Usuario/TableUsuario'
 import { FormUsuario } from '../pages/admin/Usuario/FormUsuario'
 import { FormProduto } from '../pages/admin/Produto/FormProduto'
+import { Profile } from '../pages/logados/Profile'
 
 export function AdmRoutes() {
     return (
@@ -22,6 +23,7 @@ export function AdmRoutes() {
                 <Route path="/admin/produtos" element={<TableProduto />} />
                 <Route path="/admin/produtos/novo" element={<FormProduto />} />
                 <Route path="/admin/produtos/:id" element={<FormProduto />} />
+                <Route path="/profile" element={<Profile />} />
 
             </Route>
         </Routes>

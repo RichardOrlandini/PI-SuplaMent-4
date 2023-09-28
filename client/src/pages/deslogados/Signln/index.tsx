@@ -52,7 +52,7 @@ export function Signln() {
         <Button title="Entrar" variant="contained" onClick={handleSignIN} />
 
         <Link  to="/register">
-          Voltar para o login
+          Criar conta
         </Link>
       </Form>
 

@@ -8,6 +8,7 @@ export interface IUsuario {
     cpf: string;
     telefone?: string;
     endereco?: IEndereco;
+    avatar? : string;
 }
 
 export interface IEndereco {

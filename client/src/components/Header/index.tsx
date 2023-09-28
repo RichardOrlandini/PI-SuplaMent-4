@@ -3,7 +3,7 @@ import { RiShutDownLine } from 'react-icons/ri';
 import { useAuth } from '../../hooks/auth';
 import { Container, Profile, Logout } from "./styled";
 import { Outlet, useNavigate } from 'react-router-dom';
-import avatarPlaceholder from "../../assets/avatar_placeholder.svg";
+import avatarPlaceholder from "../../assets/avatarPlaceholder.svg";
 
 export function Header() {
 

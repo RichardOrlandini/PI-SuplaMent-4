@@ -18,10 +18,14 @@ export function SignUp() {
 
     function handleSignUp() {
         if (!nome || !email || !senha || !cofSenha) {
-            return alert("Preencha todos os campos")
+            return alert("Preencha todos os campos");
         }
 
-        api.post("/usuario", { nome, email, senha , role : "CLIENTE" })
+        if (senha !== cofSenha) {
+            return alert("Preencha as senhas iguais");
+        }
+
+        api.post("/clientes", { nome, email, senha})
             .then(() => {
                 alert("usuário cadastrado com sucesso!");
                 navigate("/");

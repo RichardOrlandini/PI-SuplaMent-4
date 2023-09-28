@@ -3,7 +3,7 @@ import {
     Button, Paper, Table, TableBody, TableCell, Typography, TextField,
     TableContainer, TableHead, TableRow, Box, FormControl, InputLabel, Select, MenuItem,
     Dialog, DialogActions, DialogTitle, DialogContent, DialogContentText
-} from "@mui/material"
+} from "@mui/material";
 import { useEffect, useState } from "react"
 import { api } from "../../../../services/api";
 import { Link as RouterLink, useNavigate } from 'react-router-dom'
@@ -55,10 +55,7 @@ export function TableUsuario() {
         if (ativo === null || ativo === undefined) {
             status = false;
         }
-         api.put(`/usuarios/${id}/status`, { 
-            status,
-        
-        })
+         api.put(`/usuarios/${id}/status`)
             .then(() => {
                 carregarDados("/usuarios");
             })
