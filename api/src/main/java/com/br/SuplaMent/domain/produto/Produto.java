@@ -36,6 +36,7 @@ public class Produto {
     private String descri;
     private double valor;
     private int qtd;
+    private String nomeImagem;
 
 
     //private Categorias categoria;
@@ -46,17 +47,15 @@ public class Produto {
         this.descri = dto.descri();
         this.valor = dto.valor();
         this.qtd = dto.qtd();
-
-
+        this.nomeImagem = dto.nomeImagem();
     }
 
-    public Produto(String nome, String descri, double valor, int qtd) {
+    public Produto(String nome, String descri, double valor, int qtd, String nomeImagem) {
         this.nome = nome;
         this.descri = descri;
         this.valor = valor;
         this.qtd = qtd;
-
-
+        this.nomeImagem = nomeImagem;
     }
 
     public void atualizarProduto(AtualizarProdutoDTO dto) {
@@ -76,7 +75,6 @@ public class Produto {
 
     public void deleta() {
         this.active = false;
-
     }
     public void ativa() {
         this.active = true;
@@ -85,9 +83,9 @@ public class Produto {
     public void setQtd(int newQtd) {
     }
 
-
-
-
+    public void setNomeImagem(String nomeImagem) {
+        this.nomeImagem = nomeImagem;
+    }
 }
 
 

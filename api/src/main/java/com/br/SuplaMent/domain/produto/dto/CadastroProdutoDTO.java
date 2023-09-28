@@ -9,7 +9,10 @@ public record CadastroProdutoDTO (
     @NotBlank String nome,
     @NotBlank String descri,
     @NotNull double valor,
-    @NotNull int qtd
+    @NotNull int qtd,
+
+    @NotBlank String nomeImagem
+
    // @NotBlank Categorias categoria
 ){
     }
