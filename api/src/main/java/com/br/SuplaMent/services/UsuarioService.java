@@ -18,7 +18,14 @@ public class UsuarioService {
             throw new IllegalArgumentException("O email já existe");
         }
         String passwordEncoder = new BCryptPasswordEncoder().encode(dto.senha());
-        Usuario usuario = new Usuario(dto);
+        CadastroUsuarioDTO novoDto = new CadastroUsuarioDTO(
+                dto.nome(),
+                dto.email(),
+                passwordEncoder,
+                dto.cpf(),
+                dto.role());
+
+        Usuario usuario = new Usuario(novoDto);
         return repository.save(usuario);
     }
 
