@@ -35,7 +35,7 @@ public class ProdutoController {
     @PostMapping
     @Transactional
     public ResponseEntity cadastrar(@RequestBody @Valid CadastroProdutoDTO dto,
-                                    @RequestParam("file") MultipartFile arquivo,
+                                    @RequestParam("nomeImagem") MultipartFile arquivo,
                                     UriComponentsBuilder uriBuilder) {
 
         if (repository.findByNome(dto.nome()) != null)  {
