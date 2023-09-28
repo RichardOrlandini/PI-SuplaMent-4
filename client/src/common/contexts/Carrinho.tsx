@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { usePagamento } from './Pagamento';
 import { UsuarioContext } from './Usuario';
+import { AuthProviderProps } from 'shared/interfaces/IAuthContext';
 
 interface CarrinhoItem {
   nome: string
@@ -22,7 +23,7 @@ interface CarrinhoContextProps {
 const CarrinhoContext = createContext<CarrinhoContextProps>({} as CarrinhoContextProps);
 CarrinhoContext.displayName = "Carrinho";
 
-export const CarrinhoProvider: React.FC = ({ children } : any) => {
+export function CarrinhoProvider(  {children} : AuthProviderProps){
   const [carrinho, setCarrinho] = useState<CarrinhoItem[]>([]);
   const [quantidadeCarrinho, setQuantidadeCarrinho] = useState<number>(0);
   const [valorTotal, setValorTotal] = useState<number>(0);

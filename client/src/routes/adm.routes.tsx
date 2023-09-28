@@ -24,7 +24,6 @@ export function AdmRoutes() {
                 <Route path="/admin/produtos/novo" element={<FormProduto />} />
                 <Route path="/admin/produtos/:id" element={<FormProduto />} />
                 <Route path="/profile" element={<Profile />} />
-
             </Route>
         </Routes>
     )

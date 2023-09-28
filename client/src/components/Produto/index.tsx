@@ -1,5 +1,4 @@
-import { Container } from './styles';
-
+import { Card, CardContent, CardMedia, Typography } from '@material-ui/core';
 import { IconButton } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
@@ -14,18 +13,22 @@ const Produto: React.FC<IProduto> = (produto: IProduto) => {
   const { saldo } = useContext(UsuarioContext);
 
   const itemNoCarrinho = carrinho.find(item => item.id === produto.id);
+
+
   return (
-    <Container>
-      <div>
-        <img
-          src={`/assets/${produto.imagem}.png`}
-          alt={`foto de ${produto.nome}`}
-        />
-        <p>
-          {produto.nome} - R$ {Number(produto.valor).toFixed(2)} <span>Kg</span>
-        </p>
-      </div>
-      <div>
+    <Card>
+      <CardMedia
+        component="img"
+        image={`/assets/${produto.imagem}.png`}
+        alt={`foto de ${produto.nome}`}
+      />
+      <CardContent>
+        <Typography variant="h6" component="div">
+          {produto.nome} - R$ {Number(produto.valor).toFixed(2)}
+        </Typography>
+        <Typography variant="body2" color="secondary">
+          Quantidade: {itemNoCarrinho?.quantidade || 0}
+        </Typography>
         <IconButton
           onClick={() => removerProduto(produto.id)}
           disabled={!itemNoCarrinho || itemNoCarrinho.quantidade === 0}
@@ -33,9 +36,7 @@ const Produto: React.FC<IProduto> = (produto: IProduto) => {
         >
           <RemoveIcon />
         </IconButton>
-        {itemNoCarrinho?.quantidade || 0}
         <IconButton
-          disabled={valorTotal > saldo}
           onClick={() => adicionarProduto({
             nome: produto.nome,
             imagem: produto.imagem,
@@ -47,8 +48,8 @@ const Produto: React.FC<IProduto> = (produto: IProduto) => {
         >
           <AddIcon />
         </IconButton>
-      </div>
-    </Container>
+      </CardContent>
+    </Card>
   );
 };
 

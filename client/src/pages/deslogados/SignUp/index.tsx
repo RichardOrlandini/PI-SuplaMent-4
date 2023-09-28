@@ -25,7 +25,7 @@ export function SignUp() {
             return alert("Preencha as senhas iguais");
         }
 
-        api.post("/clientes", { nome, email, senha})
+        api.post("/clientes", { nome, email, senha })
             .then(() => {
                 alert("usuário cadastrado com sucesso!");
                 navigate("/");
@@ -49,27 +49,27 @@ export function SignUp() {
 
                 <h2>Cadastro</h2>
                 <TextField
-                      label="Nome"
-                      color="warning"
-                      placeholder="digite sua senha"
-                      type="text"
-                      variant="standard"
-                      fullWidth
-                      required
-                      //icon={FiLock}
-                      onChange={e => setNome(e.target.value)}
+                    label="Nome"
+                    color="warning"
+                    placeholder="digite sua senha"
+                    type="text"
+                    variant="standard"
+                    fullWidth
+                    required
+                    //icon={FiLock}
+                    onChange={e => setNome(e.target.value)}
                 />
 
                 <TextField
-                      label="Email"
-                      color="warning"
-                      placeholder="digite sua senha"
-                      type="email"
-                      variant="standard"
-                      fullWidth
-                      required
-                      //icon={FiLock}
-                      onChange={e => setEmail(e.target.value)}
+                    label="Email"
+                    color="warning"
+                    placeholder="digite sua senha"
+                    type="email"
+                    variant="standard"
+                    fullWidth
+                    required
+                    //icon={FiLock}
+                    onChange={e => setEmail(e.target.value)}
                 />
 
                 <TextField
@@ -101,6 +101,12 @@ export function SignUp() {
                 <Link to="/">
                     Voltar para o login
                 </Link>
+
+
+                <Link to="/">
+                    Home
+                </Link>
+                
             </Form>
 
 
