@@ -49,7 +49,8 @@ CREATE TABLE produto (
     descri                   TEXT,
     qtd                      INT,
     valor                    NUMERIC(10,9),
-    avaliacao                NUMERIC(5,9)
+    avaliacao                NUMERIC(5,9),
+    nomeImagem              VARCHAR(400)
     PRIMARY KEY (id)
 );
 
