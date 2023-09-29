@@ -28,6 +28,9 @@ public class Produto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+
+
+
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
     private Calendar insertionDate;
     private double avaliacao;
@@ -85,6 +88,13 @@ public class Produto {
 
     public void setNomeImagem(String nomeImagem) {
         this.nomeImagem = nomeImagem;
+    }
+
+    public void setInsertionDate(Calendar insertionDate) {
+        this.insertionDate = insertionDate;
+    }
+    public Calendar getInstance() {
+        return insertionDate;
     }
 }
 
