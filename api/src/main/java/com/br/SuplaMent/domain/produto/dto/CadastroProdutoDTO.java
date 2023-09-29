@@ -13,6 +13,5 @@ public record CadastroProdutoDTO (
 
     @NotBlank String nomeImagem
 
-   // @NotBlank Categorias categoria
 ){
     }
