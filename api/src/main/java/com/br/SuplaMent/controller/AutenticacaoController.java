@@ -1,18 +1,17 @@
 package com.br.SuplaMent.controller;
 
-import com.br.SuplaMent.domain.usuario.AutenticacaoDTO;
-import com.br.SuplaMent.domain.usuario.Usuario;
-import com.br.SuplaMent.domain.usuario.UsuarioRepository;
-import com.br.SuplaMent.domain.usuario.dto.DetalhamentoUsuarioDTO;
-import com.br.SuplaMent.domain.usuario.dto.LoginDTO;
-import com.br.SuplaMent.infra.security.tokenJwtDTO;
-import com.br.SuplaMent.infra.security.TokenService;
+import com.br.SuplaMent.model.dto.usuario.AutenticacaoDTO;
+import com.br.SuplaMent.model.Usuario;
+import com.br.SuplaMent.model.repository.UsuarioRepository;
+import com.br.SuplaMent.model.dto.usuario.DetalhamentoUsuarioDTO;
+import com.br.SuplaMent.model.dto.usuario.LoginDTO;
+import com.br.SuplaMent.utils.security.tokenJwtDTO;
+import com.br.SuplaMent.utils.security.TokenService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

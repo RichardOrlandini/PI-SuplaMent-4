@@ -1,4 +1,4 @@
-package com.br.SuplaMent.domain.pedido.dto;
+package com.br.SuplaMent.model.dto.pedido;
 
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotNull;

@@ -1,9 +1,8 @@
 package com.br.SuplaMent.services;
 
-import com.br.SuplaMent.domain.produto.Produto;
-import com.br.SuplaMent.domain.produto.ProdutoRepository;
+import com.br.SuplaMent.model.Produto;
+import com.br.SuplaMent.model.repository.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

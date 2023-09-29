@@ -1,4 +1,4 @@
-package com.br.SuplaMent.domain.pedido.dto;
+package com.br.SuplaMent.model.dto.pedido;
 
 import java.time.LocalDateTime;
 

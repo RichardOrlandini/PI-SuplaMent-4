@@ -1,29 +1,22 @@
 package com.br.SuplaMent.controller;
 
-import com.br.SuplaMent.domain.produto.dto.ListagemProdutoDTO;
-import com.br.SuplaMent.domain.usuario.Usuario;
-import com.br.SuplaMent.domain.usuario.UsuarioRepository;
-import com.br.SuplaMent.domain.usuario.dto.AtualizarUsuarioDTO;
-import com.br.SuplaMent.domain.usuario.dto.CadastroUsuarioDTO;
-import com.br.SuplaMent.domain.usuario.dto.DetalhamentoUsuarioDTO;
-import com.br.SuplaMent.domain.usuario.dto.ListagemUsuarioDTO;
+import com.br.SuplaMent.model.Usuario;
+import com.br.SuplaMent.model.repository.UsuarioRepository;
+import com.br.SuplaMent.model.dto.usuario.AtualizarUsuarioDTO;
+import com.br.SuplaMent.model.dto.usuario.CadastroUsuarioDTO;
+import com.br.SuplaMent.model.dto.usuario.DetalhamentoUsuarioDTO;
+import com.br.SuplaMent.model.dto.usuario.ListagemUsuarioDTO;
 import com.br.SuplaMent.services.UsuarioService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
-
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/usuarios")

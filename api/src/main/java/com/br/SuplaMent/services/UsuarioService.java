@@ -1,8 +1,8 @@
 package com.br.SuplaMent.services;
 
-import com.br.SuplaMent.domain.usuario.Usuario;
-import com.br.SuplaMent.domain.usuario.UsuarioRepository;
-import com.br.SuplaMent.domain.usuario.dto.CadastroUsuarioDTO;
+import com.br.SuplaMent.model.Usuario;
+import com.br.SuplaMent.model.repository.UsuarioRepository;
+import com.br.SuplaMent.model.dto.usuario.CadastroUsuarioDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;

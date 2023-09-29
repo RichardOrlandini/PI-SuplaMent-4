@@ -1,4 +1,4 @@
-package com.br.SuplaMent.domain.endereco.dto;
+package com.br.SuplaMent.model.dto.endereco;
 
 public record DtoEndereco() {
 }

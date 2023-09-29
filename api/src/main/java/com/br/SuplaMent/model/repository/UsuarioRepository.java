@@ -1,6 +1,7 @@
-package com.br.SuplaMent.domain.usuario;
+package com.br.SuplaMent.model.repository;
 
 
+import com.br.SuplaMent.model.Usuario;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

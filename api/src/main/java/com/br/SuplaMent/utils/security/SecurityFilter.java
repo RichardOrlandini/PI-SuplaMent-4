@@ -1,6 +1,6 @@
-package com.br.SuplaMent.infra.security;
+package com.br.SuplaMent.utils.security;
 
-import com.br.SuplaMent.domain.usuario.UsuarioRepository;
+import com.br.SuplaMent.model.repository.UsuarioRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

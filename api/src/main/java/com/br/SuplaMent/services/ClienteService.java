@@ -1,9 +1,8 @@
 package com.br.SuplaMent.services;
 
-import com.br.SuplaMent.domain.cliente.Cliente;
-import com.br.SuplaMent.domain.cliente.ClienteRepository;
-import com.br.SuplaMent.domain.cliente.dto.CadastroClienteDTO;
-import com.br.SuplaMent.domain.usuario.UserRole;
+import com.br.SuplaMent.model.Cliente;
+import com.br.SuplaMent.model.repository.ClienteRepository;
+import com.br.SuplaMent.model.dto.cliente.CadastroClienteDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

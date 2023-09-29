@@ -1,7 +1,6 @@
-package com.br.SuplaMent.domain.cliente.dto;
+package com.br.SuplaMent.model.dto.cliente;
 
-import com.br.SuplaMent.domain.usuario.UserRole;
-import com.br.SuplaMent.domain.cliente.Cliente;
+import com.br.SuplaMent.model.Cliente;
 
 public record DetalhamentoClienteDTO(Long id, String nome, String email) {
 

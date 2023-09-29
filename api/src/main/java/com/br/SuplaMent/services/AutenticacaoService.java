@@ -1,6 +1,6 @@
 package com.br.SuplaMent.services;
 
-import com.br.SuplaMent.domain.usuario.UsuarioRepository;
+import com.br.SuplaMent.model.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

@@ -1,6 +1,5 @@
-package com.br.SuplaMent.domain.categoria;
+package com.br.SuplaMent.model;
 
-import com.br.SuplaMent.domain.produto.Produto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;

@@ -1,10 +1,5 @@
-package com.br.SuplaMent.domain.cliente.dto;
+package com.br.SuplaMent.model.dto.cliente;
 
-import com.br.SuplaMent.domain.endereco.dto.CadastroEnderecoDTO;
-import com.br.SuplaMent.domain.usuario.UserRole;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 

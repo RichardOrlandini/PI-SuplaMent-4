@@ -1,4 +1,4 @@
-package com.br.SuplaMent.domain.usuario;
+package com.br.SuplaMent.utils;
 
 public enum UserRole {
     ADMIN("admin"),

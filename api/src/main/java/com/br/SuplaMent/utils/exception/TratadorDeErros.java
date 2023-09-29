@@ -1,4 +1,4 @@
-package com.br.SuplaMent.infra.exception;
+package com.br.SuplaMent.utils.exception;
 
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.HttpStatus;

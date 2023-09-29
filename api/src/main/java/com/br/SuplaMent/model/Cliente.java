@@ -1,17 +1,10 @@
-package com.br.SuplaMent.domain.cliente;
+package com.br.SuplaMent.model;
 
-import com.br.SuplaMent.domain.cliente.dto.AtualizarClienteDTO;
-import com.br.SuplaMent.domain.cliente.dto.CadastroClienteDTO;
-import com.br.SuplaMent.domain.usuario.UserRole;
-import com.br.SuplaMent.domain.usuario.dto.AtualizarUsuarioDTO;
-import com.br.SuplaMent.domain.usuario.dto.CadastroUsuarioDTO;
+import com.br.SuplaMent.model.dto.cliente.AtualizarClienteDTO;
+import com.br.SuplaMent.model.dto.cliente.CadastroClienteDTO;
+import com.br.SuplaMent.utils.UserRole;
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-
-import java.util.Collection;
-import java.util.List;
 
 @Entity(name = "Cliente")
 @Table(name = "cliente")

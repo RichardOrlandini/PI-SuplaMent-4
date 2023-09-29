@@ -1,4 +1,4 @@
-package com.br.SuplaMent.domain.endereco.dto;
+package com.br.SuplaMent.model.dto.endereco;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

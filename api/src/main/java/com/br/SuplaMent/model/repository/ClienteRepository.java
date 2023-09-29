@@ -1,13 +1,11 @@
-package com.br.SuplaMent.domain.cliente;
+package com.br.SuplaMent.model.repository;
 
-import com.br.SuplaMent.domain.usuario.Usuario;
+import com.br.SuplaMent.model.Cliente;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Repository;
-
-import java.util.List;
 
 @Repository
 public interface ClienteRepository extends JpaRepository<Cliente, Long >{

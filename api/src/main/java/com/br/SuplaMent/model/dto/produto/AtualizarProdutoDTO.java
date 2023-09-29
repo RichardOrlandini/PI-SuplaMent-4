@@ -1,9 +1,7 @@
-package com.br.SuplaMent.domain.produto.dto;
+package com.br.SuplaMent.model.dto.produto;
 
 
 
-import com.br.SuplaMent.domain.produto.dto.CadastroProdutoDTO;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.validation.constraints.NotNull;
 
 public record AtualizarProdutoDTO (

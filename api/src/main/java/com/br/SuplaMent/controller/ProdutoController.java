@@ -1,9 +1,12 @@
 package com.br.SuplaMent.controller;
 
 
-import com.br.SuplaMent.domain.produto.Produto;
-import com.br.SuplaMent.domain.produto.ProdutoRepository;
-import com.br.SuplaMent.domain.produto.dto.*;
+import com.br.SuplaMent.model.Produto;
+import com.br.SuplaMent.model.dto.produto.AtualizarProdutoDTO;
+import com.br.SuplaMent.model.dto.produto.CadastroProdutoDTO;
+import com.br.SuplaMent.model.dto.produto.DetalhamentoProdutoDTO;
+import com.br.SuplaMent.model.dto.produto.ListagemProdutoDTO;
+import com.br.SuplaMent.model.repository.ProdutoRepository;
 import com.br.SuplaMent.services.ProdutoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,12 +19,11 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.List;
+
 @RestController
 @RequestMapping("produtos")
 public class ProdutoController {

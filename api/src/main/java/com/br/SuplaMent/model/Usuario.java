@@ -1,21 +1,19 @@
-package com.br.SuplaMent.domain.usuario;
+package com.br.SuplaMent.model;
 
-import com.br.SuplaMent.domain.endereco.Endereco;
-import com.br.SuplaMent.domain.usuario.dto.AtualizarUsuarioDTO;
-import com.br.SuplaMent.domain.usuario.dto.CadastroUsuarioDTO;
+import com.br.SuplaMent.model.Endereco;
+import com.br.SuplaMent.model.dto.usuario.AtualizarUsuarioDTO;
+import com.br.SuplaMent.model.dto.usuario.CadastroUsuarioDTO;
+import com.br.SuplaMent.utils.UserRole;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.AssertTrue;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Objects;
 
 @Entity(name = "Usuario")
 @Table(name = "usuario")

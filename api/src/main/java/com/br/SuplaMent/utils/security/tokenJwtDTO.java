@@ -1,3 +1,3 @@
-package com.br.SuplaMent.infra.security;
+package com.br.SuplaMent.utils.security;
 
 public record tokenJwtDTO(String token) {}

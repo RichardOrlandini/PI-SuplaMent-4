@@ -1,7 +1,7 @@
 package com.br.SuplaMent.controller;
 
-import com.br.SuplaMent.domain.pedido.dto.CreatePedidoDTO;
-import com.br.SuplaMent.domain.pedido.dto.DetalhePedidoDTO;
+import com.br.SuplaMent.model.dto.pedido.CreatePedidoDTO;
+import com.br.SuplaMent.model.dto.pedido.DetalhePedidoDTO;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;

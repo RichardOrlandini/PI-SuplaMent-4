@@ -1,6 +1,6 @@
-package com.br.SuplaMent.domain.produto.dto;
+package com.br.SuplaMent.model.dto.produto;
 
-import com.br.SuplaMent.domain.produto.Produto;
+import com.br.SuplaMent.model.Produto;
 
 public record ListagemEstoqueDTO (Long id, Boolean ativo, String nome, String descri, double valor, int qtd) {
     public ListagemEstoqueDTO(Produto produto) {

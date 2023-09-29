@@ -1,4 +1,4 @@
-package com.br.SuplaMent.domain.produto.dto;
+package com.br.SuplaMent.model.dto.produto;
 
 //import com.br.SuplaMent.domain.produto.Categorias;
 import jakarta.validation.constraints.NotBlank;

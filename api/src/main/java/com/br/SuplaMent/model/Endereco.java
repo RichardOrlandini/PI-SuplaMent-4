@@ -1,7 +1,6 @@
-package com.br.SuplaMent.domain.endereco;
+package com.br.SuplaMent.model;
 
-import com.br.SuplaMent.domain.endereco.dto.CadastroEnderecoDTO;
-import com.br.SuplaMent.domain.endereco.dto.DtoEndereco;
+import com.br.SuplaMent.model.dto.endereco.CadastroEnderecoDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;

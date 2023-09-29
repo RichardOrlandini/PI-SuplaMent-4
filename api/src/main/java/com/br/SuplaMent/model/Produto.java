@@ -1,7 +1,7 @@
-package com.br.SuplaMent.domain.produto;
+package com.br.SuplaMent.model;
 
-import com.br.SuplaMent.domain.produto.dto.AtualizarProdutoDTO;
-import com.br.SuplaMent.domain.produto.dto.CadastroProdutoDTO;
+import com.br.SuplaMent.model.dto.produto.AtualizarProdutoDTO;
+import com.br.SuplaMent.model.dto.produto.CadastroProdutoDTO;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
@@ -10,10 +10,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
-
 
 
 @Entity(name = "Produto")

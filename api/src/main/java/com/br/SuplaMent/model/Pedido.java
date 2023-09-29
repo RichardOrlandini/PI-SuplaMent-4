@@ -1,12 +1,9 @@
-package com.br.SuplaMent.domain.pedido;
+package com.br.SuplaMent.model;
 
-import com.br.SuplaMent.domain.cliente.Cliente;
-import com.br.SuplaMent.domain.produto.Produto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Date;
 
