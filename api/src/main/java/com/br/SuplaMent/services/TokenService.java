@@ -1,4 +1,4 @@
-package com.br.SuplaMent.utils.security;
+package com.br.SuplaMent.services;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;

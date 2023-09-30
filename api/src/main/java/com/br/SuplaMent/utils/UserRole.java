@@ -12,8 +12,6 @@ public enum UserRole {
         return role;
     }
 
-
-
     public boolean contains(String cliente) {
         return  false;
     }

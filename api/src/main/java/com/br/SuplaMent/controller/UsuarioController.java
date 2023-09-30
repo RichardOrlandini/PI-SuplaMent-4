@@ -1,10 +1,9 @@
 package com.br.SuplaMent.controller;
-
 import com.br.SuplaMent.model.Usuario;
 import com.br.SuplaMent.model.repository.UsuarioRepository;
 import com.br.SuplaMent.model.dto.usuario.AtualizarUsuarioDTO;
 import com.br.SuplaMent.model.dto.usuario.CadastroUsuarioDTO;
-import com.br.SuplaMent.model.dto.usuario.DetalhamentoUsuarioDTO;
+import com.br.SuplaMent.model.dto.usuario.UsuarioDTO;
 import com.br.SuplaMent.model.dto.usuario.ListagemUsuarioDTO;
 import com.br.SuplaMent.services.UsuarioService;
 import jakarta.validation.Valid;
@@ -34,10 +33,9 @@ public class UsuarioController {
         try {
             Usuario usuario = service.cadastrar(dto);
             var uri = uriBuilder.path("/usuarios/{id}").buildAndExpand(usuario.getId()).toUri();
-            return ResponseEntity.created(uri).body(new DetalhamentoUsuarioDTO(usuario));
+            return ResponseEntity.created(uri).body(new UsuarioDTO(usuario));
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
-
         }
     }
 
@@ -51,7 +49,7 @@ public class UsuarioController {
     public ResponseEntity atualizar(@RequestBody @Valid AtualizarUsuarioDTO dto) {
         Usuario usuario = repository.getReferenceById(dto.id());
         usuario.atualizarInformacoes(dto);
-        return ResponseEntity.ok(new DetalhamentoUsuarioDTO(usuario));
+        return ResponseEntity.ok(new UsuarioDTO(usuario));
     }
     @DeleteMapping("/{id}")
     @Transactional
@@ -70,7 +68,7 @@ public class UsuarioController {
     @GetMapping("/{id}")
     public ResponseEntity detalhar(@PathVariable Long id) {
         var usuario = repository.getReferenceById(id);
-        return ResponseEntity.ok(new DetalhamentoUsuarioDTO(usuario));
+        return ResponseEntity.ok(new UsuarioDTO(usuario));
     }
 
     @GetMapping("/busca")
