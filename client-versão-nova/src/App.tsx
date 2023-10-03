@@ -1,11 +1,14 @@
 import { useState } from 'react'
-
+import { Theme } from 'styles/Theme'
+import {GlobalStyles} from 'styles/GlobalStyles';
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <>
+    <Theme>
+      <GlobalStyles/>
     <h1>ts</h1>
+    </Theme>
     </>
   )
 }
