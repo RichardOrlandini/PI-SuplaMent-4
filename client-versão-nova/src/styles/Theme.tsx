@@ -1,50 +1,63 @@
-import { ThemeProvider } from "@emotion/react"
-import { ReactNode } from "react"
+import { ThemeProvider } from "@emotion/react";
+import { ReactNode } from "react";
+import { Global } from "@emotion/react";
 import StylesType from "types/StylesType";
 
-const theme : StylesType = {
-    cores: {
-        branco: '#FFF',
-        atencao: '',
-        focus: '#B009FF',
-        primarias: {
-            a: '#5754ED',
-            b: '#D93114',
-            c: ''
-        },
-        secundarias: {
-            a: '#F8F8FD',
-            b: '',
-            c: ''
-        },
-        neutras: {
-            a: '#373737',
-            b: '',
-            c: '',
-            d: ''
-        },
-        dark: {
-            a: '',
-            b: '#B61B00'
-        }
+
+const theme: StylesType = {
+  cores: {
+    branco: "#fff",
+    atencao: "",
+    focus: "#b009ff",
+    primarias: {
+      a: "#5754ed",
+      b: "#d93114",
+      c: "",
     },
-    espacamentos: {
-        xs: '8px',
-        s: '16px',
-        l: '32px',
-        xl: '48px'
+    secundarias: {
+      a: "#f8f8fd",
+      b: "",
+      c: "",
     },
-    fontFamily: "'Montserrat', sans-serif"
+    neutras: {
+      a: "#373737",
+      b: "",
+      c: "",
+      d: "",
+    },
+    dark: {
+      a: "",
+      b: "#b61b00",
+    },
+  },
+  espacamentos: {
+    xs: "8px",
+    s: "16px",
+    l: "32px",
+    xl: "48px",
+  },
+  fontFamily: "'montserrat', sans-serif",
 };
 
 interface Props {
-    children: ReactNode
+  children: ReactNode;
 }
 
 export const Theme = ({ children }: Props) => {
-    return (
-        <ThemeProvider theme={theme} >
-            {children}
-        </ThemeProvider>
-    )
-}
+  return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
+};
+
+const estilos = (theme: StylesType) => {
+  return {
+    html: {
+      fontFamily: theme.fontFamily,
+    },
+    body: {
+      margin: 0,
+    },
+  };
+};
+
+export const GlobalStyles = () => {
+  return <Global styles={estilos(theme)} />;
+};

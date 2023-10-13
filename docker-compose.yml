@@ -1,0 +1,79 @@
+version: "3"
+services: 
+
+  auth-db:
+    image: postgres:14.2
+    container_name: auth-db
+    restart: always
+    environment:
+      - POSTGRES_DB=auth-db
+      - POSTGRES_USER=suplament
+      - POSTGRES_PASSWORD=suplament123
+    ports:
+      - 5435:5432
+
+  suplament:
+    image: postgres:14.2
+    container_name: suplament
+    restart: always
+    environment:
+      - POSTGRES_DB=suplament
+      - POSTGRES_USER=suplament
+      - POSTGRES_PASSWORD=suplament123
+    ports:
+      - 5434:5432
+
+  sales-db:
+    image: tutum/mongodb
+    container_name: sales-db
+    restart: always
+    environment:
+      - MONGODB_DATABASE= sales-db
+      - MONGODB_USER=suplament
+      - POSTGRES_PASSWORD=suplament123
+    ports:
+      - 27017:27017
+      - 28017:28017
+
+  sales-rabbit:
+    image: rabbitmq:3-management
+    container_name: sales-rabbit
+    ports:
+      - 5672:5672
+      - 25676:25676
+      - 15672:15672
+
+  api:
+    build: './api'
+    container_name: 'api'
+    environment: 
+      - PORT=8080
+    ports:
+      - 8080:8080
+
+  micro-auth-api:
+    build: './micro-auth-api'
+    container_name: 'auth-api'
+    environment: 
+      - PORT=8081
+    ports:
+      - 8081:8081
+
+  micro-sales-api:
+    build: './micro-sales-api'
+    container_name: 'sales-api'
+    environment: 
+      - PORT=8083
+    ports:
+      - 8083:8083
+
+  client:
+    build: './client'
+    container_name: 'client'
+    environment: 
+      - PORT=5173
+    ports:
+      - 5173:5173
+
+# docker image build -t sales-api .
+# docker-compose up --build
