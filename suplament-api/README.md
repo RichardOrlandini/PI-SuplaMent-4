@@ -9,7 +9,7 @@
   - instale a imagem do postgres:14:2 : 
     `docker pull postgres:14.2`
   - Rode o container do banco: 
-  ` docker run -itd -e POSTGRES_USER=suplament -e POSTGRES_PASSWORD=suplament123 -e POSTGRES_DB=suplament -p 5433:5432 -v /var/lib/postgresql/data:/data --name supla-ment postgres:14.2`
+  `docker run --name suplament-db -p 5434:5432 -e POSTGRES_DB=suplament-db -e POSTGRES_USER=suplament -e POSTGRES_PASSWORD=suplament123 postgres:14.2`
   - teste a conexão e rode o app.
 
 ### Login adm padrão
