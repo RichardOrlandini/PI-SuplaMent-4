@@ -1,4 +1,25 @@
-DELETE FROM public.usuario WHERE id=1;
-insert into usuario values(1, TRUE, '5410322208876' ,'adm@teste', true,  0, '$2a$10$Y50UaMFOxteibQEYLrwuHeehHYfcoafCopUazP12.rqB41bsolF5.'
-, '11987634487',  NULL);
+INSERT INTO CATEGORIA (ID, DESCRICAO) VALUES (1, 'comic book');
+INSERT INTO CATEGORIA (ID, DESCRICAO) VALUES (2, 'movies');
+INSERT INTO CATEGORIA (ID, DESCRICAO) VALUES (3, 'books');
+
+INSERT INTO FORNECEDOR (ID, NOME) VALUES (1, 'Panini comics');
+INSERT INTO FORNECEDOR (ID, NOME) VALUES (2, 'Amazon');
+
+INSERT INTO PRODUTO (ID, insertionDate, active, nome, qtd, FK_FORNECEDOR, FK_CATEGORIA)
+VALUES (2, CURRENT_TIMESTAMP, 1, 'Product Name', 10, 2, 1);
+
+INSERT INTO PRODUTO (ID, insertionDate, active, nome, qtd, FK_FORNECEDOR, FK_CATEGORIA)
+VALUES (3, CURRENT_TIMESTAMP, 1, 'Product A', 15, 1, 1);
+
+INSERT INTO PRODUTO (ID, insertionDate, active, nome, qtd, FK_FORNECEDOR, FK_CATEGORIA)
+VALUES (4, CURRENT_TIMESTAMP, 1, 'Product B', 20, 2, 2);
+
+INSERT INTO PRODUTO (ID, insertionDate, active, nome, qtd, FK_FORNECEDOR, FK_CATEGORIA)
+VALUES (5, CURRENT_TIMESTAMP, 1, 'Product C', 25, 1, 3);
+
+INSERT INTO PRODUTO (ID, insertionDate, active, nome, qtd, FK_FORNECEDOR, FK_CATEGORIA)
+VALUES (6, CURRENT_TIMESTAMP, 1, 'Product D', 30, 2, 1);
+
+
+
 
