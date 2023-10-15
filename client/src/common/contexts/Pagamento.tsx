@@ -1,4 +1,5 @@
-import { createContext, useContext, useState } from 'react';
+import { ReactNode, createContext, useContext, useState } from 'react';
+import { AuthProviderProps } from 'shared/interfaces/IAuthContext';
 
 interface Pagamento {
   nome: string;
@@ -15,7 +16,7 @@ interface PagamentoContextProps {
 const PagamentoContext = createContext<PagamentoContextProps>({} as PagamentoContextProps);
 PagamentoContext.displayName = "Pagamento";
 
-export const PagamentoProvider: React.FC = ({ children } : any) => {
+export function PagamentoProvider(  {children} : AuthProviderProps){
   const tiposPagamento: Pagamento[] = [{
     nome: "Boleto",
     juros: 1,

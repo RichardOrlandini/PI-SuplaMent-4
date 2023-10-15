@@ -9,6 +9,8 @@ import { Method } from "axios";
 
 export function FormProduto() {
 
+    //TODO: COLOCAR FRELG DE DISABLE FAZENOD UM IF VENDO SE O USURIO LOGADO E UM ESTOQUISTA, SE FORM ADMIN TIRAR O DISABLE. 
+
     const params = useParams();
     const [erro, setErro] = useState<IErroMessage | null>(null);
 
@@ -29,9 +31,9 @@ export function FormProduto() {
 
     const selecionarArquivo = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files?.length) {
-            setImagem(e.target.files[0])
+            setImagem(e.target.files[0]);
         } else {
-            setImagem(null)
+            setImagem(null);
         }
     }
 
@@ -68,7 +70,7 @@ export function FormProduto() {
         formData.append('valor', valor);
         formData.append('qtd', qtd);
         if (imagem) {
-            formData.append('imagem', imagem);
+            formData.append('nomeImagem', imagem);
         }
 
         api.request({
@@ -93,13 +95,13 @@ export function FormProduto() {
                 }
             })
 
-    setNome('');
-    setDescri('');
-    setValor('');
-    setQtd('');
-    setCategoria('');
-    setCategorias([]);
-    setImagem(null);
+    // setNome('');
+    // setDescri('');
+    // setValor('');
+    // setQtd('');
+    // setCategoria('');
+    // setCategorias([]);
+    // setImagem(null);
 }
 
 return (
@@ -148,8 +150,8 @@ return (
                 required
             />
 
-            <FormControl margin="dense" fullWidth >
-                <InputLabel id="select-cat">Categoria</InputLabel>
+            <FormControl disabled margin="dense" fullWidth  >
+                <InputLabel margin="dense" id="select-cat">Categoria</InputLabel>
 
                 <Select labelId="select-cat" value={categoria} onChange={e => setCategoria(e.target.value)} >
                     {categorias.map(c => <MenuItem key={c.id} value={c.nome}>
@@ -157,7 +159,7 @@ return (
                     </MenuItem>)}
                 </Select>
             </FormControl>
-
+            
             <input type="file" onChange={selecionarArquivo} />
             <Button sx={{ marginTop: 1 }} type="submit" fullWidth variant="outlined">Salvar</Button>
         </Box>

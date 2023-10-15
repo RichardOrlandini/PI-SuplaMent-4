@@ -44,7 +44,6 @@ public class ClienteController {
             }
         }
 
-
         @GetMapping //("/busca/todos")
         public ResponseEntity<Page<ListagemClienteDTO>> listar(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
             var page = repository.findAll(paginacao).map(ListagemClienteDTO::new);

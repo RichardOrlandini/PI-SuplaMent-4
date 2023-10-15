@@ -14,7 +14,6 @@ export function Signln() {
   const context: IAuthContext | null = useAuth();
 
   function handleSignIN() {
-    //limpar o contexto do axios.
     context?.signIn(email, senha);
   }
 
@@ -53,6 +52,10 @@ export function Signln() {
 
         <Link  to="/register">
           Criar conta
+        </Link>
+
+        <Link  to="/">
+          Home
         </Link>
       </Form>
 

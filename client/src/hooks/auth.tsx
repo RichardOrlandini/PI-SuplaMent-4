@@ -9,10 +9,9 @@ const AuthContext = createContext<IAuthContext | null>(null);
 
 function AuthProvider({ children }: AuthProviderProps) {
   const [data, setData] = useState<DataProps | null>(null);
-
+  
   async function signIn(email: string, senha: string) {
     try {
-      //BUG DE RELOAD COM TOKEN NO HEADER DA api, POR ISSO FOI OPTADO POR USAR OUTRA INSTÂNCIA DO AXIOS.
       const resp = await axios.post("http://localhost:8000/api/login", { email, senha });
       const { user, token } = resp.data;
 
@@ -20,18 +19,6 @@ function AuthProvider({ children }: AuthProviderProps) {
       localStorage.setItem("@suplament:token", token.token);
       api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
       setData({ token, user });
-
-      const tokenLocal = localStorage.getItem('@suplament:token');
-
-      if (tokenLocal) {
-        api.interceptors.request.use(function (config) {
-            api.defaults.headers.common['Authorization'] = "Bearer " + tokenLocal;
-          return config;
-        }, function (error) {
-          console.log('Erro no interceptor do axios')
-          return Promise.reject(error);
-        });
-      }
       
     } catch (error: any) {
       if (error.response) {

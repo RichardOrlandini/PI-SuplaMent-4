@@ -1,4 +1,4 @@
-import { createContext, useState } from 'react';
+import { ReactNode, createContext, useState, FC } from 'react';
 
 interface UsuarioContextProps {
   nome: string;
@@ -10,9 +10,14 @@ interface UsuarioContextProps {
 export const UsuarioContext = createContext<UsuarioContextProps>({} as UsuarioContextProps);
 UsuarioContext.displayName = "Usuário";
 
-const UsuarioProvider: React.FC = ({ children }: any) => {
+interface UsuarioProviderProps {
+  children: ReactNode;
+}
+
+export const UsuarioProvider: FC<UsuarioProviderProps> = ({ children }) => {
   const [nome, setNome] = useState('');
   const [saldo, setSaldo] = useState(0);
+
   return (
     <UsuarioContext.Provider
       value={{
@@ -26,5 +31,3 @@ const UsuarioProvider: React.FC = ({ children }: any) => {
     </UsuarioContext.Provider>
   );
 };
-
-export default UsuarioProvider;

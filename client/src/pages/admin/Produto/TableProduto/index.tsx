@@ -26,8 +26,8 @@ export function TableProduto() {
         api.get<IPaginacao<IProduto>>(url, opcoes)
             .then(resp => {
                 setProdutos([...resp.data.content]);
-                setProximaPagina(resp.data.last ? '' : `/usuarios?page=${resp.data.number + 1}`);
-                setPaginaAnterior(resp.data.first ? '' : `/usuarios?page=${resp.data.number - 1}`);
+                setProximaPagina(resp.data.last ? '' : `/produtos?page=${resp.data.number + 1}`);
+                setPaginaAnterior(resp.data.first ? '' : `/produtos?page=${resp.data.number - 1}`);
             })
             .catch(e => {
                 if (e.message && e.code === "ERR_BAD_REQUEST") {

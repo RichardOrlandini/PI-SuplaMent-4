@@ -12,8 +12,8 @@ export const lancamentos: IProduto[] = [
     {
       id: 1,
       ativo: true,
-      nome: "Produto de Lançamento 1",
-      descri: "Descrição do Produto de Lançamento 1",
+      nome: "Big Massas",
+      descri: "Mais nutritivas",
       valor: "19.99",
       qtd: "10",
       imagem: imagem1,
@@ -30,8 +30,8 @@ export const lancamentos: IProduto[] = [
     {
       id: 3,
       ativo: false,
-      nome: "Produto de Lançamento 3",
-      descri: "Descrição do Produto de Lançamento 3",
+      nome: "Whey ",
+      descri: "Whey",
       valor: "9.99",
       qtd: "15",
       imagem: imagem3,
@@ -42,8 +42,8 @@ export const lancamentos: IProduto[] = [
     {
       id: 4,
       ativo: true,
-      nome: "Produto Mais Vendido 1",
-      descri: "Descrição do Produto Mais Vendido 1",
+      nome: "Whey",
+      descri: "Whey mais saboroso",
       valor: "39.99",
       qtd: "12",
       imagem: imagem4,
@@ -60,7 +60,7 @@ export const lancamentos: IProduto[] = [
     {
       id: 6,
       ativo: true,
-      nome: "Produto Mais Vendido 3",
+      nome: "Whey",
       descri: "Descrição do Produto Mais Vendido 3",
       valor: "59.99",
       qtd: "18",
