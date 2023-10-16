@@ -18,7 +18,7 @@ Pi 4 semestre 01
 
 #### Container Auth-DB
 
-`docker run --name auth-db -p 5432:5432 -e POSTGRES_DB=auth-db -e POSTGRES_USER=admin -e POSTGRES_PASSWORD=123456 postgres:14.2`
+`docker run --name auth-db -p 5432:5432 -e POSTGRES_DB=auth-db -e POSTGRES_USER=suplament -e POSTGRES_PASSWORD=suplament123 postgres:14.2`
 
 #### Container Suplament-DB
 

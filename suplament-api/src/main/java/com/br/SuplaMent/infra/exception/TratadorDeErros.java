@@ -47,7 +47,7 @@ public class TratadorDeErros {
         return new ResponseEntity<>(details, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(ValidationExcepetion.class)
+    @ExceptionHandler(AuthenticationException.class)
     public ResponseEntity<?> handleAuthenticationException(AuthenticationException authenticationException) {
         var details = new ExceptionDetails();
         details.setStatus(HttpStatus.BAD_REQUEST.value());

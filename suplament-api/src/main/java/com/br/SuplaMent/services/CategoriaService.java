@@ -25,9 +25,6 @@ public class CategoriaService {
     @Autowired
     private CategoriaRepository categoriaRepository;
 
-    @Autowired
-    private ProdutoService produtoService;
-
     public CategoriaResponse findByIdResponse(Long id) {
         return CategoriaResponse.of(this.findById(id));
     }

@@ -6,7 +6,7 @@ import tracing from "./scr/config/tracing.js";
 
 const app = express();
 const env = process.env;
-const PORT = env.PORT || 8080;
+const PORT = env.PORT || 8081;
 const CONTAINER_ENV = "container";
 
 app.get("/", (req, res) => {

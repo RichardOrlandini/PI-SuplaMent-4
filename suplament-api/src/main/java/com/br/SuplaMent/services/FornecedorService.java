@@ -18,8 +18,6 @@ public class FornecedorService {
 
     @Autowired
     private FornecedorRepository fornecedorRepository;
-    @Autowired
-    private ProdutoService produtoService;
 
     public Page findAll(Pageable pageable) {
         return  fornecedorRepository.findAll(pageable).map(FornecedorResponseDTO::of);
