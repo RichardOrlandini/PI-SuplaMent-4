@@ -7,8 +7,6 @@ import com.br.SuplaMent.domain.usuario.dto.AtualizarUsuarioDTO;
 import com.br.SuplaMent.domain.usuario.dto.CadastroUsuarioDTO;
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.util.Collection;
 import java.util.List;
@@ -63,20 +61,11 @@ public class Cliente {
 
     }
 
-
     public void excluir() {
         this.active = false;
     }
     public void ativa() {
         this.active = true;
     }
-
-
-
-
-
-
-
-
 
 }

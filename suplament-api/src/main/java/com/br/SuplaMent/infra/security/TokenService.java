@@ -1,51 +1,52 @@
 package com.br.SuplaMent.infra.security;
 
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.algorithms.Algorithm;
-import com.auth0.jwt.exceptions.JWTCreationException;
-import com.auth0.jwt.exceptions.JWTVerificationException;
-import com.br.SuplaMent.domain.usuario.Usuario;
+
+import com.br.SuplaMent.infra.exception.AuthenticationException;
+import com.br.SuplaMent.infra.exception.ValidationExcepetion;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.security.Keys;
+import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
+import static org.springframework.util.ObjectUtils.isEmpty;
+
 
 @Service
 public class TokenService {
-    @Value("{api.security.token.secret}")
+    @Value("{app-config.secrets.api-secret}")
     private String secret;
-    public String gerarToken(Usuario usuario) {
 
-            try {
-                var algoritmo = Algorithm.HMAC256(secret);
-                return JWT.create()
-                        .withIssuer("@suplament")
-                        .withSubject(usuario.getUsername())
-                        .withSubject(usuario.getEmail())
-                        .withClaim("id", usuario.getId())
-                        .withExpiresAt(dataExpiracao())
-                        .sign(algoritmo);
-            } catch (JWTCreationException exception){
-                throw new RuntimeException("Erro ao gerar token JWT", exception);
-        }
-    }
+    private static final String BEARER = "bearer";
 
-    public String getSubject(String tokenJWT) {
+    public void isAutorizado(String token) {
+        var acessToken = extractToken(token);
+
         try {
-            var algoritmo = Algorithm.HMAC256(secret);
-            return JWT.require(algoritmo)
-                    .withIssuer("@suplament")
+            var claims = Jwts.parserBuilder().setSigningKey(Keys.hmacShaKeyFor(secret.getBytes()))
                     .build()
-                    .verify(tokenJWT)
-                    .getSubject();
-        } catch (JWTVerificationException exception) {
-            throw new RuntimeException("Token JWT inválido ou expirado: " + tokenJWT);
+                    .parseClaimsJws(acessToken)
+                    .getBody();
+            var user = JwtResponse.getUser(claims);
+            if (isEmpty(user) || isEmpty(user.getId())) {
+                throw new AuthenticationException("O usuario não é valido");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new AuthenticationException("Erro no processamento do token");
         }
     }
 
-    private Instant dataExpiracao() {
-        return LocalDateTime.now().plusHours(2).toInstant(ZoneOffset.of("-03:00"));
+    private String extractToken(String token) {
+
+        if (isEmpty(token)) {
+            throw new AuthenticationException("Token não informado");
+        }
+
+        if (token.contains(BEARER)) {
+            token = token.toLowerCase();
+            token = token.replace(BEARER, Strings.EMPTY);
+        }
+        return token;
     }
 }

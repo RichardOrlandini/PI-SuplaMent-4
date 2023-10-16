@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("pedidos")
 public class PedidoController {
 
-
     @PostMapping
     @Transactional
     public ResponseEntity agendar(@RequestBody @Valid CreatePedidoDTO dados) {

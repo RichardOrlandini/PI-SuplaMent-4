@@ -1,4 +1,4 @@
-package com.br.SuplaMent.dto;
+package com.br.SuplaMent.domain.categoria.dto;
 
 import com.br.SuplaMent.domain.categoria.Categoria;
 import lombok.Data;

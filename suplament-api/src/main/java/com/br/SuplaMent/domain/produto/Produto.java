@@ -1,18 +1,16 @@
 package com.br.SuplaMent.domain.produto;
 
 import com.br.SuplaMent.domain.categoria.Categoria;
-import com.br.SuplaMent.domain.categoria.Fornecedor;
-import com.br.SuplaMent.domain.produto.dto.AtualizarProdutoDTO;
-import com.br.SuplaMent.domain.produto.dto.CadastroProdutoDTO;
+import com.br.SuplaMent.domain.fornecedor.Fornecedor;
 
+import com.br.SuplaMent.domain.produto.dto.ProdutoCreateToSalesDTO;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.ArrayList;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Calendar;
-import java.util.List;
-
 
 
 @Entity(name = "Produto")
@@ -20,6 +18,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@Builder
 public class Produto {
 
     @Id
@@ -27,7 +26,8 @@ public class Produto {
     private Long id;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
-    private Calendar insertionDate;
+    @Column(name = "INSERTION_DATE", nullable = false, updatable = false)
+    private LocalDateTime insertionDate;
 
     private Boolean active;
 
@@ -94,6 +94,20 @@ public class Produto {
     }
     public void ativa() {
         this.active = true;
+    }
+    public static Produto of (ProdutoCreateToSalesDTO request, Fornecedor fornecedor, Categoria categoria) {
+        return Produto
+                .builder()
+                .nome(request.getNome())
+                .qtd(request.getQtd())
+                .categoria(categoria)
+                .fornecedor(fornecedor)
+                .build();
+    }
+
+    @PrePersist
+    public void prePersist() {
+        this.insertionDate = LocalDateTime.now();
     }
 }
 

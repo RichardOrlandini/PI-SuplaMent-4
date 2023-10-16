@@ -1,13 +1,9 @@
 package com.br.SuplaMent.domain.categoria;
 
-import com.br.SuplaMent.domain.produto.Produto;
-import com.br.SuplaMent.dto.CategoriaRequest;
-import com.br.SuplaMent.dto.CategoriaResponse;
+import com.br.SuplaMent.domain.categoria.dto.CategoriaRequest;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.beans.BeanUtils;
-
-import java.util.List;
 
 @Entity(name = "Categoria")
 @Table(name = "categoria")

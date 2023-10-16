@@ -13,13 +13,13 @@ public class ClienteService {
     @Autowired
     private ClienteRepository clienteRepository;
 
-    public Cliente cadastrarCliente(CadastroClienteDTO dto ) {
-        if (clienteRepository.findByEmail(dto.email()) != null) {
-            throw new IllegalArgumentException("O email já existe");
-        }
-        Cliente cliente = new Cliente(dto);
-        return clienteRepository.save(cliente);
-    }
+//    public Cliente cadastrarCliente(CadastroClienteDTO dto ) {
+//        if (clienteRepository.findByEmail(dto.email()) != null) {
+//            throw new IllegalArgumentException("O email já existe");
+//        }
+//        Cliente cliente = new Cliente(dto);
+//        return clienteRepository.save(cliente);
+//    }
 
 
 
