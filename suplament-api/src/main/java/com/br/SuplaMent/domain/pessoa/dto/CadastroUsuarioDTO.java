@@ -1,7 +1,6 @@
-package com.br.SuplaMent.domain.usuario.dto;
+package com.br.SuplaMent.domain.pessoa.dto;
 
-import com.br.SuplaMent.domain.endereco.Endereco;
-import com.br.SuplaMent.domain.usuario.UserRole;
+import com.br.SuplaMent.domain.pessoa.UserRole;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

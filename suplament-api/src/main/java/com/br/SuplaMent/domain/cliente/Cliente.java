@@ -2,14 +2,9 @@ package com.br.SuplaMent.domain.cliente;
 
 import com.br.SuplaMent.domain.cliente.dto.AtualizarClienteDTO;
 import com.br.SuplaMent.domain.cliente.dto.CadastroClienteDTO;
-import com.br.SuplaMent.domain.usuario.UserRole;
-import com.br.SuplaMent.domain.usuario.dto.AtualizarUsuarioDTO;
-import com.br.SuplaMent.domain.usuario.dto.CadastroUsuarioDTO;
+import com.br.SuplaMent.domain.pessoa.UserRole;
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.util.Collection;
-import java.util.List;
 
 @Entity(name = "Cliente")
 @Table(name = "cliente")

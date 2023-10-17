@@ -1,8 +1,8 @@
-package com.br.SuplaMent.domain.usuario.dto;
+package com.br.SuplaMent.domain.pessoa.dto;
 
 
-import com.br.SuplaMent.domain.usuario.UserRole;
-import com.br.SuplaMent.domain.usuario.Usuario;
+import com.br.SuplaMent.domain.pessoa.UserRole;
+import com.br.SuplaMent.domain.pessoa.Usuario;
 // TODO: adicionar todos os campos do usuario para ter a função de cadastrar dele
 //  bem feita no front, adicionar o endereço, adicionar o telefone e etc
 public record DetalhamentoUsuarioDTO(Long id, String nome, String email, UserRole role) {
