@@ -10,6 +10,18 @@ const emptySpace = " ";
 
 export default async (req, res, next) => {
   try {
+
+    if (req.url === "/api/user" && req.method === "POST") {
+      return next();
+    }
+
+    if (req.url === "/api/user/auth" && req.method === "POST") {
+      return next();
+    }
+
+    
+
+
     let { authorization } = req.headers;
     if (!authorization) {
       throw new AuthException(

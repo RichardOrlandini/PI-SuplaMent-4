@@ -7,6 +7,37 @@ import * as httpStatus from "../../../config/constants/httpStatus.js";
 import * as secrets from "../../../config/constants/secrets.js";
 
 class UserService {
+
+  async save(req) {
+
+    try {
+      const { email, password } = req.body;
+
+      let existingUser = await UserRepository.findByEmail(email);
+
+      if (existingUser) {
+        throw new UserException(httpStatus.BAD_REQUEST, "Este email já está em uso.");
+      }
+
+      let passwordEncrypt = await bcrypt.hash(password, 10);
+
+      const newUser = await UserRepository.create(email, passwordEncrypt);
+
+      return {
+        status: httpStatus.SUCCESS,
+        newUser
+      }
+
+    } catch (err) {
+
+      return {
+        status: err.status ? err.status : httpStatus.INTERNAL_SERVER_ERROR,
+        message: err.message,
+      };
+    }
+
+  }
+
   async findByEmail(req) {
     try {
       const { email } = req.params;
