@@ -36,6 +36,8 @@ public class Produto {
     @Column(name = "qtd", nullable = false)
     private Integer qtd;
 
+    private String nomeImagem;
+
     @ManyToOne
     @JoinColumn(name = "FK_FORNECEDOR", nullable = false)
     private Fornecedor fornecedor;
@@ -44,14 +46,6 @@ public class Produto {
     @JoinColumn(name = "FK_CATEGORIA", nullable = false)
     private Categoria categoria;
 
-  //  private double avaliacao;
-    //  private String descri;
-
-  //  private double valor;
-
-
-
-  //  private String nomeImagem;
 
     // 1 fornecedor e 1 categoria ManyToOne O produto pode ter varios fornecedores
     // mais apenas a referecia de 1 produto pra cada linha
@@ -100,6 +94,7 @@ public class Produto {
                 .builder()
                 .nome(request.getNome())
                 .qtd(request.getQtd())
+                .nomeImagem(request.getNomeImagem())
                 .categoria(categoria)
                 .fornecedor(fornecedor)
                 .build();

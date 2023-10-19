@@ -21,4 +21,8 @@ public class ProdutoCreateToSalesDTO {
 
     @JsonProperty("categoria_id")
     private Long categoriaId;
+
+    @JsonProperty("foto")
+    private String nomeImagem;
+
 }

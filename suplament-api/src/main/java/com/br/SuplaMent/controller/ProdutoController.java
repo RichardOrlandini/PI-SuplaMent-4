@@ -30,13 +30,24 @@ import java.util.List;
 @RequestMapping("produto")
 public class ProdutoController {
 
-    private static String caminhoImagens = "..api/src/main/resources/imagens";
+    private static String pathImages = "..suplament-api/src/main/resources/imagens/";
 
     @Autowired
     private ProdutoService produtoService;
 
     @PostMapping
-    public ProdutoResponseToSalesDTO save(@RequestBody ProdutoCreateToSalesDTO request) {
+    public ProdutoResponseToSalesDTO save(@RequestBody ProdutoCreateToSalesDTO request,
+                                          @RequestParam MultipartFile file)
+    {
+        try{
+            if(!file.isEmpty()){
+                byte[] imagemEmBytes = file.getBytes();
+                Path caminhoCompleto = Paths.get(pathImages + String.valueOf(request.getNomeImagem()) + file.getOriginalFilename());
+                Files.write(caminhoCompleto, imagemEmBytes);
+            }
+        }catch(IOException e){
+            e.printStackTrace();
+        }
         return produtoService.save(request);
     }
 
