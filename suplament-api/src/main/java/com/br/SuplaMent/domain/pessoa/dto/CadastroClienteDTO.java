@@ -1,4 +1,4 @@
-package com.br.SuplaMent.domain.cliente.dto;
+package com.br.SuplaMent.domain.pessoa.dto;
 
 
 import jakarta.validation.constraints.Email;
