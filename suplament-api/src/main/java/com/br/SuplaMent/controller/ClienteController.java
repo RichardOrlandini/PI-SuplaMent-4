@@ -1,12 +1,12 @@
 //package com.br.SuplaMent.controller;
 //
 //import com.br.SuplaMent.domain.cliente.Cliente;
-//import com.br.SuplaMent.domain.cliente.ClienteRepository;
-//import com.br.SuplaMent.domain.cliente.dto.AtualizarClienteDTO;
-//import com.br.SuplaMent.domain.cliente.dto.DetalhamentoClienteDTO;
-//import com.br.SuplaMent.domain.cliente.dto.ListagemClienteDTO;
+//import com.br.SuplaMent.domain.pessoa.ClienteRepository;
+//import com.br.SuplaMent.domain.pessoa.dto.AtualizarClienteDTO;
+//import com.br.SuplaMent.domain.pessoa.dto.DetalhamentoClienteDTO;
+//import com.br.SuplaMent.domain.pessoa.dto.ListagemClienteDTO;
 //import com.br.SuplaMent.services.ClienteService;
-//import com.br.SuplaMent.domain.cliente.dto.CadastroClienteDTO;
+//import com.br.SuplaMent.domain.pessoa.dto.CadastroClienteDTO;
 //import com.br.SuplaMent.domain.usuario.Usuario;
 //import com.br.SuplaMent.domain.usuario.dto.AtualizarUsuarioDTO;
 //import com.br.SuplaMent.domain.usuario.dto.DetalhamentoUsuarioDTO;

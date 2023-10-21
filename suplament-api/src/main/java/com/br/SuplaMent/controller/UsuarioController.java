@@ -3,6 +3,7 @@ package com.br.SuplaMent.controller;
 import com.br.SuplaMent.domain.pessoa.Usuario;
 import com.br.SuplaMent.domain.pessoa.dto.CadastroInicialDTO;
 import com.br.SuplaMent.domain.pessoa.dto.DetalhamentoInicialUsuarioDTO;
+import com.br.SuplaMent.domain.pessoa.dto.DetalhamentoUsuarioDTO;
 import com.br.SuplaMent.services.UsuarioService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,11 @@ public class UsuarioController {
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
+    }
+    @GetMapping("email/{email}")
+    public ResponseEntity detalhar(@PathVariable String email) {
+        var usuario = service.findByEmail(email);
+        return ResponseEntity.ok(new DetalhamentoUsuarioDTO(usuario));
     }
 
 //    @GetMapping

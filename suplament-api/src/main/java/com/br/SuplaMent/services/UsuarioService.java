@@ -23,12 +23,20 @@ public class UsuarioService {
         return repository.save(usuario);
     }
 
+    public Usuario findByEmail(String email) {
+        Optional<Usuario> existe = repository.findByEmail((email));
+        if (existe.isPresent()) {
+            return  existe.get();
+        }
+        throw new ValidationExcepetion("Usuário não encontrado!");
+    }
+
     private void validaIdExistente(Long id) {
         Optional<Usuario> existe = repository.findById((id));
         if (existe.isPresent()) {
            Long idEncontrado = existe.get().getId();
            if (idEncontrado.equals(id)) {
-               throw new ValidationExcepetion("Já existe um usuario com o id informado!");
+               throw new ValidationExcepetion("Já existe um Usuário com o id informado!");
            }
         }
     }
@@ -38,10 +46,12 @@ public class UsuarioService {
         if (existe.isPresent()) {
             String emailEncontrado = existe.get().getEmail();
             if (emailEncontrado.equals(email)) {
-                throw new ValidationExcepetion("Já existe um usuario com o email informado!");
+                throw new ValidationExcepetion("Já existe um Usuário com o email informado!");
             }
         }
     }
+
+
 
 
     //    public Usuario cadastrar(CadastroUsuarioDTO dto) {
