@@ -1,31 +1,14 @@
 package com.br.SuplaMent.controller;
 
-
-import com.br.SuplaMent.domain.categoria.dto.CategoriaResponse;
-import com.br.SuplaMent.domain.fornecedor.dto.FornecedorCreateDTO;
-import com.br.SuplaMent.domain.fornecedor.dto.FornecedorResponseDTO;
-import com.br.SuplaMent.domain.produto.Produto;
-import com.br.SuplaMent.domain.produto.ProdutoRepository;
 import com.br.SuplaMent.domain.produto.dto.*;
-import com.br.SuplaMent.services.CategoriaService;
 import com.br.SuplaMent.services.ProdutoService;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.util.UriComponentsBuilder;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.List;
 @RestController
 @RequestMapping("produto")
 public class ProdutoController {
@@ -142,5 +125,15 @@ public class ProdutoController {
 //        var produto = repository.getReferenceById(id);
 //        return ResponseEntity.ok(new DetalhamentoProdutoDTO(produto));
 //    }
+
+    @GetMapping("{id}/sales}")
+    public ProdutoSalesResponse findProductSales(@PathVariable Long id) {
+        return produtoService.findProductsSales(id);
+    }
+
+    @PostMapping("check-stock")
+    public ResponseEntity checkProdutoStoque(@RequestBody ProdutoCheckStoqueRequest request) {
+        return  produtoService.checkProdutosStoque(request);
+    }
 
 }
