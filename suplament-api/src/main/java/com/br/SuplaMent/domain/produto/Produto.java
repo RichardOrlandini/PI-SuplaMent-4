@@ -109,6 +109,10 @@ public class Produto {
     public void prePersist() {
         this.insertionDate = LocalDateTime.now();
     }
+
+    public void updateStock(Integer qtd) {
+        this.qtd -= qtd;
+    }
 }
 
 

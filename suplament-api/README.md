@@ -10,6 +10,8 @@
     `docker pull postgres:14.2`
   - Rode o container do banco: 
   `docker run --name suplament-db -p 5434:5432 -e POSTGRES_DB=suplament-db -e POSTGRES_USER=suplament -e POSTGRES_PASSWORD=suplament123 postgres:14.2`
+  - `docker run --name sales_rabbit -p 5672:5672 -p 25676:25676 -p 15672:15672 rabbitmq:3-management`
+  - 
   - teste a conexão e rode o app.
 
 ### Login adm padrão

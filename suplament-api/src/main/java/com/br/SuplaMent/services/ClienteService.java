@@ -1,6 +1,6 @@
 package com.br.SuplaMent.services;
 
-import com.br.SuplaMent.domain.cliente.ClienteRepository;
+import com.br.SuplaMent.domain.pessoa.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

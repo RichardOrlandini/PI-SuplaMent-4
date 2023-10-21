@@ -1,6 +1,6 @@
 package com.br.SuplaMent.domain.pedido;
 
-import com.br.SuplaMent.domain.cliente.Cliente;
+import com.br.SuplaMent.domain.pessoa.Cliente;
 import com.br.SuplaMent.domain.produto.Produto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
