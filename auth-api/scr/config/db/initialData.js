@@ -6,14 +6,9 @@ export async function createInitialData() {
     await User.sync({ force: true });
 
     let password = await bcrypt.hash("123456", 10);
-
+    
     await User.create({
-      email: "adm@teste",
-      password: password,
-    });
-
-    await User.create({
-      email: "adm@teste",
+      email: "adm@adm",
       password: password,
     });
   } catch (err) {

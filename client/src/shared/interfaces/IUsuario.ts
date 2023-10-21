@@ -1,15 +1,25 @@
 export interface IUsuario {
     id: number;
+    message?: string;
+    ativo?: boolean;
+    nome?: string;
+    email: string;
+    senha?: string;
+    role: string;
+}
+
+export interface ICliente {
+    id: number;
     ativo: boolean;
     nome: string;
     email: string;
     senha: string;
-    role: string;
     cpf: string;
     telefone?: string;
     endereco?: IEndereco;
     avatar? : string;
 }
+
 
 export interface IEndereco {
     id: number;

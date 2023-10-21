@@ -9,7 +9,7 @@ import { CarrinhoProvider } from 'common/contexts/Carrinho';
 export function AuthRoutes() {
     return (
         <Routes>
-            <Route path='/' element={<HomeDeslogado />} />
+            <Route index path='/' element={<HomeDeslogado />} />
             <Route path='/login' element={<Signln />} />
             <Route path='/register' element={<SignUp />} />
             <Route path='/carrinho' element={<HomeDeslogado />} />

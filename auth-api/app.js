@@ -9,6 +9,13 @@ const env = process.env;
 const PORT = env.PORT || 8081;
 const CONTAINER_ENV = "container";
 
+
+import cors from "cors";
+app.use(cors());
+
+
+
+
 app.get("/", (req, res) => {
   return res.status(200).json(getOkResponse());
 });

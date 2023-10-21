@@ -20,7 +20,7 @@ export function AdmRoutes() {
                 <Route path="/admin/categorias/novo" element={<FormCategoria/>} />
                 <Route path="/admin/categorias/:id" element={<FormCategoria />} />
 
-                <Route path="/admin/produtos" element={<TableProduto />} />
+                <Route index path="/admin/produtos" element={<TableProduto />} />
                 <Route path="/admin/produtos/novo" element={<FormProduto />} />
                 <Route path="/admin/produtos/:id" element={<FormProduto />} />
                 <Route path="/profile" element={<Profile />} />
