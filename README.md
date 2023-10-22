@@ -1,7 +1,6 @@
 # PI-SuplaMent-4
 Pi 4 semestre 01
 
-
 ## Comandos Docker
 
 ### comando que para todos os containers: 
@@ -15,7 +14,6 @@ Pi 4 semestre 01
 
 - docker-compose up --build
 
-
 #### Container Auth-DB
 
 `docker run --name auth-db -p 5432:5432 -e POSTGRES_DB=auth-db -e POSTGRES_USER=suplament -e POSTGRES_PASSWORD=suplament123 postgres:14.2`
@@ -26,7 +24,7 @@ Pi 4 semestre 01
 
 #### Container Sales-DB
 
-`docker run --name sales-db -p 27017:27017 -p 28017:28017 -e MONGODB_USER="admin" -e MONGODB_DATABASE="sales" -e MONGODB_PASS="123456" -v  c:/db tutum/mongodb`
+`docker run --name sales-db -p 27017:27017 -p 28017:28017 -e MONGODB_USER="suplament" -e MONGODB_DATABASE="sales" -e MONGODB_PASS="suplament123" -v  c:/db tutum/mongodb`
 
 #### Conexão no Mongoshell
 
