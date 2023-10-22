@@ -1,17 +1,14 @@
 package com.br.SuplaMent.domain.produto;
 
+import com.br.SuplaMent.domain.aEntity.DomainEntity;
 import com.br.SuplaMent.domain.categoria.Categoria;
 import com.br.SuplaMent.domain.fornecedor.Fornecedor;
 
 import com.br.SuplaMent.domain.produto.dto.ProdutoCreateToSalesDTO;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Calendar;
-
 
 @Entity(name = "Produto")
 @Table(name = "produto")
@@ -19,18 +16,9 @@ import java.util.Calendar;
 @AllArgsConstructor
 @Data
 @Builder
-public class Produto {
+public class Produto extends DomainEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
-    @Column(name = "INSERTION_DATE", nullable = false, updatable = false)
-    private LocalDateTime insertionDate;
-
-    private Boolean active;
-
+    @Column(name = "nome", nullable = true)
     private String nome;
 
     @Column(name = "qtd", nullable = false)
@@ -48,8 +36,6 @@ public class Produto {
     //  private String descri;
 
   //  private double valor;
-
-
 
   //  private String nomeImagem;
 
@@ -90,10 +76,10 @@ public class Produto {
 //    }
 
     public void deleta() {
-        this.active = false;
+        this.setActive(false);
     }
     public void ativa() {
-        this.active = true;
+        this.setActive(true);
     }
     public static Produto of (ProdutoCreateToSalesDTO request, Fornecedor fornecedor, Categoria categoria) {
         return Produto
@@ -103,11 +89,6 @@ public class Produto {
                 .categoria(categoria)
                 .fornecedor(fornecedor)
                 .build();
-    }
-
-    @PrePersist
-    public void prePersist() {
-        this.insertionDate = LocalDateTime.now();
     }
 
     public void updateStock(Integer qtd) {

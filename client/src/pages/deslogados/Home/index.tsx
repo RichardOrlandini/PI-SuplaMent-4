@@ -25,15 +25,13 @@ export function HomeDeslogado() {
   const [proximaPagina, setProximaPagina] = useState('');
   const [paginaAnterior, setPaginaAnterior] = useState('');
   const [busca, setBusca] = useState('');
-  const token = localStorage.getItem("@suplamente:token");
-
 
   const getDados = (url: string, opcoes: AxiosRequestConfig = {}) => {
     api.get<IPaginacao<IProduto>>(url, opcoes)
       .then(resp => {
         setProdutos([...resp.data.content]);
-        setProximaPagina(resp.data.last ? '' : `/produtos?page=${resp.data.number + 1}`);
-        setPaginaAnterior(resp.data.first ? '' : `/produtos?page=${resp.data.number - 1}`);
+        setProximaPagina(resp.data.last ? '' : `/produto/index?page=${resp.data.number + 1}`);
+        setPaginaAnterior(resp.data.first ? '' : `/produto/index?page=${resp.data.number - 1}`);
       })
   }
 
@@ -54,11 +52,11 @@ export function HomeDeslogado() {
     if (busca) {
         opcoes.params.nome = busca;
     }
-    getDados('/produtos/busca', opcoes)
+    getDados('/produto/busca', opcoes)
 }
 
   useEffect(() => {
-    getDados("/produtos");
+    getDados("/produto/index");
   }, []);
 
   return (
@@ -108,8 +106,6 @@ export function HomeDeslogado() {
           <ProdutosDestaque produtos={maisVendidos} />
         </Box>
       </Box>
-
-
 
       <TagsCategorias />
       <Newsletter />

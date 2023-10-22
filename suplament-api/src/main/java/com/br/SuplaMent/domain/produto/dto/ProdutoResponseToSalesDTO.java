@@ -9,6 +9,7 @@ import lombok.*;
 
 
 import java.time.LocalDateTime;
+import java.util.Calendar;
 
 @Data
 @Builder
@@ -19,7 +20,7 @@ public class ProdutoResponseToSalesDTO {
 
     @JsonProperty("insertion_date")
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
-    private LocalDateTime insertionDate;
+    private Calendar insertionDate;
 
     private String nome;
 
