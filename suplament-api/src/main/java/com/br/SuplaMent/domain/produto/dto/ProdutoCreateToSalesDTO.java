@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 
 @Data
 public class ProdutoCreateToSalesDTO {
-
+    @JsonProperty("nome")
     private String nome;
 
     @JsonProperty("qtd")
@@ -21,4 +21,7 @@ public class ProdutoCreateToSalesDTO {
 
     @JsonProperty("categoria_id")
     private Long categoriaId;
+
+    @JsonProperty("nomeImagem")
+    private String nomeImagem;
 }

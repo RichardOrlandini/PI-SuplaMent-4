@@ -24,6 +24,8 @@ public class Produto extends DomainEntity {
     @Column(name = "qtd", nullable = false)
     private Integer qtd;
 
+    private String nomeImagem;
+
     @ManyToOne
     @JoinColumn(name = "FK_FORNECEDOR", nullable = false)
     private Fornecedor fornecedor;
@@ -86,6 +88,7 @@ public class Produto extends DomainEntity {
                 .builder()
                 .nome(request.getNome())
                 .qtd(request.getQtd())
+                .nomeImagem(request.getNomeImagem())
                 .categoria(categoria)
                 .fornecedor(fornecedor)
                 .build();

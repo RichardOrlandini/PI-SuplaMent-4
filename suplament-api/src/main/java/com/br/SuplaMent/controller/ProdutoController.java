@@ -3,6 +3,10 @@ package com.br.SuplaMent.controller;
 import com.br.SuplaMent.domain.produto.dto.*;
 import com.br.SuplaMent.services.ProdutoService;
 import lombok.AllArgsConstructor;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -14,12 +18,31 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("produto")
 public class ProdutoController {
 
-    private static String caminhoImagens = "..api/src/main/resources/imagens";
+    private static String pathImages = "src/main/resources/imagens/";
 
     private final ProdutoService produtoService;
 
     @PostMapping
-    public ProdutoResponseToSalesDTO save(@RequestBody ProdutoCreateToSalesDTO request) {
+    public ProdutoResponseToSalesDTO save(
+            @RequestParam("imagem") MultipartFile file,
+            @RequestParam("json") String json) {
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        ProdutoCreateToSalesDTO request = null;
+        try {
+            request = objectMapper.readValue(json, ProdutoCreateToSalesDTO.class);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        try {
+            if (!file.isEmpty()) {
+                byte[] imagemEmBytes = file.getBytes();
+                Path caminhoCompleto = Paths.get(pathImages + String.valueOf(request.getNomeImagem()) + file.getOriginalFilename());
+                Files.write(caminhoCompleto, imagemEmBytes);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return produtoService.save(request);
     }
 

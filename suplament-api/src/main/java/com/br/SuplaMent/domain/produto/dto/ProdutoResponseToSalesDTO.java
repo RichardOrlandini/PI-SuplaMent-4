@@ -30,6 +30,8 @@ public class ProdutoResponseToSalesDTO {
 
     private CategoriaResponse categoria;
 
+    private String nomeImagem;
+
     public static ProdutoResponseToSalesDTO of(Produto produto) {
         return ProdutoResponseToSalesDTO
                 .builder()
