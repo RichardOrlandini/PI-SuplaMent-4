@@ -1,14 +1,15 @@
 package com.br.SuplaMent.services;
 
 import com.br.SuplaMent.domain.pessoa.ClienteRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
+@AllArgsConstructor
 public class ClienteService {
 
-    @Autowired
-    private ClienteRepository clienteRepository;
+
+    private final ClienteRepository clienteRepository;
 
 //    public Cliente cadastrarCliente(CadastroClienteDTO dto ) {
 //        if (clienteRepository.findByEmail(dto.email()) != null) {

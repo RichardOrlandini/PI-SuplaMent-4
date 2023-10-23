@@ -5,23 +5,22 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Slf4j
 @Component
+@RequiredArgsConstructor
 public class SalesConfirmadaSender {
 
-    @Autowired
-    private RabbitTemplate rabbitTemplate;
+    private final RabbitTemplate rabbitTemplate;
+    private final ObjectMapper objectMapper;
 
     @Value("${rabbit.exchange.product}")
     private String productTopicExchange;
 
     @Value("${rabbit.routingKey.sales-confirmation}")
     private String salesConfirmadaKey;
-
 
     public void sendSalesConfirmationMessage(SalesConfirmationDTO message) {
 

@@ -6,17 +6,18 @@ import com.br.SuplaMent.domain.pessoa.dto.DetalhamentoInicialUsuarioDTO;
 import com.br.SuplaMent.domain.pessoa.dto.DetalhamentoUsuarioDTO;
 import com.br.SuplaMent.services.UsuarioService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
+@AllArgsConstructor
 @RequestMapping("/usuario")
 public class UsuarioController {
-    @Autowired
-    private UsuarioService service;
+
+    private final UsuarioService service;
 
     @PostMapping
     @Transactional

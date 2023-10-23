@@ -9,23 +9,23 @@ export interface IUsuario {
 }
 
 export interface ICliente {
-    id: number;
-    ativo: boolean;
-    nome: string;
-    email: string;
-    senha: string;
+    id?: number;
+    ativo?: boolean;
+    email: string,
+    nome: string,
+    senha: string,
+    endereco: IEndereco,
     cpf: string;
     telefone?: string;
-    endereco?: IEndereco;
     avatar? : string;
 }
 
 
 export interface IEndereco {
-    id: number;
-    complemento: string;
-    numero: string;
-    logradouro: string;
-    bairro: string;
-    cep: string;
+    id?: number,
+    cep: string,
+    rua: string,
+    numero: string,
+    complemento: string,
+    estado: string
 }

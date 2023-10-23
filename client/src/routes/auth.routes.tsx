@@ -1,6 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 import { Signln } from '../pages/deslogados/Signln';
-import { SignUp } from '../pages/deslogados/SignUp';
+import { Cadastro } from '../pages/deslogados/Cadastro';
 import { HomeDeslogado } from 'pages/deslogados/Home';
 import { UsuarioProvider } from 'common/contexts/Usuario';
 import { PagamentoProvider } from 'common/contexts/Pagamento';
@@ -11,7 +11,7 @@ export function AuthRoutes() {
         <Routes>
             <Route index path='/' element={<HomeDeslogado />} />
             <Route path='/login' element={<Signln />} />
-            <Route path='/register' element={<SignUp />} />
+            <Route path='/register' element={<Cadastro />} />
             <Route path='/carrinho' element={<HomeDeslogado />} />
         </Routes>
     )

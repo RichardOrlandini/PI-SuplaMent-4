@@ -2,7 +2,7 @@ package com.br.SuplaMent.controller;
 
 import com.br.SuplaMent.domain.produto.dto.*;
 import com.br.SuplaMent.services.ProdutoService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -10,13 +10,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@AllArgsConstructor
 @RequestMapping("produto")
 public class ProdutoController {
 
     private static String caminhoImagens = "..api/src/main/resources/imagens";
 
-    @Autowired
-    private ProdutoService produtoService;
+    private final ProdutoService produtoService;
 
     @PostMapping
     public ProdutoResponseToSalesDTO save(@RequestBody ProdutoCreateToSalesDTO request) {
@@ -66,6 +66,19 @@ public class ProdutoController {
     public ResponseEntity<ProdutoResponseToSalesDTO> update(@RequestBody ProdutoCreateToSalesDTO request, @PathVariable Long id) {
         return ResponseEntity.ok(produtoService.update(request, id));
     }
+
+    @DeleteMapping("delete/{id}")
+    public ResponseEntity delete(@PathVariable Long id) {
+        return produtoService.delete(id);
+    }
+
+
+    //   TODO rodrigo faz ai mano:
+//    @PostMapping("inativar/{id}")
+//    public ResponseEntity inativar(@PathVariable Long id) {
+//        return produtoService.inativar(id);
+//    }
+
 }
 
 //

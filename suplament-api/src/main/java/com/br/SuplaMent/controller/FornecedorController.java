@@ -8,7 +8,7 @@ import com.br.SuplaMent.domain.produto.dto.ListagemProdutoDTO;
 import com.br.SuplaMent.domain.produto.dto.ProdutoResponseToSalesDTO;
 import com.br.SuplaMent.services.CategoriaService;
 import com.br.SuplaMent.services.FornecedorService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -16,11 +16,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@AllArgsConstructor
+
 @RequestMapping("/fornecedor")
 public class FornecedorController {
 
-    @Autowired
-    private FornecedorService fornecedorService;
+
+    private final FornecedorService fornecedorService;
 
     @PostMapping
     public FornecedorResponseDTO save(@RequestBody FornecedorCreateDTO request) {
@@ -46,5 +48,10 @@ public class FornecedorController {
     @PutMapping("{id}")
     public ResponseEntity<FornecedorResponseDTO> update(@RequestBody FornecedorCreateDTO request, @PathVariable Long id) {
         return ResponseEntity.ok(fornecedorService.update(request, id));
+    }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity delete(@PathVariable Long id) {
+        return ResponseEntity.ok(fornecedorService.delete(id));
     }
 }

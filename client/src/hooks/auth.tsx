@@ -52,7 +52,7 @@ function AuthProvider({ children }: AuthProviderProps) {
           setData({ token: accessToken, user: dataApi });
 
           const navigate = useNavigate();
-          navigate("/produtos");
+          navigate("/");
         }
       }
     } catch (error: any) {

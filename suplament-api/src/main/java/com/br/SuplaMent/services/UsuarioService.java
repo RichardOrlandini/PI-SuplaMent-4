@@ -4,15 +4,16 @@ import com.br.SuplaMent.domain.pessoa.Usuario;
 import com.br.SuplaMent.domain.pessoa.UsuarioRepository;
 import com.br.SuplaMent.domain.pessoa.dto.CadastroInicialDTO;
 import com.br.SuplaMent.infra.exception.ValidationExcepetion;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
+@AllArgsConstructor
 public class UsuarioService {
-    @Autowired
-    private UsuarioRepository repository;
+
+    private final UsuarioRepository repository;
 
     public Usuario create(CadastroInicialDTO dto) {
         this.validaIdExistente(Long.valueOf(dto.id()));

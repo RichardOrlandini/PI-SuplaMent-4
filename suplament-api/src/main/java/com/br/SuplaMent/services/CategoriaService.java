@@ -4,26 +4,25 @@ import com.br.SuplaMent.domain.categoria.Categoria;
 import com.br.SuplaMent.domain.categoria.CategoriaRepository;
 import com.br.SuplaMent.domain.categoria.dto.CategoriaRequest;
 import com.br.SuplaMent.domain.categoria.dto.CategoriaResponse;
-import com.br.SuplaMent.domain.fornecedor.Fornecedor;
-import com.br.SuplaMent.domain.fornecedor.dto.FornecedorCreateDTO;
-import com.br.SuplaMent.domain.fornecedor.dto.FornecedorResponseDTO;
 import com.br.SuplaMent.infra.exception.ValidationExcepetion;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 import static org.springframework.util.ObjectUtils.isEmpty;
 
 
 @Service
+@AllArgsConstructor(onConstructor_ = {@Lazy})
 public class CategoriaService {
 
-    @Autowired
-    private CategoriaRepository categoriaRepository;
+    private final CategoriaRepository categoriaRepository;
+
+    @Lazy
+    private final ProdutoService produtoService;
 
     public CategoriaResponse findByIdResponse(Long id) {
         return CategoriaResponse.of(this.findById(id));
@@ -59,6 +58,15 @@ public class CategoriaService {
         this.validacaoCategoriaNomeInformado(req);
         var categoria = categoriaRepository.save(Categoria.of(req));
         return CategoriaResponse.of(categoria);
+    }
+
+    public ResponseEntity delete(Long id) {
+        this.validacaoIdInformado(id);
+        if (produtoService.existsByCategoriaId(id)) {
+            throw new ValidationExcepetion("You cannot delete this category because it's already defined by a product.");
+        }
+        categoriaRepository.deleteById(id);
+        return ResponseEntity.ok("A categoria foi deletada.");
     }
 
     private void validacaoCategoriaNomeInformado(CategoriaRequest request) {
