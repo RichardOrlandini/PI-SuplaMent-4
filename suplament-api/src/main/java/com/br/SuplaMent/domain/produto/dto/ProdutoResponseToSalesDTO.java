@@ -42,11 +42,7 @@ public class ProdutoResponseToSalesDTO {
                 .fornecedor(FornecedorResponseDTO.of(produto.getFornecedor()))
                 .categoria(CategoriaResponse.of(produto.getCategoria()))
                 .build();
-
-
     }
 }
 
-//        var response = new ProdutoResponseToSalesDTO();
-//
 
