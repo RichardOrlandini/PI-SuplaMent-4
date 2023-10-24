@@ -2,7 +2,6 @@ import { Card, CardContent, CardMedia, Typography } from '@material-ui/core';
 import { IconButton } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
-
 import { memo, useContext } from 'react';
 import { useCarrinhoContext } from 'common/contexts/Carrinho';
 import { UsuarioContext } from 'common/contexts/Usuario';
@@ -12,14 +11,16 @@ const Produto: React.FC<IProduto> = (produto: IProduto) => {
   const { carrinho, adicionarProduto, removerProduto, valorTotal } = useCarrinhoContext();
   const { saldo } = useContext(UsuarioContext);
 
+ const  pathImages = "../../../public/images";
+ 
   const itemNoCarrinho = carrinho.find(item => item.id === produto.id);
-
+  console.log(`${pathImages}/${produto.nomeImagem}`);
 
   return (
     <Card>
       <CardMedia
         component="img"
-        image={`/assets/${produto.imagem}.png`}
+        image={`${pathImages}/${produto.nomeImagem}`}
         alt={`foto de ${produto.nome}`}
       />
       <CardContent>
@@ -39,7 +40,7 @@ const Produto: React.FC<IProduto> = (produto: IProduto) => {
         <IconButton
           onClick={() => adicionarProduto({
             nome: produto.nome,
-            imagem: produto.imagem,
+            imagem: produto.nomeImagem,
             id: produto.id,
             valor: Number(produto.valor),
             quantidade: Number(produto.qtd)

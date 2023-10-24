@@ -26,13 +26,12 @@ export function TableProduto() {
         api.get<IPaginacao<IProduto>>(url, opcoes)
             .then(resp => {
                 setProdutos([...resp.data.content]);
-                setProximaPagina(resp.data.last ? '' : `/produtos?page=${resp.data.number + 1}`);
-                setPaginaAnterior(resp.data.first ? '' : `/produtos?page=${resp.data.number - 1}`);
+                setProximaPagina(resp.data.last ? '' : `/produto/index?page=${resp.data.number + 1}`);
+                setPaginaAnterior(resp.data.first ? '' : `/produto/index?page=${resp.data.number - 1}`);
             })
             .catch(e => {
                 if (e.message && e.code === "ERR_BAD_REQUEST") {
-                    alert(`Token de acesso inspirado ou inválido, faça login novamente`)
-                    context?.signOut();
+                    alert(`Erro ao executar request`)
                     navigate("/");
                 }
             })
@@ -55,11 +54,11 @@ export function TableProduto() {
         if (busca) {
             opcoes.params.nome = busca;
         }
-        getDados('/produtos/busca', opcoes)
+        getDados('/produto/busca', opcoes)
     }
 
     const excluir = (produtoAhSerExcluido: IProduto) => {
-        api.delete(`/produtos/${produtoAhSerExcluido.id}`)
+        api.delete(`/produto/${produtoAhSerExcluido.id}`)
             .then((resp) => {
                 console.log(resp)
                 const produtosFiltrados = produtos.filter(produto => produto.id !== produtoAhSerExcluido.id);
@@ -71,7 +70,7 @@ export function TableProduto() {
 
 
     useEffect(() => {
-        getDados("/produtos");
+        getDados("/produto/index");
     }, []);
 
 
