@@ -3,7 +3,6 @@ package com.br.SuplaMent.services;
 import com.br.SuplaMent.domain.produto.Produto;
 import com.br.SuplaMent.domain.produto.ProdutoRepository;
 import com.br.SuplaMent.domain.produto.dto.*;
-import com.br.SuplaMent.domain.venda.client.SalesClient;
 import com.br.SuplaMent.domain.venda.client.SalesService;
 import com.br.SuplaMent.domain.venda.dto.SalesConfirmationDTO;
 import com.br.SuplaMent.domain.venda.dto.SalesProductResponse;
@@ -257,13 +256,13 @@ public class ProdutoService {
                     productId, transactionid, serviceid);
             var response = salesService
                     .findSalesByProductId(productId, token, transactionid)
-                    .orElseThrow(() -> new ValidationExcepetion("The sales was not found by this product."));
+                    .orElseThrow(() -> new ValidationExcepetion("As vendas não foram encontradas para este produto."));
             log.info("Recebendo response de orders by productId com data {} | [transactionID: {} | serviceID: {}]",
                     objectMapper.writeValueAsString(response), transactionid, serviceid);
             return null;
         } catch (Exception ex) {
-            log.error("Error trying to call Sales-API: {}", ex.getMessage());
-            throw new ValidationExcepetion("The sales could not be found.");
+            log.error("Erro ao tentar chamar Sales-API: {}", ex.getMessage());
+            throw new ValidationExcepetion("As vendas não foram encontradas.");
         }
     }
 
