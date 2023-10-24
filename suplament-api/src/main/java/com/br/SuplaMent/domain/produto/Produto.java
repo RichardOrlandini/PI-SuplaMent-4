@@ -1,14 +1,12 @@
 package com.br.SuplaMent.domain.produto;
 
-import com.br.SuplaMent.domain.aEntity.DomainEntity;
+import com.br.SuplaMent.utils.aEntity.DomainEntity;
 import com.br.SuplaMent.domain.categoria.Categoria;
 import com.br.SuplaMent.domain.fornecedor.Fornecedor;
 
 import com.br.SuplaMent.domain.produto.dto.ProdutoCreateToSalesDTO;
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.time.LocalDateTime;
 
 @Entity(name = "Produto")
 @Table(name = "produto")

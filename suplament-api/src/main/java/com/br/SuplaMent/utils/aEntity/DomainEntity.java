@@ -1,4 +1,4 @@
-package com.br.SuplaMent.domain.aEntity;
+package com.br.SuplaMent.utils.aEntity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;

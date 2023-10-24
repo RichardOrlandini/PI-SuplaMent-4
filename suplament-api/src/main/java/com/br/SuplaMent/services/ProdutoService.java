@@ -4,6 +4,7 @@ import com.br.SuplaMent.domain.produto.Produto;
 import com.br.SuplaMent.domain.produto.ProdutoRepository;
 import com.br.SuplaMent.domain.produto.dto.*;
 import com.br.SuplaMent.domain.venda.client.SalesClient;
+import com.br.SuplaMent.domain.venda.client.SalesService;
 import com.br.SuplaMent.domain.venda.dto.SalesConfirmationDTO;
 import com.br.SuplaMent.domain.venda.dto.SalesProductResponse;
 import com.br.SuplaMent.domain.venda.enums.SalesStatus;
@@ -38,7 +39,7 @@ public class ProdutoService {
     private final CategoriaService categoriaService;
     private final FornecedorService fornecedorService;
     private final SalesConfirmadaSender salesConfirmadaSender;
-    private final SalesClient salesClient;
+    private final SalesService salesService;
 
     public Page findByCategorias(Pageable pageable, Long categoriaId) {
         if (isEmpty(categoriaId)) {
@@ -103,17 +104,30 @@ public class ProdutoService {
     public ProdutoSalesResponse findProductsSales(Long id) {
         var produto = this.findById(id);
         var sales = getSalesByProductId(produto.getId());
-        return ProdutoSalesResponse.of(produto, sales.getSalesId());
+        return ProdutoSalesResponse.of(produto, sales.getSalesIds());
     }
 
     public ResponseEntity checkProdutosStoque(ProdutoCheckStoqueRequest request) {
-        if (isEmpty(request) || isEmpty(request.getProdutos())){
-            throw new ValidationExcepetion("Nenhuma data informada na request.");
+        try {
+            var currenteRequest = getCurrentRequest();
+            var transactionid = currenteRequest.getHeader(TRANSACTION_ID);
+            var serviceID = currenteRequest.getAttribute(SERVICE_ID);
+
+            log.info("Request de POST produto, com data: {} | [transactionid: {} | serviceID: {}] ",
+                    new ObjectMapper().writeValueAsString(request), transactionid, serviceID);
+            if (isEmpty(request) || isEmpty(request.getProdutos())){
+                throw new ValidationExcepetion("Nenhuma data informada na request.");
+            }
+            request.getProdutos()
+                    .forEach(this::validateStoque);
+            var response =  ResponseEntity.ok("O estoque está ok");
+            log.info("Response de POST produto, com data: {} | [transactionid: {} | serviceID: {}] ",
+                    new ObjectMapper().writeValueAsString(response), transactionid, serviceID);
+            return response;
+        } catch (Exception e) {
+
+            throw new ValidationExcepetion(e.getMessage());
         }
-        request
-                .getProdutos()
-                .forEach(this::validateStoque);
-        return ResponseEntity.ok("O estoque está ok");
     }
 
 
@@ -159,7 +173,7 @@ public class ProdutoService {
             this.atualizaStock(dto);
         } catch (Exception ex) {
             log.error("Erro na tentativa de atualizar o stoque do produto, erro {}", ex.getMessage(), ex);
-            var rejectedMessage = new SalesConfirmationDTO(dto.getSalesId(), SalesStatus.REJEITADA);
+            var rejectedMessage = new SalesConfirmationDTO(dto.getSalesId(), SalesStatus.REJEITADA, dto.getTransactionid());
             salesConfirmadaSender.sendSalesConfirmationMessage(rejectedMessage);
         }
     }
@@ -180,7 +194,7 @@ public class ProdutoService {
 
         if (!isEmpty(produtosParaAtualizarStoque)) {
             produtoRepository.saveAll(produtosParaAtualizarStoque);
-            var mensagemAprovada = new SalesConfirmationDTO(dto.getSalesId(), SalesStatus.APROVADA);
+            var mensagemAprovada = new SalesConfirmationDTO(dto.getSalesId(), SalesStatus.APROVADA, dto.getTransactionid());
             salesConfirmadaSender.sendSalesConfirmationMessage(mensagemAprovada);
         }
     }
@@ -225,7 +239,7 @@ public class ProdutoService {
         }
 
         var sales = getSalesByProductId(id);
-        if (!isEmpty(sales.getSalesId())) {
+        if (!isEmpty(sales.getSalesIds())) {
             throw new ValidationExcepetion("O produto não pode ser apagado, Existe uma venda atrelada a ele.");
         }
         produtoRepository.deleteById(id);
@@ -239,12 +253,12 @@ public class ProdutoService {
             var transactionid = currentRequest.getHeader(TRANSACTION_ID);
             var serviceid = currentRequest.getAttribute(SERVICE_ID);
 
-            log.info("Sending GET request to orders by productId with data {} | [transactionID: {} | serviceID: {}]",
+            log.info("Mandando GET Request de orders by productId, com data: {} | [transactionid: {} | serviceID: {}] ",
                     productId, transactionid, serviceid);
-            var response = salesClient
+            var response = salesService
                     .findSalesByProductId(productId, token, transactionid)
                     .orElseThrow(() -> new ValidationExcepetion("The sales was not found by this product."));
-            log.info("Recieving response from orders by productId with data {} | [transactionID: {} | serviceID: {}]",
+            log.info("Recebendo response de orders by productId com data {} | [transactionID: {} | serviceID: {}]",
                     objectMapper.writeValueAsString(response), transactionid, serviceid);
             return null;
         } catch (Exception ex) {

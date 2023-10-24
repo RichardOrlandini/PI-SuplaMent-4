@@ -13,4 +13,5 @@ public class ProdutoStoqueDTO {
 
     private String salesId;
     private List<ProdutoQuantidadeDTO> produtos;
+    private String transactionid;
 }

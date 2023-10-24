@@ -1,6 +1,6 @@
 package com.br.SuplaMent.domain.pessoa;
 
-import com.br.SuplaMent.domain.aEntity.DomainEntity;
+import com.br.SuplaMent.utils.aEntity.DomainEntity;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;

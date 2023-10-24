@@ -14,7 +14,6 @@ import org.springframework.stereotype.Component;
 public class SalesConfirmadaSender {
 
     private final RabbitTemplate rabbitTemplate;
-    private final ObjectMapper objectMapper;
 
     @Value("${rabbit.exchange.product}")
     private String productTopicExchange;

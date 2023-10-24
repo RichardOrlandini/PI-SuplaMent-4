@@ -1,4 +1,4 @@
-package com.br.SuplaMent.domain.aEntity;
+package com.br.SuplaMent.utils.aEntity;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.NoRepositoryBean;

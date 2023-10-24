@@ -1,32 +1,21 @@
 package com.br.SuplaMent.infra.security.interceptor;
 
-import com.br.SuplaMent.infra.exception.ValidationExcepetion;
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
-import jakarta.servlet.http.HttpServletRequest;
-import org.springframework.stereotype.Component;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
+
+import static com.br.SuplaMent.infra.security.GetRequestUtil.getCurrentRequest;
+
 public class FeignClientAuthInterceptor implements RequestInterceptor {
 
     private static final String AUTHORIZATION = "Authorization";
+    private static final String TRANSACTION_ID = "transactionid";
+
     @Override
     public void apply(RequestTemplate requestTemplate) {
-        var currentRequest = this.getCurrentRequest();
+        var currentRequest = getCurrentRequest();
         requestTemplate
-                .header(AUTHORIZATION, currentRequest.getHeader(AUTHORIZATION));
-    }
-
-    private HttpServletRequest getCurrentRequest() {
-
-        try {
-            return  ((ServletRequestAttributes) RequestContextHolder
-                    .getRequestAttributes())
-                    .getRequest();
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new ValidationExcepetion("A Requisição atual não foi processada.");
-        }
+                .header(AUTHORIZATION, currentRequest.getHeader(AUTHORIZATION))
+                .header(TRANSACTION_ID, currentRequest.getHeader(TRANSACTION_ID));
 
     }
 }
