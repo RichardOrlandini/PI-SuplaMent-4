@@ -12,18 +12,18 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/categoria")
+@RequestMapping("categoria")
 public class CategoriaController {
 
     private final CategoriaService categoriaService;
 
-    @PostMapping
+    @PostMapping("admin")
     public ResponseEntity<CategoriaResponse> save(@RequestBody CategoriaRequest request) {
         return ResponseEntity.ok(categoriaService.save(request));
     }
 
     @GetMapping
-    public ResponseEntity<Page<CategoriaResponse>> findAll(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
+    public ResponseEntity<Page<CategoriaResponse>> findAll(@PageableDefault(size = 10, sort = {"descricao"}) Pageable paginacao) {
         var page = categoriaService.findAll(paginacao);
         return ResponseEntity.ok(page);
     }

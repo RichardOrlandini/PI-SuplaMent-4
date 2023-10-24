@@ -16,6 +16,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 
 @RestController
@@ -23,10 +25,9 @@ import java.nio.file.Paths;
 @RequestMapping("produto")
 public class ProdutoController {
 
-    private static String pathImages = "src/main/resources/imagens/";
+    private static String pathImages = "client/public/images/";
 
     private final ProdutoService produtoService;
-
     @PostMapping
     public ProdutoResponseToSalesDTO save(
             @RequestParam("imagem") MultipartFile file,
@@ -42,8 +43,13 @@ public class ProdutoController {
         try {
             if (!file.isEmpty()) {
                 byte[] imagemEmBytes = file.getBytes();
-                Path caminhoCompleto = Paths.get(pathImages + String.valueOf(request.getNomeImagem()) + file.getOriginalFilename());
+                String timeStamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
+                String nomeImagem = String.valueOf(request.getNomeImagem()) + timeStamp+ "_" + file.getOriginalFilename();
+                nomeImagem = nomeImagem.replace(" ", ""); // Remove espaços
+                Path caminhoCompleto = Paths.get(pathImages + nomeImagem);
+                Files.createDirectories(caminhoCompleto.getParent()); // Isso garantirá que o diretório exista
                 Files.write(caminhoCompleto, imagemEmBytes);
+                request.setNomeImagem(nomeImagem);
             }
         } catch (IOException e) {
             e.printStackTrace();

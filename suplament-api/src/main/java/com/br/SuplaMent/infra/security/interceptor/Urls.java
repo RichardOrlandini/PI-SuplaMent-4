@@ -9,6 +9,6 @@ public class Urls {
 //            "api/categoria"
 //    );
     public static final List<String> PROTECTED_URLS = List.of(
-            "api/categoria"
+            "api/categoria/admin"
     );
 }
