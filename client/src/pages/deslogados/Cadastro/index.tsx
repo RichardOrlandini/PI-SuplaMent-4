@@ -67,9 +67,10 @@ export  function Cadastro() {
         if (etapaAtiva !== 0) {
             try {
                 cadastrarDados({url: 'cliente', dados: cliente});
+                alert(sucesso)
                 navigate('/login');
-            } catch (erro) {
-                erro && alert('Erro ao cadastrar os dados');
+            } catch (e) {
+                e && alert('Erro ao cadastrar os dados: ' + erro);
             }
         }
 

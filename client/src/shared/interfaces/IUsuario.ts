@@ -8,6 +8,28 @@ export interface IUsuario {
     role: string;
 }
 
+export interface CreateDataAuthApi {
+    status: number,
+    newUser: {
+        id: number;
+        email: string;
+        password: string;
+    }
+}
+
+export interface LoginDataAuthAPi {
+    status: number;
+    accessToken: string;
+    message?: string;
+}
+
+export interface ILogin {
+    email: string;
+    senha: string;
+    token?: string;
+}
+
+
 export interface ICliente {
     id?: number;
     ativo?: boolean;
@@ -17,7 +39,7 @@ export interface ICliente {
     endereco: IEndereco,
     cpf: string;
     telefone?: string;
-    avatar? : string;
+    avatar?: string;
 }
 
 

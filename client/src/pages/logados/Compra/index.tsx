@@ -2,7 +2,7 @@
 
 
 
-export default function HomeLogado() {
+export default function Compra() {
 
 
 

@@ -1,14 +1,17 @@
 import { makeObservable, observable, action } from "mobx";
 
 interface IUser {
+    id: number | null,
     email: string,
-    token: string
+    token: string,
+    role: string,
+
 }
 
 class AutenticaStore {
 
     isAuthenticated = false;
-    user: IUser = {email : "", token: ""}
+    user: IUser = {id : null, email : "", token: "", role: ""}
 
     constructor() {
         makeObservable(this, {
@@ -19,14 +22,14 @@ class AutenticaStore {
         });
     }
 
-    login({email, token} : IUser) {
+    login({id, email, token, role} : IUser) {
         this.isAuthenticated = true;
-        this.user = {email, token};
+        this.user = {id,email, token, role};
     }
 
     logout() {
         this.isAuthenticated = false;
-        this.user = {email: "", token: ""}
+        this.user = {id : null, email: "", token: "", role: ""}
     }
 }
 
