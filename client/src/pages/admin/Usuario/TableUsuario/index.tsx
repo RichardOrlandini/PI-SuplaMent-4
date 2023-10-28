@@ -9,7 +9,6 @@ import { api } from "../../../../services/api";
 import { Link as RouterLink, useNavigate } from 'react-router-dom'
 import { IPaginacao } from "../../../../shared/interfaces/IPaginacao";
 import { IUsuario } from "../../../../shared/interfaces/IUsuario";
-import { useAuth } from "../../../../hooks/auth";
 import { IParametrosBusca } from "../../../../shared/interfaces/IParametrosBusca";
 import { AxiosRequestConfig } from "axios";
 

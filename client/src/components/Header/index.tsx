@@ -1,19 +1,19 @@
 
 import { RiShutDownLine } from 'react-icons/ri';
-import { useAuth } from '../../hooks/auth';
 import { Container, Profile, Logout } from "./styled";
 import { Outlet, useNavigate } from 'react-router-dom';
 import avatarPlaceholder from "../../assets/avatarPlaceholder.svg";
+import autenticaStore from 'common/stores/authentica.store';
 
 export function Header() {
 
-    const context = useAuth();
-    const usuario = context?.data?.user;
+    
+    const usuario = autenticaStore.user;
     const navigation = useNavigate();
 
     function handleSignOut() {
         alert("Sessão terminada!");
-        context?.signOut();
+        autenticaStore.logout();
         navigation("/");
     }
 
@@ -25,7 +25,7 @@ export function Header() {
                 <Profile to="/profile">
                     <img
                         src={avatarUrl}
-                        alt={usuario?.nome}
+                        alt={usuario.nome}
                     />
 
                     <div>

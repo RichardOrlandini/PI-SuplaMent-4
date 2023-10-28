@@ -8,6 +8,16 @@ export interface IUsuario {
     role: string;
 }
 
+export interface IUsuarioContext {
+    id: number | null;
+    message?: string;
+    nome?: string;
+    email: string;
+    role: string;
+    token?: string;
+    avatar?: string;
+}
+
 export interface CreateDataAuthApi {
     status: number,
     newUser: {

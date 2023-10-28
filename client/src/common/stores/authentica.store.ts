@@ -1,17 +1,11 @@
 import { makeObservable, observable, action } from "mobx";
+import { IUsuarioContext } from "shared/interfaces/IUsuario";
 
-interface IUser {
-    id: number | null,
-    email: string,
-    token: string,
-    role: string,
-
-}
 
 class AutenticaStore {
 
     isAuthenticated = false;
-    user: IUser = {id : null, email : "", token: "", role: ""}
+    user: IUsuarioContext = {id : null, email : "", token: "", role: "", nome: "", avatar: ""}
 
     constructor() {
         makeObservable(this, {
@@ -22,14 +16,14 @@ class AutenticaStore {
         });
     }
 
-    login({id, email, token, role} : IUser) {
+    login(user : IUsuarioContext) {
         this.isAuthenticated = true;
-        this.user = {id,email, token, role};
+        this.user = user;
     }
 
     logout() {
         this.isAuthenticated = false;
-        this.user = {id : null, email: "", token: "", role: ""}
+        this.user = {id : null, email: "", token: "", role: "",  nome: "", message: "", avatar: ""}
     }
 }
 

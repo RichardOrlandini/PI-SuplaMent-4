@@ -8,16 +8,15 @@ import {
 
 
 import { Container, Form, Avatar } from "./style";
-import { useAuth } from "../../../hooks/auth";
 import { useState } from "react";
 import { api } from "../../../services/api";
+import autenticaStore from "common/stores/authentica.store";
 
 export function Profile() {
-    const context = useAuth();
-    const user = context?.data?.user;
+    const user = autenticaStore.user;
 
     const [nome, setNome] = useState(user?.nome);
-    const [senha, setSenha] = useState(user?.senha);
+    const [senha, setSenha] = useState("");
     const [novaSenha, setNovaSenha] = useState("");
 
     const avatarUrl = user?.avatar ? `${api.defaults.baseURL}/files/${user.avatar}` : avatarPlaceholder;

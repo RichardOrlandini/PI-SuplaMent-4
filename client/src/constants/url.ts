@@ -14,3 +14,9 @@ export const HOST_AUTH = "8081";
 export const CREATE_ATUH_API = "http://localhost:8081/api/user";
 export const API = "http://localhost:8080/api";
 export const HOST_API = "8080";
+
+
+export enum Role {
+    ADMIN = "ADMIN",
+    USER = "CLIENT",
+}

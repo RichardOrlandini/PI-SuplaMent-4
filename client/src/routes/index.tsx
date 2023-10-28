@@ -21,43 +21,45 @@ import { BrowserRouter } from 'react-router-dom';
 import { PagamentoProvider } from 'common/contexts/Pagamento';
 import { UsuarioProvider } from 'common/contexts/Usuario';
 import { CarrinhoProvider } from 'common/contexts/Carrinho';
+import { LoginAdm } from 'pages/deslogados/LoginAdm';
 
 
-export function AuthRoutes() {
+export function RoutesApp() {
     return (
 
         <BrowserRouter>
             <Routes>
 
+
+//rotas de login
                 <Route path="/" element={<BaseForm />}>
                     <Route index path="/login" element={<Signln />} />
+                    <Route index path="/adm/login" element={<LoginAdm />} />
                     <Route path="/cadastro" element={<Cadastro />} />
                 </Route>
 
 
+//rotas que eu quero que o base page fica pra todas paginas :
+
+        //rotas de cliente 
                 <Route path="/" element={<BasePage />}>
                     <Route index element={<Home />} />
 
-                    <PagamentoProvider>
-                        <UsuarioProvider>
-                            <CarrinhoProvider>
-                                <Route element={<RotaPrivadaCliente />}>
-                                    <Route path="/app" element={<ToggleBar />}>
-                                        <Route path="/compra" element={<Compra />} />
-                                        <Route path="/pedidos" element={<Pedidos />} />
-                                    </Route>
-                                </Route>
+                    <Route element={<RotaPrivadaCliente />}>
+                        <Route path="/" element={<ToggleBar />}>
+                            <Route path="/app/compra" element={<Compra />} />
+                            <Route path="/app/pedidos" element={<Pedidos />} />
+                        </Route>
+                    </Route>
 
 
-                                <Route element={<RoutePrivateGlobal />}>
-                                    <Route path="/perfil" element={<Profile />} />
-                                </Route>
-                            </CarrinhoProvider>
-                        </UsuarioProvider>
-                    </PagamentoProvider>
+                    <Route element={<RoutePrivateGlobal />}>
+                        <Route path="/perfil" element={<Profile />} />
+                    </Route>
 
 
-                    <Route path='/admin' element={<RotaPrivadaAdmin />}>
+// rotas de admin: 
+                     <Route path='/admin' element={<RotaPrivadaAdmin />}>
                         <Route path="/usuarios" element={<TableUsuario />} />
                         <Route path="/usuarios/novo" element={<FormUsuario />} />
                         <Route path="/usuarios/:id" element={<FormUsuario />} />
@@ -71,8 +73,14 @@ export function AuthRoutes() {
                         <Route path="/produtos/:id" element={<FormProduto />} />
                     </Route>
                 </Route>
+
             </Routes>
         </BrowserRouter>
     )
 }
 
+
+
+//
+
+<Route path="*" component={Error404Container} />

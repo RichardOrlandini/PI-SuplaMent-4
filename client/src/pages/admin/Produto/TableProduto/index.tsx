@@ -6,7 +6,6 @@ import { useEffect, useState } from "react"
 import { IProduto } from "../../../../shared/interfaces/IProduto"
 import { api } from "../../../../services/api";
 import { Link as RouterLink, useNavigate } from 'react-router-dom'
-import { useAuth } from "../../../../hooks/auth";
 import { IPaginacao } from "../../../../shared/interfaces/IPaginacao";
 import { AxiosRequestConfig } from "axios";
 import { IParametrosBusca } from "../../../../shared/interfaces/IParametrosBusca";
@@ -19,7 +18,6 @@ export function TableProduto() {
     const [paginaAnterior, setPaginaAnterior] = useState('');
     const [busca, setBusca] = useState('');
 
-    const context = useAuth();
     const navigate = useNavigate();
 
     const getDados = (url: string, opcoes: AxiosRequestConfig = {}) => {
