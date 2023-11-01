@@ -45,9 +45,9 @@ public class ProdutoController {
                 byte[] imagemEmBytes = file.getBytes();
                 String timeStamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
                 String nomeImagem = String.valueOf(request.getNomeImagem()) + timeStamp+ "_" + file.getOriginalFilename();
-                nomeImagem = nomeImagem.replace(" ", ""); // Remove espaços
+                nomeImagem = nomeImagem.replace(" ", "");
                 Path caminhoCompleto = Paths.get(pathImages + nomeImagem);
-                Files.createDirectories(caminhoCompleto.getParent()); // Isso garantirá que o diretório exista
+                Files.createDirectories(caminhoCompleto.getParent());
                 Files.write(caminhoCompleto, imagemEmBytes);
                 request.setNomeImagem(nomeImagem);
             }

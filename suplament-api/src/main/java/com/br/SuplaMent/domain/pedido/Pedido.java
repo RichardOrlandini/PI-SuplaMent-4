@@ -1,7 +1,11 @@
 package com.br.SuplaMent.domain.pedido;
 
+import com.br.SuplaMent.domain.categoria.Categoria;
+import com.br.SuplaMent.domain.fornecedor.Fornecedor;
+import com.br.SuplaMent.domain.pedido.dto.CreatePedidoDTO;
 import com.br.SuplaMent.domain.pessoa.Cliente;
 import com.br.SuplaMent.domain.produto.Produto;
+import com.br.SuplaMent.domain.produto.dto.ProdutoCreateToSalesDTO;
 import com.br.SuplaMent.utils.aEntity.DomainEntity;
 import com.br.SuplaMent.utils.enums.FormaPagamento;
 import com.br.SuplaMent.utils.enums.StatusPedido;
@@ -20,6 +24,7 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
+@Builder
 public class Pedido extends DomainEntity {
 
     @Id
@@ -39,7 +44,7 @@ public class Pedido extends DomainEntity {
     private List<Produto> produtos;
 
     @Column
-    private Double valor;
+    private Double valorTotal;
 
     @Column
     @Enumerated(EnumType.STRING)
@@ -49,11 +54,28 @@ public class Pedido extends DomainEntity {
     private String enderecoEntrega;
 
     @Column
+    private Double valorFrete;
+
+    @Column
     @Temporal(TemporalType.TIMESTAMP)
-    private Date dtEntrega;
+    private Date dataEntrega;
 
     @Column
     @Enumerated(EnumType.STRING)
     private FormaPagamento formaPagamento;
+
+    public static Pedido of (CreatePedidoDTO createPedidoDTO, Cliente cliente, FormaPagamento formaPagamento) {
+        return Pedido
+                .builder()
+                .produtos(createPedidoDTO.produtos())
+                .valorTotal(createPedidoDTO.valorTotal())
+                .valorFrete(createPedidoDTO.valorFrete())
+                .enderecoEntrega(createPedidoDTO.enderecoEntrega())
+                .dataEntrega(createPedidoDTO.dataEntrega())
+                .cliente(cliente)
+                .statusPedido(StatusPedido.AGUARDANDO_PAGAMENTO)
+                .formaPagamento(formaPagamento)
+                .build();
+    }
 }
 
