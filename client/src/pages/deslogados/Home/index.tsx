@@ -39,21 +39,21 @@ export function HomeDeslogado() {
     e.preventDefault();
 
     if (!busca) {
-        alert("Digite o nome de um produto");
-        return;
+      alert("Digite o nome de um produto");
+      return;
     }
 
     const opcoes = {
-        params: {
+      params: {
 
-        } as IParametrosBusca
+      } as IParametrosBusca
     }
 
     if (busca) {
-        opcoes.params.nome = busca;
+      opcoes.params.nome = busca;
     }
     getDados('/produto/busca', opcoes)
-}
+  }
 
   useEffect(() => {
     getDados("/produto/index");
@@ -61,57 +61,58 @@ export function HomeDeslogado() {
 
   return (
     <>
-      <HeaderDeslogado />
       <section className="home">
         <Banner subtitulo="O melhor loja do mundo fitnes!" titulo="Suplament">
+
+
+        <Box sx={{ display: 'flex', marginTop: 2, flexDirection: 'row', justifyContent: 'space-between' }}>
+          <Box sx={{ width: '55%' }}>
+            <Typography component="h1" className="titulo-interno">ÚLTIMOS LANÇAMENTOS</Typography>
+            <ProdutosDestaque produtos={lancamentos} />
+          </Box>
+
+          <Box sx={{ width: '55%' }}>
+            <Typography component="h1" className="titulo-interno">MAIS VENDIDOS</Typography>
+            <ProdutosDestaque produtos={maisVendidos} />
+          </Box>
+        </Box>
+        
           <form onSubmit={buscar} className="buscar">
-            <TextField 
+            <TextField
               placeholder="Busque um produto"
               value={busca}
               onChange={evento => setBusca(evento.target.value)}
               type="text"
               required
             />
-          <Button type='submit'>buscar</Button>
-        </form>
-      </Banner>
+            <Button type='submit'>buscar</Button>
+          </form>
+        </Banner>
 
-      <Box width={1100} marginLeft={40} marginTop={3}>
-      <Grid container spacing={2}>
-        {produtos.map(produto => (
-          <Grid item xs={12} sm={6} md={4} key={produto.id}>
-            <Produto {...produto} />
+        <Box width={1100} marginLeft={40} marginTop={3}>
+          <Grid container spacing={2}>
+            {produtos.map(produto => (
+              <Grid item xs={12} sm={6} md={4} key={produto.id}>
+                <Produto {...produto} />
+              </Grid>
+            ))}
           </Grid>
-        ))}
-      </Grid>
 
-        <Box sx={{ marginTop: 2, marginLeft: 50, marginRight: 50 }}>
-          <Button  onClick={() => getDados(paginaAnterior)} disabled={!paginaAnterior}>
-            Página Anterior
-          </Button>
-          <Button onClick={() => getDados(proximaPagina)} disabled={!proximaPagina}>
-            Próxima página
-          </Button>
-        </Box>
-      </Box>
-
-      <Box sx={{ display: 'flex', marginTop: 2, flexDirection: 'row', justifyContent: 'space-between' }}>
-        <Box sx={{ width: '55%' }}>
-          <Typography component="h1" className="titulo-interno">ÚLTIMOS LANÇAMENTOS</Typography>
-          <ProdutosDestaque produtos={lancamentos} />
+          <Box sx={{ marginTop: 2, marginLeft: 50, marginRight: 50 }}>
+            <Button onClick={() => getDados(paginaAnterior)} disabled={!paginaAnterior}>
+              Página Anterior
+            </Button>
+            <Button onClick={() => getDados(proximaPagina)} disabled={!proximaPagina}>
+              Próxima página
+            </Button>
+          </Box>
         </Box>
 
-        <Box sx={{ width: '55%' }}>
-          <Typography component="h1" className="titulo-interno">MAIS VENDIDOS</Typography>
-          <ProdutosDestaque produtos={maisVendidos} />
-        </Box>
-      </Box>
+    
 
-      <TagsCategorias />
-      <Newsletter />
-      <Footer />
-    </section >
+        <TagsCategorias />
+        <Newsletter />
+      </section >
     </>
-
   )
 }

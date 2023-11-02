@@ -13,5 +13,5 @@ export interface DataProps {
 }
 
 export interface AuthProviderProps {
-  children: ReactNode;
+  children: React.ReactElement;
 }

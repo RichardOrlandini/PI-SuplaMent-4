@@ -16,11 +16,11 @@ export function ProdutosDestaque({ produtos }: ProdutosDestaqueProps) {
                 {produtos.map(produto => {
                     return (
                         <li
-                            key={produto.nome}
+                            key={produto.id}
                             onClick={() => selecionarProduto(produto)}
                             className={selecionado?.nome === produto.nome ? 'selecionado' : ''}
                         >
-                            <img src={produto.imagem} alt={`Nome do produto:  ${produto.nome}`} />
+                            <img src={produto.nomeImagem} alt={`Nome do produto:  ${produto.nome}`} />
                         </li>)
                 })}
             </ul>

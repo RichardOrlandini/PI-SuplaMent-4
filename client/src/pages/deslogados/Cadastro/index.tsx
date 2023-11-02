@@ -1,16 +1,27 @@
 import styled from "styled-components";
-import logo from "../../../assets/logo.png";
+import fundo from "../../../assets/logo.png";
 
 
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { ICliente } from 'shared/interfaces/IUsuario';
-import {Container as ContainerStyles, Formulario, Imagem, Titulo} from './styles';
-import { Step, StepLabel, Stepper, Container, Box, Grid, TextField, Button} from "@mui/material";
+import { Link, useNavigate } from 'react-router-dom';
+import { ICliente, IEndereco } from 'shared/interfaces/IUsuario';
+import { Container as ContainerStyles, Formulario, Imagem, Titulo } from './styles';
+import { Step, StepLabel, Stepper, Container, Box, Grid, TextField, Button, Checkbox } from "@mui/material";
 
 import ButtonCustumer from "../../../components/ButtonCustumer";
 import CampoDigitacao from "../../../components/CampoDigitacao";
 import usePost from "services/usePost";
+import { HOST_API, HOST_AUTH } from "constants/url";
+import { Endereco } from "components/Endereco";
+
+
+
+const ListaEnderecos = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+`;
 
 export const StepCustomizada = styled.div<PropsCustomizadas>`
     background-color: ${({ cor }) => cor};
@@ -27,7 +38,7 @@ interface PropsCustomizadas {
     cor: string
 }
 
-export  function Cadastro() {
+export function Cadastro() {
     const { cadastrarDados, erro, sucesso } = usePost();
     const navigate = useNavigate();
     const [etapaAtiva, setEtapaAtiva] = useState(0);
@@ -46,28 +57,54 @@ export  function Cadastro() {
     const [complemento, setComplemento] = useState('');
 
 
+    const [enderecos, setEnderecos] = useState<IEndereco[]>([]);
+    const [enderecoPrincipal, setEnderecoPrincipal] = useState<number | null>(null);
+
+
+    const addEndereco = () => {
+        const newEndereco: IEndereco = {
+            cep,
+            rua,
+            numero,
+            complemento,
+            estado,
+            principal: enderecoPrincipal === enderecos.length
+        };
+
+        if (newEndereco.principal) {
+            const enderecosAtualizados = enderecos.map(endereco => ({ ...endereco, principal: false }));
+            setEnderecos([...enderecosAtualizados, newEndereco]);
+        } else {
+            setEnderecos([...enderecos, newEndereco]);
+        }
+    }
+
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault(); 
-      
+        event.preventDefault();
+
         const cliente: ICliente = {
             email,
             nome,
             senha,
-            endereco: {
-                cep: cep,
-                rua: rua,
-                numero: numero,
-                complemento: complemento,
-                estado: estado
-            },
+            enderecos,
             cpf,
             telefone,
         }
 
         if (etapaAtiva !== 0) {
             try {
-                cadastrarDados({url: 'cliente', dados: cliente});
-                alert(sucesso)
+                const dataAuth = { email, password: 123456 };
+
+                cadastrarDados({ host: HOST_AUTH, url: 'api/user', dados: dataAuth });
+                if (erro) {
+                    alert(erro);
+                }
+
+                cadastrarDados({ host: HOST_API, url: 'cliente', dados: cliente });
+                if (sucesso) {
+                    alert(sucesso);
+                }
+
                 navigate('/login');
             } catch (e) {
                 e && alert('Erro ao cadastrar os dados: ' + erro);
@@ -77,10 +114,9 @@ export  function Cadastro() {
         setEtapaAtiva(etapaAtiva + 1); // atualiza o estado da etapa para a próxima etapa
     }
 
-    //            <Imagem src={logo} alt="Logo Suplamente" />
-
     return (
         <>
+
             <Stepper activeStep={etapaAtiva}>
                 <Step>
                     <StepLabel
@@ -156,6 +192,7 @@ export  function Cadastro() {
                             valor={cep}
                             placeholder="Insira o CEP"
                             onChange={setCep}
+
                         />
                         <CampoDigitacao
                             tipo="text"
@@ -183,13 +220,38 @@ export  function Cadastro() {
                                 placeholder="Estado"
                                 onChange={setEstado}
                             />
+
+
+                            <Checkbox
+                                aria-label="Endereço principal?"
+                                checked={enderecoPrincipal === enderecos.length}
+                                onChange={() => setEnderecoPrincipal(enderecos.length)}
+                            />
+
                         </ContainerStyles>
+
+                        <BotaoCustomizado onClick={addEndereco}>Adicionar Endereço</BotaoCustomizado>
                         <BotaoCustomizado type="submit">Cadastrar</BotaoCustomizado>
+
+
+                        <ListaEnderecos>
+                            {enderecos.map((endereco, index) => (
+                                <Endereco key={index} {...endereco} />
+                            ))}
+                        </ListaEnderecos>
+
                     </Formulario>
                 </>
             )
-
             }
+
+            <Link to="/">
+                Home
+            </Link>
+
+            <Link to="/login">
+                Login
+            </Link>
         </>
     )
 
@@ -283,7 +345,7 @@ export  function Cadastro() {
     //             <Link to="/">
     //                 Home
     //             </Link>
-                
+
     //         </Form>
 
 

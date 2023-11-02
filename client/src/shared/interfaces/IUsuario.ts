@@ -6,6 +6,7 @@ export interface IUsuario {
     email: string;
     senha?: string;
     role: string;
+    avatar?: string;
 }
 
 export interface IUsuarioContext {
@@ -46,7 +47,7 @@ export interface ICliente {
     email: string,
     nome: string,
     senha: string,
-    endereco: IEndereco,
+    enderecos: IEndereco[],
     cpf: string;
     telefone?: string;
     avatar?: string;
@@ -58,6 +59,10 @@ export interface IEndereco {
     cep: string,
     rua: string,
     numero: string,
-    complemento: string,
     estado: string
-}
+    complemento: string,
+    principal: boolean,
+} 
+
+
+

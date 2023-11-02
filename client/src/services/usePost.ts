@@ -23,7 +23,7 @@ export default function usePost() {
             })
             setSucesso(true);
             const respostaConvertida = await resposta.json();
-            setResposta(respostaConvertida.token);
+            setResposta(respostaConvertida);
         } catch (erro) {
         setErro('Não foi possível enviar os dados');
     }

@@ -95,8 +95,6 @@ export const HeaderDeslogado = () => {
             }
         </ul>
 
-        
-
 
         <IconButton
             onClick={() => navigate('/carrinho')}

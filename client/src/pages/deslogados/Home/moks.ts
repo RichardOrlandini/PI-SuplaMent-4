@@ -16,7 +16,7 @@ export const lancamentos: IProduto[] = [
       descri: "Mais nutritivas",
       valor: "19.99",
       qtd: "10",
-      imagem: imagem1,
+      nomeImagem: imagem1,
     },
     {
       id: 2,
@@ -25,7 +25,7 @@ export const lancamentos: IProduto[] = [
       descri: "Descrição do Produto de Lançamento 2",
       valor: "29.99",
       qtd: "8",
-      imagem: imagem2,
+      nomeImagem: imagem2,
     },
     {
       id: 3,
@@ -34,7 +34,7 @@ export const lancamentos: IProduto[] = [
       descri: "Whey",
       valor: "9.99",
       qtd: "15",
-      imagem: imagem3,
+      nomeImagem: imagem3,
     },
   ];
   
@@ -46,7 +46,7 @@ export const lancamentos: IProduto[] = [
       descri: "Whey mais saboroso",
       valor: "39.99",
       qtd: "12",
-      imagem: imagem4,
+      nomeImagem: imagem4,
     },
     {
       id: 5,
@@ -55,7 +55,7 @@ export const lancamentos: IProduto[] = [
       descri: "Descrição do Produto Mais Vendido 2",
       valor: "49.99",
       qtd: "20",
-      imagem: imagem5,
+      nomeImagem: imagem5,
     },
     {
       id: 6,
@@ -64,6 +64,6 @@ export const lancamentos: IProduto[] = [
       descri: "Descrição do Produto Mais Vendido 3",
       valor: "59.99",
       qtd: "18",
-      imagem: imagem6,
+      nomeImagem: imagem6,
     },
   ];

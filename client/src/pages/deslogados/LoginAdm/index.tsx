@@ -1,57 +1,66 @@
 import { useState } from 'react';
-//import { FiMail, FiLock } from 'react-icons/fi';
 
-import { Container, Form, Background } from './styles';
+import { Container, Form } from './styles';
 import { Button, TextField } from "@mui/material"
 import { Link, useNavigate } from 'react-router-dom';
 import usePost from 'services/usePost';
 import autenticaStore from 'common/stores/authentica.store';
-import { ILogin , LoginDataAuthAPi} from 'shared/interfaces/IUsuario';
-import { SENHA_AUTH, HOST_AUTH, HOST_API} from 'constants/url';
+import { ILogin, IUsuario, LoginDataAuthAPi, IUsuarioContext } from 'shared/interfaces/IUsuario';
+
+import { SENHA_AUTH, HOST_AUTH, HOST_API } from 'constants/url';
+import useFetch from 'services/useFetch';
+import useLogin from 'services/useLogin';
+import { api } from 'services/api';
 
 export function LoginAdm() {
 
-  
   const [email, setEmail] = useState('')
   const [senha, setSenha] = useState('')
-  const {cadastrarDados, erro, sucesso, resposta} = usePost();
+  const { cadastrarDados, erro, sucesso, resposta } = usePost();
   const navigate = useNavigate();
 
 
   const handleSignIN = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-   
+
+    const usuarioAut = {
+      email: email,
+      password: SENHA_AUTH,
+    }
+
     const usuario: ILogin = {
       email: email,
-      senha: SENHA_AUTH,
+      senha: senha,
     }
 
     try {
-      //auth api
-      cadastrarDados({ host: HOST_AUTH, url: "/login", dados: usuario})
-      const { accessToken, message: m1 }: LoginDataAuthAPi = resposta.data;
+     // auth api
+      cadastrarDados({ host: HOST_AUTH, url: "user/auth", dados: usuarioAut})
+      const { accessToken, message }: any = resposta;
 
-      if (m1 != null) {
-        alert(m1);
+      if (message != null) {
+        alert(message);
         return;
       } 
 
       //api
       usuario.senha = senha;
+      cadastrarDados({ host: HOST_API, url: "login/usuario", dados: usuario });
+      
+      const { id, nome, email, role, message: m2 } : any = resposta;
 
-      cadastrarDados({host: HOST_API, url: "/login/usuario", dados: usuario});
-
-      const {id, email, token, role, message}  = resposta.data
-
-      if (message != null) {
-        alert(message);
-        return;
+      if (m2) {
+        alert(m2);
+        return
       }
 
-      autenticaStore.login({id, email, token, role});
-      resposta && navigate('/home');
+      const user : IUsuarioContext = {id, nome, email, role, token: accessToken, avatar: '' }
+      
+      autenticaStore.login(user);
+      resposta && navigate('/admin/produtos');
 
     } catch (erro) {
+      console.log(erro)
       erro && alert('Não foi possível fazer login')
     }
   }
@@ -85,13 +94,12 @@ export function LoginAdm() {
           onChange={e => setSenha(e.target.value)}
         />
 
-        <Button title="Entrar" variant="contained"  />
-        <Link  to="/">
+        <Button title="Entrar" variant="contained" type='submit' />
+        <Link to="/">
           Home
         </Link>
       </Form>
 
-      <Background />
     </Container>
   );
 }
