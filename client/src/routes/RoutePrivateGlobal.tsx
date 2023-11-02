@@ -5,7 +5,7 @@ const RoutePrivateGlobal = () => {
     const {isAuthenticated } = autenticaStore;
 
     return (
-        isAuthenticated ? <Outlet /> : <Navigate to="/login" />
+        isAuthenticated ? <Outlet /> : <Navigate to="/" />
     )
 }
 

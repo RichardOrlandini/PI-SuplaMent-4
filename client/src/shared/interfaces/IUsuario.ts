@@ -40,6 +40,13 @@ export interface ILogin {
     token?: string;
 }
 
+export interface ResponseLoginApiSucess {
+    id: number;
+    nome: string;
+    email: string;
+    role: string;
+}
+
 
 export interface ICliente {
     id?: number;
@@ -62,7 +69,7 @@ export interface IEndereco {
     estado: string
     complemento: string,
     principal: boolean,
-} 
+}
 
 
 

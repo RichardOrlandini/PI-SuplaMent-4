@@ -5,7 +5,7 @@ const RoutePrivateAdmin = () => {
     const {isAuthenticated, user } = autenticaStore;
 
     return (
-        isAuthenticated &&  user.role === "ADMIN" ? <Outlet /> : <Navigate to="/login" />
+        isAuthenticated &&  user.role === "ADMIN" ? <Outlet /> : <Navigate to="/" />
     )
 }
 

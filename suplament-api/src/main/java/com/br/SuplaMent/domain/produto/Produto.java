@@ -22,7 +22,7 @@ public class Produto extends DomainEntity {
     @Column(name = "qtd", nullable = false)
     private Integer qtd;
 
-    @Column
+    @Column(name = "nomeImagem", nullable = true)
     private String nomeImagem;
 
     @ManyToOne
@@ -33,9 +33,8 @@ public class Produto extends DomainEntity {
     @JoinColumn(name = "FK_CATEGORIA", nullable = false)
     private Categoria categoria;
 
-    @Column
+    @Column(name = "valor", nullable = false)
     private double valor;
-
 
     public void deleta() {
         this.setActive(false);

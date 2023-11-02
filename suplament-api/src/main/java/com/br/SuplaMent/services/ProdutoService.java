@@ -124,7 +124,6 @@ public class ProdutoService {
                     new ObjectMapper().writeValueAsString(response), transactionid, serviceID);
             return response;
         } catch (Exception e) {
-
             throw new ValidationExcepetion(e.getMessage());
         }
     }

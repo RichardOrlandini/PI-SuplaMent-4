@@ -1,8 +1,10 @@
 package com.br.SuplaMent.domain.pessoa;
 
 public enum UserRole {
-    ADMIN("admin"),
-    ESTOQUISTA("estoquista");
+    ADMIN("ADMIN"),
+    ESTOQUISTA("ESTOQUISTA"),
+    CLIENT("CLIENT");
+
     private String role;
     UserRole(String role) {
         this.role = role;

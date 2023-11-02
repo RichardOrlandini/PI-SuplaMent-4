@@ -5,12 +5,8 @@ import { Button, TextField } from "@mui/material"
 import { Link, useNavigate } from 'react-router-dom';
 import usePost from 'services/usePost';
 import autenticaStore from 'common/stores/authentica.store';
-import { ILogin, IUsuario, LoginDataAuthAPi, IUsuarioContext } from 'shared/interfaces/IUsuario';
-
+import { ILogin, LoginDataAuthAPi, IUsuarioContext, ResponseLoginApiSucess } from 'shared/interfaces/IUsuario';
 import { SENHA_AUTH, HOST_AUTH, HOST_API } from 'constants/url';
-import useFetch from 'services/useFetch';
-import useLogin from 'services/useLogin';
-import { api } from 'services/api';
 
 export function LoginAdm() {
 
@@ -34,30 +30,38 @@ export function LoginAdm() {
     }
 
     try {
-     // auth api
-      cadastrarDados({ host: HOST_AUTH, url: "user/auth", dados: usuarioAut})
-      const { accessToken, message }: any = resposta;
+      // auth api
+      cadastrarDados({ host: HOST_AUTH, url: "user/auth", dados: usuarioAut });
+      const { accessToken, status, message: m1 }: LoginDataAuthAPi = resposta;
 
-      if (message != null) {
-        alert(message);
+      if (m1) {
+        alert(m1);
         return;
-      } 
+      }
 
       //api
       usuario.senha = senha;
-      cadastrarDados({ host: HOST_API, url: "login/usuario", dados: usuario });
-      
-      const { id, nome, email, role, message: m2 } : any = resposta;
 
-      if (m2) {
-        alert(m2);
-        return
+      const data = await fetch(`http://localhost:${HOST_API}/login/usuario`, {
+        headers : {
+          'Content-Type': 'application/json'
+        },
+        method: 'POST',
+        body: JSON.stringify(usuario)
+      });
+
+      const dataConverted = await data.json();
+      const { id, nome, email, role } = dataConverted;
+
+      if (!id) {
+        alert("Usuario não encontrado");
+        return;
       }
-
+      //TODO, incluir avatar no response de usuario details.
       const user : IUsuarioContext = {id, nome, email, role, token: accessToken, avatar: '' }
-      
+      alert("Bem vindo!");
       autenticaStore.login(user);
-      resposta && navigate('/admin/produtos');
+      navigate('/admin/produtos');
 
     } catch (erro) {
       console.log(erro)

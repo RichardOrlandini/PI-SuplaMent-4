@@ -2,10 +2,9 @@ package com.br.SuplaMent.domain.produto.dto;
 
 import com.br.SuplaMent.domain.produto.Produto;
 
-public record ListagemProdutoDTO (Long id,  String nome, int qtd, String nomeImagem) {
+public record ListagemProdutoDTO (Long id,  String nome, Integer qtd, String nomeImagem, double valo) {
 
     public ListagemProdutoDTO(Produto produto) {
-        this(produto.getId(), produto.getNome(), (Integer) produto.getQtd(), produto.getNomeImagem());
+        this(produto.getId(), produto.getNome(), produto.getQtd(), produto.getNomeImagem(), produto.getValor());
     }
-
 }

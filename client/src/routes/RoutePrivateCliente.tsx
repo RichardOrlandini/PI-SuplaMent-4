@@ -5,7 +5,7 @@ const RoutePrivateCliente = () => {
     const {isAuthenticated, user } = autenticaStore;
 
     return (
-        isAuthenticated &&  user.role === "CLIENT" ? <Outlet /> : <Navigate to="/login" />
+        isAuthenticated &&  user.role === "CLIENT" ? <Outlet /> : <Navigate to="/" />
     )
 }
 
