@@ -16,7 +16,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 @AllArgsConstructor
 @RequestMapping("/usuario")
 public class UsuarioController {
-
     private final UsuarioService service;
 
     @PostMapping

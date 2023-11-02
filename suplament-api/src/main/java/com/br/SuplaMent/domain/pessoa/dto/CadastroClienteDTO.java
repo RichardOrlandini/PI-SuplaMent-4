@@ -9,8 +9,5 @@ public record CadastroClienteDTO(
         @NotBlank String nome,
         @NotBlank @Email String email,
         @NotBlank String senha
-
-
-
 ) {
 }
