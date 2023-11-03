@@ -4,9 +4,13 @@ import com.br.SuplaMent.domain.pessoa.Usuario;
 import com.br.SuplaMent.domain.pessoa.dto.CadastroInicialDTO;
 import com.br.SuplaMent.domain.pessoa.dto.DetalhamentoInicialUsuarioDTO;
 import com.br.SuplaMent.domain.pessoa.dto.DetalhamentoUsuarioDTO;
+import com.br.SuplaMent.domain.pessoa.dto.ListagemUsuarioDTO;
 import com.br.SuplaMent.services.UsuarioService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -35,11 +39,12 @@ public class UsuarioController {
         return ResponseEntity.ok(new DetalhamentoUsuarioDTO(usuario));
     }
 
-//    @GetMapping
-//    public ResponseEntity<Page<ListagemUsuarioDTO>> listar(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
-//        var page = repository.findAll(paginacao).map(ListagemUsuarioDTO::new);
-//        return ResponseEntity.ok(page);
-//    }
+    @GetMapping
+    public ResponseEntity<Page<ListagemUsuarioDTO>> listar(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
+        var page = service.findAll(paginacao);
+        return ResponseEntity.ok(page);
+    }
+
 //    @PutMapping
 //    @Transactional
 //    public ResponseEntity atualizar(@RequestBody @Valid AtualizarUsuarioDTO dto) {
