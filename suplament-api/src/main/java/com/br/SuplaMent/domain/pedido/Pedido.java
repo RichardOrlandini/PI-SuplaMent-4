@@ -50,6 +50,9 @@ public class Pedido extends DomainEntity {
     private String enderecoEntrega;
 
     @Column
+    private LocalDateTime dataPedido;
+
+    @Column
     private Double valorFrete;
 
     @Column
@@ -69,6 +72,7 @@ public class Pedido extends DomainEntity {
                 .enderecoEntrega(createPedidoDTO.enderecoEntrega())
                 .dataEntrega(createPedidoDTO.dataEntrega())
                 .cliente(cliente)
+                .dataPedido(LocalDateTime.now())
                 .statusPedido(StatusPedido.AGUARDANDO_PAGAMENTO)
                 .formaPagamento(formaPagamento)
                 .build();
