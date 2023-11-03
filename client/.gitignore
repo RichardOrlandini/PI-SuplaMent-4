@@ -24,4 +24,4 @@ dist-ssr
 *.sw?
 text.txt
 
-/public/images/
+# /public/images/

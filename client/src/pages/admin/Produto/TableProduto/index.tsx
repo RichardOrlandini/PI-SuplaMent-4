@@ -119,9 +119,9 @@ export function TableProduto() {
                             <TableCell>{p.nome}</TableCell>
                             <TableCell>{p.qtd}</TableCell>
                             <TableCell>{p.valor}</TableCell>
-                            <TableCell>{p.ativo ? "ATIVO" : "INATIVADO"}</TableCell>
+                            <TableCell>{p.active ? "ATIVO" : "INATIVADO"}</TableCell>
                             <TableCell>{p.qtd}</TableCell>
-                            <TableCell>[<a href={p.imagem}  rel="noreferrer" target="_blank">Ver imagem</a>]</TableCell>
+                            <TableCell>[<a href={p.nomeImagem} rel="noreferrer" target="_blank">Ver imagem</a>]</TableCell>
                             <TableCell>
                                 [ <RouterLink to={`/admin/produtos/${p.id}`}>Editar</RouterLink> ]
                             </TableCell>

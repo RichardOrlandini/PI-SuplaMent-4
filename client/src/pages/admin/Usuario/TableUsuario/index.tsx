@@ -11,49 +11,53 @@ import { IPaginacao } from "../../../../shared/interfaces/IPaginacao";
 import { IUsuario } from "../../../../shared/interfaces/IUsuario";
 import { IParametrosBusca } from "../../../../shared/interfaces/IParametrosBusca";
 import { AxiosRequestConfig } from "axios";
+import autenticaStore from "common/stores/authentica.store";
 
 export function TableUsuario() {
 
     const [usuarios, setUsuarios] = useState<IUsuario[]>([]);
-    const [ativo, setAtivo] = useState(true);
+    const [ativo, setAtivo] = useState<boolean | null>(true);
     const [openConfirmationDialog, setOpenConfirmationDialog] = useState(false);
     const [selectedUserId, setSelectedUserId] = useState(0);
     const [proximaPagina, setProximaPagina] = useState('');
     const [paginaAnterior, setPaginaAnterior] = useState('');
     const [busca, setBusca] = useState('');
-    const context = useAuth();
+
+    const usuarioContext = autenticaStore.user;
+
+
     const navigate = useNavigate();
 
     const carregarDados = (url: string, opcoes: AxiosRequestConfig = {}) => {
-        const token = localStorage.getItem("@suplament:token")
-        api.get<IPaginacao<IUsuario>>(url, {
-            ...opcoes,
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        })
-            .then(resp => {
-                setUsuarios(resp.data.content);
-                setProximaPagina(resp.data.last ? '' : `/usuarios?page=${resp.data.number + 1}`);
-                setPaginaAnterior(resp.data.first ? '' : `/usuarios?page=${resp.data.number - 1}`);
-            })
-            .catch(e => {
-                if (e.message && e.code === "ERR_BAD_REQUEST") {
-                    alert(`Token de acesso inspirado, faça login novamente`)
-                    context?.signOut();
-                    navigate("/");
-                }
-            })
+        const token = autenticaStore.user.token;
+        console.log(token);
+
+        // api.get<IPaginacao<IUsuario>>(url, {
+        //     ...opcoes,
+        //     headers: {
+        //         'Authorization': `Bearer ${token}`
+        //     }
+        // })
+        //     .then(resp => {
+        //         setUsuarios(resp.data.content);
+        //         setProximaPagina(resp.data.last ? '' : `/usuario?page=${resp.data.number + 1}`);
+        //         setPaginaAnterior(resp.data.first ? '' : `/usuario?page=${resp.data.number - 1}`);
+        //     })
+        //     .catch(e => {
+        //      console.log(e)
+        //      alert("Aconteceu um erro inesperado ao listar usuarios")
+        //     })
     }
 
     const excluir = ( id: number) => {
-        const token = localStorage.getItem("@suplament:token");
+        const token = usuarioContext.token;
 
         let status = ativo;
 
         if (ativo === null || ativo === undefined) {
             status = false;
         }
+
          api.put(`/usuarios/${id}/status`)
             .then(() => {
                 carregarDados("/usuarios");
@@ -76,14 +80,9 @@ export function TableUsuario() {
         setOpenConfirmationDialog(false);
     }
 
-
-
     useEffect(() => {
-        carregarDados("/usuarios")
+        carregarDados("/usuario")
     }, []);
-
-
-
 
     const buscar = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -148,14 +147,14 @@ export function TableUsuario() {
                             <TableCell>{u.nome}</TableCell>
                             <TableCell  >{u.role}</TableCell>
                             <TableCell sx={{ width: 6 }} >
-                                <Typography component="h6" sx={{ marginLeft: 4 }} variant="h6">{u.ativo ? "Ativo" : "Inativo"}</Typography>
+                                <Typography component="h6" sx={{ marginLeft: 4 }} variant="h6">{u.active ? "Ativo" : "Inativo"}</Typography>
 
                                 <Button
                                     variant="outlined"
                                     color="primary"
                                     onClick={() => {
                                         atualizarStatus();
-                                        setAtivo(u.ativo)
+                                        setAtivo(u.active)
                                         setSelectedUserId(u.id);
                                     }}
                                 >

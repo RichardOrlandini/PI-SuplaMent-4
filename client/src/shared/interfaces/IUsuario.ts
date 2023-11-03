@@ -1,7 +1,7 @@
 export interface IUsuario {
     id: number;
     message?: string;
-    ativo?: boolean;
+    active?: boolean;
     nome?: string;
     email: string;
     senha?: string;

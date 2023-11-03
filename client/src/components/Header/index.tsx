@@ -21,11 +21,11 @@ export function Header() {
 
     const usuarioContext = autenticaStore.user;
     const isAuthenticated = autenticaStore.isAuthenticated;
-    let role: boolean = true;
+    let client: boolean = true;
 
     if (isAuthenticated) {
         usuarioContext.role === Role.ADMIN
-        role = false;
+        client = false;
     }
 
     const navigate = useNavigate();
@@ -51,48 +51,47 @@ export function Header() {
 
 
 
-                <ul className="navegacao">
-
-
-                    <li>
-                        <a href="#!">Categorias</a>
-                        <ul className="submenu">
-                            <li>
-                                <Link to="/">
-                                    x
-                                </Link>
-                            </li>
-                            <li>
-                                <Link to="/">
-                                    x
-                                </Link>
-                            </li>
-                            <li>
-                                <Link to="/">
-                                    x
-                                </Link>
-                            </li>
-                            <li>
-                                <Link to="/">
-                                    x
-                                </Link>
-                            </li>
-                            <li>
-                                <Link to="/">
-                                    x
-                                </Link>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-
-
-
                 <ul className="acoes">
                     {
 
-                        role && (
+                        client && (
                             <>
+
+                                <ul className="navegacao">
+
+                                    <li>
+                                        <a href="#!">Categorias</a>
+                                        <ul className="submenu">
+                                            <li>
+                                                <Link to="/">
+                                                    x
+                                                </Link>
+                                            </li>
+                                            <li>
+                                                <Link to="/">
+                                                    x
+                                                </Link>
+                                            </li>
+                                            <li>
+                                                <Link to="/">
+                                                    x
+                                                </Link>
+                                            </li>
+                                            <li>
+                                                <Link to="/">
+                                                    x
+                                                </Link>
+                                            </li>
+                                            <li>
+                                                <Link to="/">
+                                                    x
+                                                </Link>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+
+
                                 <li>
                                     <IconButton
                                         onClick={() => navigate('/carrinho')}
@@ -119,7 +118,7 @@ export function Header() {
                                 onClick={() => navigate("/login")}
                             />
                         </li>
-                        
+
                         <li>
                             <BotaoNavegacao
                                 texto="Cadastrar-se"
@@ -153,7 +152,6 @@ export function Header() {
                                     <div>
                                         <span>Bem vindo</span>
                                         <strong>{usuarioContext?.nome}</strong>
-                                        <strong>Minha Conta</strong>
                                     </div>
                                 </Profile>
                             </li>

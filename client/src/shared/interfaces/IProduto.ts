@@ -1,6 +1,6 @@
 export interface IProduto {
     id: number;
-    ativo: boolean;
+    active: boolean;
     nome: string;
     descri: string;
     valor: string;

@@ -3,18 +3,16 @@ import { Link as RouterLink, Outlet } from 'react-router-dom'
 import { Header } from "../../../components/Header"
 
 
-export function PageHeaderAdmin() {
+export function PageAdmin() {
 
     return (
         <>
-            <Header/>
-
             <AppBar position="static">
 
                 <Container maxWidth="xl">
                     <Toolbar>
                         <Typography variant="h6" sx={{ marginRight: 10 }}>
-                        <Link component={RouterLink} to="/">
+                        <Link component={RouterLink} to="/admin/produtos">
                                 <Button sx={{ my: 2, color: 'white' }}>
                                     Supla Adm
                                 </Button>
@@ -46,13 +44,12 @@ export function PageHeaderAdmin() {
                 </Container>
             </AppBar>
          <Box>
-                <Container maxWidth="lg" sx={{ mt: 1 }}>
+                <Container maxWidth="lg" sx={{ mt: 1 , marginBottom: 4}}>
                     <Paper sx={{ p: 2 }}>
                         <Outlet  />
                     </Paper>
                 </Container>
 
-                
             </Box>
         </>
     )

@@ -33,7 +33,6 @@ export function LoginAdm() {
       // auth api
       cadastrarDados({ host: HOST_AUTH, url: "user/auth", dados: usuarioAut });
       const { accessToken, status, message: m1 }: LoginDataAuthAPi = resposta;
-
       if (m1) {
         alert(m1);
         return;
@@ -60,6 +59,8 @@ export function LoginAdm() {
       //TODO, incluir avatar no response de usuario details.
       const user : IUsuarioContext = {id, nome, email, role, token: accessToken, avatar: '' }
       alert("Bem vindo!");
+
+      sessionStorage.setItem("@suplament:token", accessToken);
       autenticaStore.login(user);
       navigate('/admin/produtos');
 
