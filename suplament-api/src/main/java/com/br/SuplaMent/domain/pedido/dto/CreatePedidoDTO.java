@@ -1,6 +1,7 @@
 package com.br.SuplaMent.domain.pedido.dto;
 
 import com.br.SuplaMent.domain.produto.Produto;
+import com.br.SuplaMent.utils.enums.FormaPagamento;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -19,7 +20,7 @@ public record CreatePedidoDTO(
         @NotBlank
         String enderecoEntrega,
         @NotBlank
-        String formaPagamento,
+        FormaPagamento formaPagamento,
         @NotNull
         Double valorFrete,
         @NotNull
