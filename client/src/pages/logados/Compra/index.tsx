@@ -2,12 +2,16 @@ import { useCarrinhoContext } from "common/contexts/Carrinho";
 import Produto from "components/Produto";
 import { useContext, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Container, Voltar, TotalContainer, PagamentoContainer } from './styles';
+import { Container, TotalContainer, PagamentoContainer } from './styles';
 import { usePagamento } from "common/contexts/Pagamento";
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 import { Button, MenuItem, Select, Snackbar, InputLabel } from '@material-ui/core';
 import MuiAlert from '@material-ui/lab/Alert';
 import { UsuarioContext } from "common/contexts/Usuario";
+
+
+
 
 export default function Compra() {
     const {
@@ -16,7 +20,7 @@ export default function Compra() {
         comprar,
         valorTotal = 0
     } = useCarrinhoContext();
-     const { saldo = 0 } = useContext(UsuarioContext);
+    const { saldo = 0 } = useContext(UsuarioContext);
     const {
         formaPagamento,
         mudarFormaPagamento,
@@ -29,7 +33,8 @@ export default function Compra() {
     const total = useMemo(() => saldo - valorTotal, [saldo, valorTotal]);
     return (
         <Container>
-            <Voltar onClick={() => navigate(-1)} />
+            <button onClick={() => navigate(-1)}>
+            </button>
             <h2>
                 Carrinho
             </h2>
@@ -44,8 +49,8 @@ export default function Compra() {
                 <InputLabel> Forma de Pagamento </InputLabel>
                 <Select
                     value={formaPagamento.id}
-                    onChange={(event) => mudarFormaPagamento(event.target.value)}
-                >
+                    onChange={(event) => mudarFormaPagamento(Number(event.target.value))}
+                    >
                     {tiposPagamento.map(pagamento => (
                         <MenuItem
                             value={pagamento.id}

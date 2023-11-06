@@ -65,50 +65,59 @@ export function HomeDeslogado() {
         <Banner subtitulo="O melhor loja do mundo fitnes!" titulo="Suplament">
 
 
-        <Box sx={{ display: 'flex', marginTop: 2, flexDirection: 'row', justifyContent: 'space-between' }}>
-          <Box sx={{ width: '55%' }}>
-            <Typography component="h1" className="titulo-interno">ÚLTIMOS LANÇAMENTOS</Typography>
-            <ProdutosDestaque produtos={lancamentos} />
+          <Box sx={{ display: 'flex', marginTop: 2, flexDirection: 'row', justifyContent: 'space-between' }}>
+            <Box sx={{ width: '55%' }}>
+              <Typography component="h1" className="titulo-interno">ÚLTIMOS LANÇAMENTOS</Typography>
+              <ProdutosDestaque produtos={lancamentos} />
+            </Box>
+
+            <Box sx={{ width: '55%' }}>
+              <Typography component="h1" className="titulo-interno">MAIS VENDIDOS</Typography>
+              <ProdutosDestaque produtos={maisVendidos} />
+            </Box>
           </Box>
 
-          <Box sx={{ width: '55%' }}>
-            <Typography component="h1" className="titulo-interno">MAIS VENDIDOS</Typography>
-            <ProdutosDestaque produtos={maisVendidos} />
-          </Box>
-        </Box>
-        
           <form onSubmit={buscar} className="buscar">
-            <TextField
+            <input
+              className="buscar-input"
               placeholder="Busque um produto"
               value={busca}
               onChange={evento => setBusca(evento.target.value)}
               type="text"
               required
             />
-            <Button type='submit'>buscar</Button>
+            <button type='submit' className="buscar-button">Buscar</button>
           </form>
+
         </Banner>
 
-        <Box width={1100} marginLeft={40} marginTop={3}>
+        <Box width={1800} marginLeft={40} marginTop={3}>
           <Grid container spacing={2}>
             {produtos.map(produto => (
-              <Grid item xs={12} sm={6} md={4} key={produto.id}>
+              <Grid item xs={12} sm={6} md={2} key={produto.id}>
                 <Produto {...produto} />
               </Grid>
             ))}
           </Grid>
 
           <Box sx={{ marginTop: 2, marginLeft: 50, marginRight: 50 }}>
-            <Button onClick={() => getDados(paginaAnterior)} disabled={!paginaAnterior}>
+            <Button
+              className="custom-button"
+              onClick={() => getDados(paginaAnterior)}
+              disabled={!paginaAnterior}
+            >
               Página Anterior
             </Button>
-            <Button onClick={() => getDados(proximaPagina)} disabled={!proximaPagina}>
+            <Button
+              className="custom-button"
+              onClick={() => getDados(proximaPagina)}
+              disabled={!proximaPagina}
+            >
               Próxima página
             </Button>
           </Box>
         </Box>
 
-    
 
         <TagsCategorias />
         <Newsletter />

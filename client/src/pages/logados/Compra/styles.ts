@@ -1,6 +1,5 @@
 import { FormControl, IconButton } from '@material-ui/core';
 import styled from 'styled-components';
-import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 const titleGray = '#464646';
 
 export const Container = styled.main`
@@ -21,13 +20,7 @@ export const Container = styled.main`
   }
 `;
 
-export const Voltar = styled(IconButton).attrs({
-  children: <ArrowBackIcon />
-})`
-  left: 20px;
-  position: absolute;
-  top: 15px;
-`
+
 
 export const TotalContainer = styled.section`
   margin-top: 20px;

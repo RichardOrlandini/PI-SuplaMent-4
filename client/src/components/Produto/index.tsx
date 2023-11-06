@@ -11,8 +11,8 @@ const Produto: React.FC<IProduto> = (produto: IProduto) => {
   const { carrinho, adicionarProduto, removerProduto, valorTotal } = useCarrinhoContext();
   const { saldo } = useContext(UsuarioContext);
 
- const  pathImages = "../../../public/images";
-  const itemNoCarrinho = carrinho.find(item => item.id === produto.id);
+  const pathImages = "../../../public/images";
+  const itemNoCarrinho = carrinho.find(item => item.produto.id === produto.id);
 
   return (
     <Card>
@@ -20,17 +20,18 @@ const Produto: React.FC<IProduto> = (produto: IProduto) => {
         component="img"
         image={`${pathImages}/${produto.nomeImagem}`}
         alt={`foto de ${produto.nome}`}
+        style={{ height: '200px', width: '200px', objectFit: 'cover' }} // define um tamanho fixo para todas as imagens
       />
       <CardContent>
         <Typography variant="h6" component="div">
           {produto.nome} - R$ {Number(produto.valor).toFixed(2)}
         </Typography>
         <Typography variant="body2" color="secondary">
-          Quantidade: {itemNoCarrinho?.quantidade || 0}
+          Quantidade: {produto?.qtd || 0}
         </Typography>
         <IconButton
           onClick={() => removerProduto(produto.id)}
-          disabled={!itemNoCarrinho || itemNoCarrinho.quantidade === 0}
+          disabled={!itemNoCarrinho || itemNoCarrinho.qtd === 0}
           color="secondary"
         >
           <RemoveIcon />
@@ -38,10 +39,10 @@ const Produto: React.FC<IProduto> = (produto: IProduto) => {
         <IconButton
           onClick={() => adicionarProduto({
             nome: produto.nome,
-            imagem: produto.nomeImagem,
+            nomeImagem: produto.nomeImagem,
             id: produto.id,
-            valor: Number(produto.valor),
-            quantidade: Number(produto.qtd)
+            valor: produto.valor,
+            qtd: produto.qtd
           })}
           color="primary"
         >

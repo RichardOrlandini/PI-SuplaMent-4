@@ -1,10 +1,56 @@
 
-.home form.buscar {
+
+.buscar {
     max-width: 600px;
     margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px; /* Aumenta o espaçamento inferior */
+    margin-top: 20px; /* Aumenta o espaçamento inferior */
+
 }
+  
+  .buscar-input {
+    padding: 12px; /* Aumenta o espaçamento interno */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 20px; /* Aumenta a margem direita */
+    width: 600px;
+  }
+  
+  .buscar-button {
+    background-color: #d89613;;
+    color: #fff;
+    padding: 12px 20px; /* Aumenta a altura e o espaçamento interno */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .buscar-button:hover {
+    background-color: #ffaa01;;
+  }
+
+
 .titulo-interno {
     text-align: center;
     color: #EB9B00;
     margin: 5px 0;
 }
+
+.custom-button {
+    background-color: #f44336; /* cor de fundo do botão */
+    color: #EB9B00; /* cor do texto do botão */
+    padding: 10px 20px; /* espaçamento interno do botão */
+    border: none; /* remover a borda do botão */
+    border-radius: 5px; /* arredondar as bordas do botão */
+    font-size: 16px; /* tamanho da fonte do botão */
+    cursor: pointer; /* alterar o cursor ao passar o mouse sobre o botão */
+    margin-right: 10px; /* margem direita do botão */
+  }
+  
+  .custom-button:disabled {
+    background-color: #eb9d0044; /* cor de fundo do botão desabilitado */
+    cursor: not-allowed; /* alterar o cursor para não permitido quando o botão estiver desabilitado */
+  }

@@ -7,6 +7,7 @@ export const Container = styled(Card)`
   justify-content: space-between;
   padding: 20px;
   width: 100%;
+  background-color: transparent; 
   div {
     align-items: center;
     display: flex;
@@ -19,5 +20,13 @@ export const Container = styled(Card)`
     span {
       font-size: 16px;
     }
+  }
+`;
+
+export const StyledButton = styled(Button)`
+  background-color: #f44336; // cor de fundo do botão
+  color: #fff; // cor do texto do botão
+  &:hover {
+    background-color: #d32f2f; // cor de fundo do botão ao passar o mouse
   }
 `;
