@@ -34,10 +34,134 @@ export function Header() {
                     </div>
                 </Profile>
 
+<<<<<<< Updated upstream
                 <Logout onClick={handleSignOut} >
                     <RiShutDownLine />
                 </Logout>
             </Container>
+=======
+
+
+                <ul className="acoes">
+                    {
+
+                        client && (
+                            <>
+
+                                <ul className="navegacao">
+
+                                    <li>
+                                        <a href="#!">Categorias</a>
+                                        <ul className="submenu">
+                                            <li>
+                                                <Link to="/">
+                                                    x
+                                                </Link>
+                                            </li>
+                                            <li>
+                                                <Link to="/">
+                                                    x
+                                                </Link>
+                                            </li>
+                                            <li>
+                                                <Link to="/">
+                                                    x
+                                                </Link>
+                                            </li>
+                                            <li>
+                                                <Link to="/">
+                                                    x
+                                                </Link>
+                                            </li>
+                                            <li>
+                                                <Link to="/">
+                                                    x
+                                                </Link>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+
+
+                                <li>
+                                    <IconButton
+                                        onClick={() => navigate('/app/compra')}
+                                        disabled={quantidadeCarrinho === 0}>
+                                        <Badge
+                                            badgeContent={quantidadeCarrinho}
+                                            color="primary"
+                                        >
+                                            <ShoppingCartIcon />
+                                        </Badge>
+                                    </IconButton>
+                                </li>
+
+                            </>
+                        )
+                    }
+
+                    {!isAuthenticated && (<>
+                        <li>
+                            <BotaoNavegacao
+                                texto="Login"
+                                textoAltSrc="Icone representando um usuário"
+                                imagemSrc={usuario}
+                                onClick={() => navigate("/login")}
+                            />
+                        </li>
+
+                        <li>
+                            <BotaoNavegacao
+                                texto="Cadastrar-se"
+                                textoAltSrc="Icone representando um usuário"
+                                imagemSrc={usuario}
+                                onClick={() => navigate("/cadastro")}
+                            />
+                        </li>
+
+                        <li>
+                            <BotaoNavegacao
+                                texto="ADMIN"
+                                textoAltSrc="Icone representando um usuário"
+                                imagemSrc={usuario}
+                                onClick={() => navigate("/adm/login")}
+                            />
+                        </li>
+
+                    </>)}
+                    {isAuthenticated &&
+                        <>
+
+
+                            <li>
+                                <Profile to="/profile">
+                                    <img
+                                        src={avatarUrl}
+                                        alt={usuarioContext.nome}
+                                    />
+
+                                    <div>
+                                        <span>Bem vindo</span>
+                                        <strong>{usuarioContext?.nome}</strong>
+                                    </div>
+                                </Profile>
+                            </li>
+
+                            <li>
+                                <Logout onClick={handleSignOut} >
+                                    <RiShutDownLine />
+                                </Logout>
+                            </li>
+                        </>
+                    }
+
+
+
+
+                </ul>
+
+            </nav>
+>>>>>>> Stashed changes
         </>
 
     );

@@ -24,7 +24,17 @@ public class Endereco {
     private String logradouro;
     private String bairro;
     private String cep;
+<<<<<<< Updated upstream:api/src/main/java/com/br/SuplaMent/domain/endereco/Endereco.java
 
+=======
+    private String cidade;
+    @Size(min = 2, max = 2)
+    private String uf;
+    @ManyToOne
+    @JoinColumn(name = "cliente_id")
+    private Cliente cliente;
+//dfds
+>>>>>>> Stashed changes:suplament-api/src/main/java/com/br/SuplaMent/domain/endereco/Endereco.java
     public void atualizarInformacoes(CadastroEnderecoDTO dto) {
         if (dto.complemento() != null) {
             this.complemento = dto.complemento();

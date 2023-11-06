@@ -11,9 +11,17 @@ import java.util.List;
 
 @Repository
 public interface ClienteRepository extends JpaRepository<Cliente, Long >{
+<<<<<<< Updated upstream:api/src/main/java/com/br/SuplaMent/domain/cliente/ClienteRepository.java
 
     UserDetails findByEmail(String email);
+=======
+//dsfds
+//   Optional<Cliente> findByEmail(String email);
+>>>>>>> Stashed changes:suplament-api/src/main/java/com/br/SuplaMent/domain/pessoa/ClienteRepository.java
     Page<Cliente> findAll(Pageable paginacao);
     Page<Cliente> findAllByActiveTrue(Pageable paginacao);
     Page<Cliente> findByNomeContaining(String nome, Pageable paginacao);
+
+  Optional<Cliente> findByEmail(String email);
+
 }
