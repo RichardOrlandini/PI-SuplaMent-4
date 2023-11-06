@@ -29,7 +29,7 @@ public class UsuarioService {
     }
 
     public Usuario findByEmail(String email) {
-        Optional<Usuario> existe = repository.findByEmail((email));
+        Optional<Usuario> existe = repository.findByEmail(email);
         if (existe.isPresent()) {
             return  existe.get();
         }
