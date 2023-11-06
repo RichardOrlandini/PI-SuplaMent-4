@@ -2,7 +2,7 @@ import { ReactNode, createContext, useContext, useState } from 'react';
 import { AuthProviderProps } from 'shared/interfaces/IAuthContext';
 
 interface Pagamento {
-  nome: string;
+  name: string;
   juros: number;
   id: number;
 }
@@ -18,19 +18,19 @@ PagamentoContext.displayName = "Pagamento";
 
 export function PagamentoProvider(  {children} : AuthProviderProps){
   const tiposPagamento: Pagamento[] = [{
-    nome: "Boleto",
+    name: "Boleto",
     juros: 1,
     id: 1
   }, {
-    nome: "Cartão de crédito",
+    name: "Cartão de crédito",
     juros: 1.3,
     id: 2
   }, {
-    nome: "PIX",
+    name: "PIX",
     juros: 1,
     id: 3
   }, {
-    nome: "Crediário",
+    name: "Crediário",
     juros: 1.5,
     id: 4
   }];

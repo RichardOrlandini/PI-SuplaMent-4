@@ -12,9 +12,7 @@ const Produto: React.FC<IProduto> = (produto: IProduto) => {
   const { saldo } = useContext(UsuarioContext);
 
  const  pathImages = "../../../public/images";
- 
   const itemNoCarrinho = carrinho.find(item => item.id === produto.id);
-  console.log(`${pathImages}/${produto.nomeImagem}`);
 
   return (
     <Card>

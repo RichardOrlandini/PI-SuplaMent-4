@@ -94,7 +94,7 @@ export function Header() {
 
                                 <li>
                                     <IconButton
-                                        onClick={() => navigate('/carrinho')}
+                                        onClick={() => navigate('/app/compra')}
                                         disabled={quantidadeCarrinho === 0}>
                                         <Badge
                                             badgeContent={quantidadeCarrinho}

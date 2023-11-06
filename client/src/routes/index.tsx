@@ -43,6 +43,8 @@ export function RoutesApp() {
 
                 <Route element={<BasePage />}>
                     <Route index path='/' element={< HomeDeslogado />} />
+                    <Route path="/app/compra" element={<Compra />} />
+
 
 
                     <Route element={<RoutePrivateGlobal />}>
@@ -51,7 +53,6 @@ export function RoutesApp() {
 
 
                     <Route element={<RotaPrivadaCliente />}>
-                        <Route path="/app/compra" element={<Compra />} />
                         <Route path="/app/pedidos" element={<Pedidos />} />
                     </Route>
 

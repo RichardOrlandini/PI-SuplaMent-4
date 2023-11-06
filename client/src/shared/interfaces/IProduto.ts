@@ -1,8 +1,8 @@
 export interface IProduto {
     id: number;
-    active: boolean;
+    active?: boolean;
     nome: string;
-    descri: string;
+    descri?: string;
     valor: string;
     qtd: string;
     nomeImagem?: string;
