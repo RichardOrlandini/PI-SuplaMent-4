@@ -2,15 +2,15 @@ import { useCarrinhoContext } from "common/contexts/Carrinho";
 import Produto from "components/Produto";
 import { useContext, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Container, TotalContainer, PagamentoContainer } from './styles';
+import { TotalContainer, PagamentoContainer } from './styles';
 import { usePagamento } from "common/contexts/Pagamento";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-
-import { Button, MenuItem, Select, Snackbar, InputLabel } from '@material-ui/core';
+import {Container,
+    Typography, Box, List, ListItem, ListItemText, ListItemSecondaryAction,
+    IconButton, Button, Grid, MenuItem, Select, Snackbar, InputLabel
+} from '@material-ui/core';
 import MuiAlert from '@material-ui/lab/Alert';
 import { UsuarioContext } from "common/contexts/Usuario";
-
-
 
 
 export default function Compra() {
@@ -33,24 +33,36 @@ export default function Compra() {
     const total = useMemo(() => saldo - valorTotal, [saldo, valorTotal]);
     return (
         <Container>
-            <button onClick={() => navigate(-1)}>
-            </button>
-            <h2>
-                Carrinho
-            </h2>
-            {carrinho.map((item) => (
-                <Produto
-                    {...item.produto}
-                    key={item.produto.id}
-                />
-            ))}
+            <Button
+                variant="contained"
+                color="primary"
+                onClick={() => navigate("/")}
+                style={{ marginBottom: '20px' }}
+            >
+                Voltar
+            </Button>
+
+            <Box maxWidth="100%" overflow="auto" marginLeft={10} marginRight={10} marginTop={3}>
+                <Typography variant="h4" component="h1" align="center" style={{marginBottom: '20px'}} >
+                    Carrinho
+                </Typography>
+
+                <Grid container spacing={2}>
+                    {carrinho.map(item => (
+                        <Grid item xs={12} sm={6} md={2} key={item.produto.id}>
+                            <Produto {...item.produto} />
+                        </Grid>
+                    ))}
+                </Grid>
+
+            </Box>
 
             <PagamentoContainer>
                 <InputLabel> Forma de Pagamento </InputLabel>
                 <Select
                     value={formaPagamento.id}
                     onChange={(event) => mudarFormaPagamento(Number(event.target.value))}
-                    >
+                >
                     {tiposPagamento.map(pagamento => (
                         <MenuItem
                             value={pagamento.id}
@@ -67,7 +79,7 @@ export default function Compra() {
                     <span>R$ {valorTotal.toFixed(2)}</span>
                 </div>
                 <div>
-                    <h2> Saldo: </h2>
+                    <h2> Desconto: </h2>
                     <span> R$ {saldo.toFixed(2)} </span>
                 </div>
                 <div>

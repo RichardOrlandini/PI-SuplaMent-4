@@ -91,7 +91,7 @@ export function HomeDeslogado() {
 
         </Banner>
 
-        <Box width={1800} marginLeft={40} marginTop={3}>
+        <Box maxWidth="100%" overflow="auto" marginLeft={10} marginRight={10} marginTop={3}>
           <Grid container spacing={2}>
             {produtos.map(produto => (
               <Grid item xs={12} sm={6} md={2} key={produto.id}>
@@ -100,28 +100,29 @@ export function HomeDeslogado() {
             ))}
           </Grid>
 
-          <Box sx={{ marginTop: 2, marginLeft: 50, marginRight: 50 }}>
-            <Button
-              className="custom-button"
-              onClick={() => getDados(paginaAnterior)}
-              disabled={!paginaAnterior}
-            >
-              Página Anterior
-            </Button>
-            <Button
-              className="custom-button"
-              onClick={() => getDados(proximaPagina)}
-              disabled={!proximaPagina}
-            >
-              Próxima página
-            </Button>
-          </Box>
+
+        <Box sx={{ marginTop: 2, marginLeft: 50, marginRight: 50 }}>
+          <Button
+            className="custom-button"
+            onClick={() => getDados(paginaAnterior)}
+            disabled={!paginaAnterior}
+          >
+            Página Anterior
+          </Button>
+          <Button
+            className="custom-button"
+            onClick={() => getDados(proximaPagina)}
+            disabled={!proximaPagina}
+          >
+            Próxima página
+          </Button>
         </Box>
+      </Box>
 
 
-        <TagsCategorias />
-        <Newsletter />
-      </section >
+      <TagsCategorias />
+      <Newsletter />
+    </section >
     </>
   )
 }

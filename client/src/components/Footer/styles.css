@@ -6,6 +6,7 @@ hr {
     background-color: var(--branco);
     padding: 1em;
     background: #002F52;
+    margin-top: 40px;
 }
 
 .lista-rodape {

@@ -26,7 +26,7 @@ const Produto: React.FC<IProduto> = (produto: IProduto) => {
         <Typography variant="h6" component="div">
           {produto.nome} - R$ {Number(produto.valor).toFixed(2)}
         </Typography>
-        <Typography variant="body2" color="secondary">
+        <Typography variant="body2" color="primary">
           Quantidade: {produto?.qtd || 0}
         </Typography>
         <IconButton
