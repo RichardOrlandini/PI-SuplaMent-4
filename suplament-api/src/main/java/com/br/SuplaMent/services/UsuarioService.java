@@ -59,8 +59,7 @@ public class UsuarioService {
     public Page findAll(Pageable paginacao) {
         return repository.findAll(paginacao).map(ListagemUsuarioDTO::new);
     }
-
-
+    
     //    public Usuario cadastrar(CadastroUsuarioDTO dto) {
 //        if (repository.findByEmail(dto.email()) != null) {
 //            throw new IllegalArgumentException("O email já existe");

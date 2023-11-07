@@ -10,6 +10,7 @@ import org.hibernate.validator.constraints.br.CPF;
 
 public record AtualizarUsuarioDTO(
 
+
         @NotNull
         Long id,
         @NotNull

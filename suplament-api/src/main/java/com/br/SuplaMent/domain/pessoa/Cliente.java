@@ -15,6 +15,7 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
@@ -28,12 +29,15 @@ public class Cliente extends Pessoa {
 //gfd
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente")
     private List<Endereco> enderecos = new ArrayList<>();
-
+    private Date DataNascimento;
+    private String genero;
     private String cpf;
     public Cliente(CadastroUsuarioDTO dto) {
         this.setNome(dto.nome());
         this.setEmail(dto.email());
         this.setSenha(dto.senha());
+        this.setGenero(dto.genero());
+        this.setDataNascimento(dto.dataNascimento());
     }
 
     public void atualizarInformacoes(AtualizarUsuarioDTO dto) {
@@ -42,6 +46,12 @@ public class Cliente extends Pessoa {
         }
         if (dto.nome() != null) {
             this.setNome(dto.nome());
+        }
+        if (dto.genero() != null) {
+            this.setGenero(dto.genero());
+        }
+        if (dto.dataNascimento() != null) {
+            this.setDataNascimento(dto.dataNascimento());
         }
 
     }
