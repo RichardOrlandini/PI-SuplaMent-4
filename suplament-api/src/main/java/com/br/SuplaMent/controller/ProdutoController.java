@@ -34,9 +34,9 @@ public class ProdutoController {
             @RequestParam("json") String json) {
 
         ObjectMapper objectMapper = new ObjectMapper();
-        ProdutoCreateToSalesDTO request = null;
+        ProdutoCreateDTO request = null;
         try {
-            request = objectMapper.readValue(json, ProdutoCreateToSalesDTO.class);
+            request = objectMapper.readValue(json, ProdutoCreateDTO.class);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
@@ -97,7 +97,7 @@ public class ProdutoController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<ProdutoResponseToSalesDTO> update(@RequestBody ProdutoCreateToSalesDTO request, @PathVariable Long id) {
+    public ResponseEntity<ProdutoResponseToSalesDTO> update(@RequestBody ProdutoCreateDTO request, @PathVariable Long id) {
         return ResponseEntity.ok(produtoService.update(request, id));
     }
 

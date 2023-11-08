@@ -4,7 +4,7 @@ import { TextField, Button } from "@mui/material"
 import { Link, useNavigate } from 'react-router-dom';
 import usePost from 'services/usePost';
 import autenticaStore from 'common/stores/authentica.store';
-import { ILogin, LoginDataAuthAPi } from 'shared/interfaces/IUsuario';
+import { ILogin, IUsuarioContext, LoginDataAuthAPi } from 'shared/interfaces/IUsuario';
 import { SENHA_AUTH, HOST_AUTH, HOST_API } from 'constants/url';
 import { Container, Form } from './styles';
 
@@ -19,17 +19,21 @@ export function Signln() {
   const handleSignIN = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
+    const usuarioAut = {
+      email: email,
+      password: SENHA_AUTH,
+    }
+
     const usuario: ILogin = {
       email: email,
-      senha: SENHA_AUTH,
+      senha: senha,
     }
 
     try {
-      //auth api
-      cadastrarDados({ host: HOST_AUTH, url: "login", dados: usuario })
-      const { accessToken, message: m1 }: LoginDataAuthAPi = resposta.data;
-
-      if (m1 != null) {
+      // auth api
+      cadastrarDados({ host: HOST_AUTH, url: "user/auth", dados: usuarioAut });
+      const { accessToken, status, message: m1 }: LoginDataAuthAPi = resposta;
+      if (m1) {
         alert(m1);
         return;
       }
@@ -37,19 +41,33 @@ export function Signln() {
       //api
       usuario.senha = senha;
 
-      cadastrarDados({ host: HOST_API, url: "/login/cliente", dados: usuario });
+      const data = await fetch(`http://localhost:${HOST_API}/login/client`, {
+        headers : {
+          'Content-Type': 'application/json'
+        },
+        method: 'POST',
+        body: JSON.stringify(usuario)
+      });
 
-      const { id, email, role, message } = resposta.data
+      const dataConverted = await data.json();
+      const { id, nome, email, role } = dataConverted;
 
-      if (message != null) {
-        alert(message);
+      if (!id) {
+        alert("Usuario não encontrado");
         return;
       }
 
-      autenticaStore.login({ id, email, token: accessToken, role });
-      resposta && navigate('/adm');
+      
+      //TODO, incluir avatar no response de usuario details.
+      const user : IUsuarioContext = {id, nome, email, role, token: accessToken, avatar: '' }
+      alert("Bem vindo!");
+
+      sessionStorage.setItem("@suplament:token", accessToken);
+      autenticaStore.login(user);
+      navigate('/');
 
     } catch (erro) {
+      console.log(erro)
       erro && alert('Não foi possível fazer login')
     }
   }

@@ -76,7 +76,7 @@ public class ProdutoService {
         return produtoRepository.findById(id)
                 .orElseThrow(() -> new ValidationExcepetion("Nenhum Produto encontrado com o id informado!"));
     }
-    public ProdutoResponseToSalesDTO save(ProdutoCreateToSalesDTO req) {
+    public ProdutoResponseToSalesDTO save(ProdutoCreateDTO req) {
         this.validacaoProdutoDataInformado(req);
         this.validacaoCategoriaEFornecedorInformados(req);
 
@@ -87,7 +87,7 @@ public class ProdutoService {
         return ProdutoResponseToSalesDTO.of(produto);
     }
 
-    public ProdutoResponseToSalesDTO update(ProdutoCreateToSalesDTO req, Long id) {
+    public ProdutoResponseToSalesDTO update(ProdutoCreateDTO req, Long id) {
         this.validacaoProdutoDataInformado(req);
         this.validaIdInformado(id);
         this.validacaoCategoriaEFornecedorInformados(req);
@@ -138,7 +138,7 @@ public class ProdutoService {
             throw new ValidationExcepetion(String.format("O produto %s is out of stock", produto.getQtd()));
         }
     }
-    private void validacaoProdutoDataInformado(ProdutoCreateToSalesDTO request) {
+    private void validacaoProdutoDataInformado(ProdutoCreateDTO request) {
         if (isEmpty(request.getNome())){
             throw new ValidationExcepetion("O nome do produto não foi informada!");
         }
@@ -150,7 +150,7 @@ public class ProdutoService {
         }
     }
 
-    private void validacaoCategoriaEFornecedorInformados(ProdutoCreateToSalesDTO request) {
+    private void validacaoCategoriaEFornecedorInformados(ProdutoCreateDTO request) {
         if (isEmpty(request.getCategoriaId())){
             throw new ValidationExcepetion("A categoria id, não foi informada!");
         }

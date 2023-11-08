@@ -3,6 +3,8 @@ import { usePagamento } from './Pagamento';
 import { UsuarioContext } from './Usuario';
 import { AuthProviderProps } from 'shared/interfaces/IAuthContext';
 import { IProduto } from 'shared/interfaces/IProduto';
+import { useNavigate } from 'react-router-dom';
+import { useCompra } from 'pages/logados/Compra/compra.helpers';
 
 interface CarrinhoItem {
   produto: IProduto;
@@ -26,6 +28,7 @@ export function CarrinhoProvider(  {children} : AuthProviderProps){
   const [carrinho, setCarrinho] = useState<CarrinhoItem[]>([]);
   const [quantidadeCarrinho, setQuantidadeCarrinho] = useState<number>(0);
   const [valorTotal, setValorTotal] = useState<number>(0);
+
 
   const { saldo, setSaldo } = useContext(UsuarioContext);
   const { formaPagamento } = usePagamento();
@@ -134,11 +137,22 @@ export const useCarrinhoContext = () => {
     });
     setCarrinho(novoCarrinho);
   };
-  
 
-  const comprar = () => {
+
+  const clearData = () => {
     setCarrinho([]);
-    setSaldo(saldo - valorTotal);
+      setSaldo(0)
+      setValorTotal(0);
+      setQuantidadeCarrinho(0);
+  }
+  const comprar = () => {
+    try {
+
+    //useCompra(1);
+      clearData();
+    } catch (error) {
+      console.log(error)
+    }
   };
 
   useEffect(() => {

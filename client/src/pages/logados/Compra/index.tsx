@@ -1,16 +1,20 @@
 import { useCarrinhoContext } from "common/contexts/Carrinho";
 import Produto from "components/Produto";
-import { useContext, useMemo, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { TotalContainer, PagamentoContainer } from './styles';
 import { usePagamento } from "common/contexts/Pagamento";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import {Container,
+import {
+    Container, Drawer,
     Typography, Box, List, ListItem, ListItemText, ListItemSecondaryAction,
     IconButton, Button, Grid, MenuItem, Select, Snackbar, InputLabel
 } from '@material-ui/core';
 import MuiAlert from '@material-ui/lab/Alert';
 import { UsuarioContext } from "common/contexts/Usuario";
+import { useEnderecos } from "./compra.helpers";
+import { IEndereco } from "shared/interfaces/IUsuario";
+import autenticaStore from "common/stores/authentica.store";
 
 
 export default function Compra() {
@@ -27,10 +31,64 @@ export default function Compra() {
         tiposPagamento
     } = usePagamento();
 
-
     const [openSnackbar, setOpenSnackbar] = useState(false);
-    const navigate = useNavigate(); // useNavigate em vez de useHistory
+    const navigate = useNavigate();
+    const [enderecoSelecionado, setEnderecoSelecionado] = useState<number | null>(null);
+
     const total = useMemo(() => saldo - valorTotal, [saldo, valorTotal]);
+
+    const [enderecos, setEnderecos] = useState<IEndereco[] | null>(null);
+
+    useEffect(() => {
+        // const usuarioContext = autenticaStore.user;
+        // const id = usuarioContext.id;
+        //  if (id) {
+
+        // const { dados, erro } =   useEnderecos(1);
+
+        // if (!erro) {
+        //     setEnderecos(dados);
+        // }
+        //  }
+        setEnderecos(mok);
+
+    }, []);
+
+    const mok = [
+        {
+            id: 1,
+            cep: '12345-678',
+            rua: 'Rua Exemplo',
+            numero: '123',
+            estado: 'UF',
+            complemento: 'Apto 101',
+            principal: true,
+        },
+        {
+            id: 2,
+            cep: '54321-876',
+            rua: 'Avenida Teste',
+            numero: '456',
+            estado: 'UF',
+            complemento: 'Casa',
+            principal: false,
+        },
+        {
+            id: 3,
+            cep: '98765-432',
+            rua: 'Travessa Amostra',
+            numero: '789',
+            estado: 'UF',
+            complemento: 'Escritório',
+            principal: false,
+        }
+    ]
+
+    const handleComprar = () => {
+        comprar();
+        setOpenSnackbar(true);
+        // navigate("/");
+    }
     return (
         <Container>
             <Button
@@ -43,7 +101,7 @@ export default function Compra() {
             </Button>
 
             <Box maxWidth="100%" overflow="auto" marginLeft={10} marginRight={10} marginTop={3}>
-                <Typography variant="h4" component="h1" align="center" style={{marginBottom: '20px'}} >
+                <Typography variant="h4" component="h1" align="center" style={{ marginBottom: '20px' }} >
                     Carrinho
                 </Typography>
 
@@ -78,21 +136,11 @@ export default function Compra() {
                     <h2>Total no Carrinho: </h2>
                     <span>R$ {valorTotal.toFixed(2)}</span>
                 </div>
-                <div>
-                    <h2> Desconto: </h2>
-                    <span> R$ {saldo.toFixed(2)} </span>
-                </div>
-                <div>
-                    <h2> Saldo Total: </h2>
-                    <span> R$ {total.toFixed(2)} </span>
-                </div>
+
             </TotalContainer>
             <Button
-                onClick={() => {
-                    comprar();
-                    setOpenSnackbar(true);
-                }}
-                disabled={quantidadeCarrinho === 0 || total < 0}
+                onClick={handleComprar}
+                disabled={valorTotal <= 0}
                 color="primary"
                 variant="contained"
             >
@@ -115,8 +163,41 @@ export default function Compra() {
                     Compra feita com sucesso!
                 </MuiAlert>
             </Snackbar>
+
+
+            {enderecos && (
+                <Box display="flex" flexDirection="column" alignItems="flex-start" style={{ marginTop: '100px' }}>
+
+                    <Typography variant="h6" component="h2" align="center" style={{ marginBottom: '20px' }} >
+                        Endereços
+                    </Typography>
+
+
+                    <Typography variant="h6" component="h6" align="left" style={{ marginBottom: '20px' }} >
+                        Selecione um endereço de Entrega
+                    </Typography>
+
+                    <List>
+                        {enderecos.map((endereco, index) => (
+                            <ListItem
+                                key={endereco.id}
+                                style={endereco.id === enderecoSelecionado ? { backgroundColor: '#b56702' } : {}}
+                                onClick={() => setEnderecoSelecionado(endereco.id)}
+                            >
+                                <ListItemText
+                                    primary={`Rua: ${endereco.rua}, Número: ${endereco.numero}`}
+                                    secondary={`CEP: ${endereco.cep}, Estado: ${endereco.estado}, Complemento: ${endereco.complemento}`}
+                                />
+                            </ListItem>
+                        ))}
+                    </List>
+
+                </Box>
+            )}
+
+
+
         </Container>
     )
-
 
 }

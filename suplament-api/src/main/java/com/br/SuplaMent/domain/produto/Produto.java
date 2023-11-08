@@ -4,7 +4,7 @@ import com.br.SuplaMent.utils.aEntity.DomainEntity;
 import com.br.SuplaMent.domain.categoria.Categoria;
 import com.br.SuplaMent.domain.fornecedor.Fornecedor;
 
-import com.br.SuplaMent.domain.produto.dto.ProdutoCreateToSalesDTO;
+import com.br.SuplaMent.domain.produto.dto.ProdutoCreateDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -42,7 +42,7 @@ public class Produto extends DomainEntity {
     public void ativa() {
         this.setActive(true);
     }
-    public static Produto of (ProdutoCreateToSalesDTO request, Fornecedor fornecedor, Categoria categoria) {
+    public static Produto of (ProdutoCreateDTO request, Fornecedor fornecedor, Categoria categoria) {
         return Produto
                 .builder()
                 .nome(request.getNome())

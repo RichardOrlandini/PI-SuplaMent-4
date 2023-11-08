@@ -1,20 +1,15 @@
 package com.br.SuplaMent.domain.pedido;
 
-import com.br.SuplaMent.domain.categoria.Categoria;
-import com.br.SuplaMent.domain.fornecedor.Fornecedor;
 import com.br.SuplaMent.domain.pedido.dto.CreatePedidoDTO;
 import com.br.SuplaMent.domain.pessoa.Cliente;
 import com.br.SuplaMent.domain.produto.Produto;
-import com.br.SuplaMent.domain.produto.dto.ProdutoCreateToSalesDTO;
 import com.br.SuplaMent.utils.aEntity.DomainEntity;
 import com.br.SuplaMent.utils.enums.FormaPagamento;
 import com.br.SuplaMent.utils.enums.StatusPedido;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 

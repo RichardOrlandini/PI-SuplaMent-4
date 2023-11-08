@@ -62,7 +62,7 @@ export interface ICliente {
 
 
 export interface IEndereco {
-    id?: number,
+    id: number,
     cep: string,
     rua: string,
     numero: string,
