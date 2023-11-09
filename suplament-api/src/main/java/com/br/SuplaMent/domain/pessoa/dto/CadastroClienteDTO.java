@@ -14,11 +14,10 @@ public record CadastroClienteDTO(
         @NotBlank String senha
 ) {
 =======
-        @NotBlank String senha,
-
         @NotBlank String genero,
+        @NotBlank Date dataNascimento,
+        @NotBlack Endereco endereco;
 
-        @NotBlank Date dataNascimento
         ) {
 >>>>>>> Stashed changes:suplament-api/src/main/java/com/br/SuplaMent/domain/pessoa/dto/CadastroClienteDTO.java
 }

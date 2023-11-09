@@ -30,6 +30,7 @@ public class Endereco {
     private String cidade;
     @Size(min = 2, max = 2)
     private String uf;
+
     @ManyToOne
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;

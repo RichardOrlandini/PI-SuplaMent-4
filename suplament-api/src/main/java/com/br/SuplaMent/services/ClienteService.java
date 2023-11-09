@@ -52,10 +52,10 @@ public class ClienteService {
 //        return clienteRepository.save(cliente);
 //    }
 
-    public Cliente cadastrar(Cliente cliente) {
-        validarDadosCliente(cliente);
+    public Cliente cadastrar(CadastroDataClient dto) {
+        this.validarDadosCliente(dto.client);
+        this.validarDadosEndereco(dto.enderecos);
 //        cliente.setSenha(bCryptPasswordEncoder.encode(cliente.getSenha()));
-//        cliente.setPassword(encryptPassword(cliente.getPassword()));
         return clienteRepository.save(cliente);
     }
 
@@ -69,6 +69,8 @@ public class ClienteService {
         // if (!cliente.isNomeValido()) {
         //  throw new NomeInvalidoException("O nome do cliente deve ter duas palavras com pelo menos 3 letras cada.");
         //   }
+
+
     }
     public Cliente atualizaCadastro(Long id, Cliente clienteDetalhes) {
         Cliente cliente = clienteRepository.findById(id)
