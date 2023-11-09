@@ -2,16 +2,16 @@ package com.br.SuplaMent.domain.endereco;
 
 import com.br.SuplaMent.domain.endereco.dto.CadastroEnderecoDTO;
 import com.br.SuplaMent.domain.endereco.dto.DtoEndereco;
+import com.br.SuplaMent.domain.pessoa.Cliente;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import jakarta.validation.constraints.Size;
+import lombok.*;
 
 @Entity(name = "Endereco")
 @Table(name = "endereco")
 @NoArgsConstructor
 @Getter
+@Setter
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
 public class Endereco {
@@ -24,9 +24,7 @@ public class Endereco {
     private String logradouro;
     private String bairro;
     private String cep;
-<<<<<<< Updated upstream:api/src/main/java/com/br/SuplaMent/domain/endereco/Endereco.java
 
-=======
     private String cidade;
     @Size(min = 2, max = 2)
     private String uf;
@@ -34,8 +32,7 @@ public class Endereco {
     @ManyToOne
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
-//dfds
->>>>>>> Stashed changes:suplament-api/src/main/java/com/br/SuplaMent/domain/endereco/Endereco.java
+
     public void atualizarInformacoes(CadastroEnderecoDTO dto) {
         if (dto.complemento() != null) {
             this.complemento = dto.complemento();

@@ -6,6 +6,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.br.CPF;
 
+import java.util.Date;
+
 public record CadastroUsuarioDTO(
         @NotBlank String nome,
         @NotBlank @Email String email,
@@ -13,6 +15,7 @@ public record CadastroUsuarioDTO(
         @CPF @NotBlank String cpf,
 
         @NotNull UserRole role
+
 
 ) {
 }

@@ -2,18 +2,17 @@ package com.br.SuplaMent.domain.pessoa;
 
 import com.br.SuplaMent.domain.endereco.Endereco;
 import com.br.SuplaMent.domain.pessoa.dto.AtualizarUsuarioDTO;
+import com.br.SuplaMent.domain.pessoa.dto.CadastroClienteDTO;
 import com.br.SuplaMent.domain.pessoa.dto.CadastroUsuarioDTO;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.Past;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -26,13 +25,14 @@ import java.util.List;
 @NoArgsConstructor
 public class Cliente extends Pessoa {
 
-//gfd
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente")
-    private List<Endereco> enderecos = new ArrayList<>();
-    private Date DataNascimento;
     private String genero;
     private String cpf;
-    public Cliente(CadastroUsuarioDTO dto) {
+    private Date DataNascimento;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente")
+    private List<Endereco> enderecos = new ArrayList<>();
+
+    public Cliente(CadastroClienteDTO dto) {
         this.setNome(dto.nome());
         this.setEmail(dto.email());
         this.setSenha(dto.senha());
@@ -53,8 +53,8 @@ public class Cliente extends Pessoa {
         if (dto.dataNascimento() != null) {
             this.setDataNascimento(dto.dataNascimento());
         }
-
     }
+
 //    public boolean isNomeValido() {  // ver como fazer ja q ta passando o parametro nome por pessoa
 //        if (nome == null) {
 //            return false;
@@ -75,7 +75,6 @@ public class Cliente extends Pessoa {
 //
 //        return false;
 //    }
-
     public void excluir() {
         this.setActive(false);
     }

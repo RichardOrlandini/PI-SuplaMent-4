@@ -16,12 +16,12 @@ public class CepService {
         String url = String.format(VIA_CEP_URL, cep);
         restTemplate.getForObject(url, Object.class);
     }
-    private void validarDadosEndereco(Endereco cliente) {
-        Endereco cepDetalhes = BuscaCepDetalhes(cliente.getCep());
-        cliente.setLogradouro(cepDetalhes.getLogradouro());
-        cliente.setBairro(cepDetalhes.getBairro());
-        cliente.setCidade(cepDetalhes.getCidade());
-        cliente.setUf(cepDetalhes.getUf());
+    private void validarDadosEndereco(Endereco endereco) {
+        Endereco cepDetalhes = BuscaCepDetalhes(endereco.getCep());
+        endereco.setLogradouro(cepDetalhes.getLogradouro());
+        endereco.setBairro(cepDetalhes.getBairro());
+        endereco.setCidade(cepDetalhes.getCidade());
+        endereco.setUf(cepDetalhes.getUf());
     }
     private Endereco BuscaCepDetalhes(String cep) {
         // colocar a validaçao do cep usando uma api externa

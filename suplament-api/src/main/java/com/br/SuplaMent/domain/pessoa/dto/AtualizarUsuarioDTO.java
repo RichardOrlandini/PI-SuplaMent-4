@@ -7,6 +7,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.br.CPF;
 
+import java.util.Date;
+
 public record AtualizarUsuarioDTO(
 
 
@@ -25,6 +27,9 @@ public record AtualizarUsuarioDTO(
         CadastroEnderecoDTO endereco,
 
         @NotNull UserRole role,
-        @CPF @NotBlank String cpf
+        @CPF @NotBlank String cpf,
+        @NotBlank String genero,
+
+        @NotNull Date dataNascimento
 ) {
 }
