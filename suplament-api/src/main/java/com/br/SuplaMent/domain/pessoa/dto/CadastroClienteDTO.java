@@ -16,4 +16,5 @@ public record CadastroClienteDTO(
         @NotBlank String genero,
         @NotBlank Date dataNascimento,
         @NotBlank @CPF String cpf,
-        @NotBlank Endereco endereco) { }
+        @NotBlank Endereco endereco
+) { }

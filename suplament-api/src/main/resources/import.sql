@@ -1,3 +1,10 @@
+-- Cliente
+INSERT INTO CLIENTE (ID, dataNascimento, genero, cpf, active, role, email, nome, senha, endereco) VALUES (1, '2000-01-01', 'Masculino', '45214479883', TRUE, 'CLIENT', 'patroa@teste', 'El patroazinha', '1234','Rua 1, 123, 12345678 , São Paulo , Jardim Paulista, SP ,123, Complemento 1');
+
+-- endereco
+INSERT INTO ENDERECO (cep, cidade, bairro, uf, numero, logradouro, complemento)
+VALUES ('12345678', 'São Paulo', 'Jardim Paulista', 'SP', '123', 'Rua 1', 'Complemento 1');
+
 -- Inserindo categorias
 INSERT INTO CATEGORIA (ID, DESCRICAO) VALUES (1000, 'Whey');
 INSERT INTO CATEGORIA (ID, DESCRICAO) VALUES (1001, 'Barras');

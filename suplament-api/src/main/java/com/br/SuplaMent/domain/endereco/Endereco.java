@@ -9,13 +9,13 @@ import lombok.*;
 
 @Entity(name = "Endereco")
 @Table(name = "endereco")
-@NoArgsConstructor
-@Getter
-@Setter
 @AllArgsConstructor
+@Data
+@NoArgsConstructor
 @EqualsAndHashCode(of = "id")
 public class Endereco {
-
+   @Setter
+   @Getter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -24,7 +24,6 @@ public class Endereco {
     private String logradouro;
     private String bairro;
     private String cep;
-
     private String cidade;
     @Size(min = 2, max = 2)
     private String uf;
@@ -49,5 +48,21 @@ public class Endereco {
         if (dto.cep() != null) {
             this.cep = dto.cep();
         }
+        if (dto.cidade() != null) {
+            this.cidade = dto.cidade();
+        }
+        if (dto.uf() != null) {
+            this.uf = dto.uf();
+        }
+    }
+    public void excluir() {
+        this.setActive(false);
+    }
+
+    private void setActive(boolean b) {
+    }
+
+    public void ativa() {
+        this.setActive(true);
     }
 }

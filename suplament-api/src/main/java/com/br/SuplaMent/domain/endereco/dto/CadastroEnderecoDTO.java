@@ -17,7 +17,14 @@ public record CadastroEnderecoDTO(
         String bairro,
         @NotBlank
         @NotNull(message = "Cep não pode ser vazio")
-        String cep
+        String cep,
+        @NotBlank
+        @NotNull(message = "Cidade não pode ser vazio")
+        String cidade,
+
+        @NotBlank
+        @NotNull(message = "uf não pode ser vazio")
+        String uf
     ) {
 }
 

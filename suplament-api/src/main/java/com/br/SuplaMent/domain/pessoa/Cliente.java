@@ -14,6 +14,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -27,7 +28,7 @@ public class Cliente extends Pessoa {
 
     private String genero;
     private String cpf;
-    private Date DataNascimento;
+    private Date dataNascimento;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente")
     private List<Endereco> enderecos = new ArrayList<>();
@@ -38,6 +39,8 @@ public class Cliente extends Pessoa {
         this.setSenha(dto.senha());
         this.setGenero(dto.genero());
         this.setDataNascimento(dto.dataNascimento());
+        this.setEnderecos(Collections.singletonList(dto.endereco()));
+
     }
 
     public void atualizarInformacoes(AtualizarUsuarioDTO dto) {
@@ -53,6 +56,7 @@ public class Cliente extends Pessoa {
         if (dto.dataNascimento() != null) {
             this.setDataNascimento(dto.dataNascimento());
         }
+
     }
 
 //    public boolean isNomeValido() {  // ver como fazer ja q ta passando o parametro nome por pessoa
