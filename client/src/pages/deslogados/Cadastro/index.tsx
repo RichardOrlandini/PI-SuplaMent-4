@@ -95,7 +95,7 @@ export function Cadastro() {
             try {
                 const dataAuth = { email, password: 123456 };
 
-                cadastrarDados({ host: HOST_AUTH, url: 'api/user', dados: dataAuth });
+                cadastrarDados({ host: HOST_AUTH, url: '/user', dados: dataAuth });
                 if (erro) {
                     alert(erro);
                 }

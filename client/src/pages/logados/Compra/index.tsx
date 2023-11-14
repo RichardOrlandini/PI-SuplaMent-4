@@ -24,7 +24,7 @@ export default function Compra() {
         comprar,
         valorTotal = 0
     } = useCarrinhoContext();
-    const { saldo = 0 } = useContext(UsuarioContext);
+    const { saldo = 10 } = useContext(UsuarioContext);
     const {
         formaPagamento,
         mudarFormaPagamento,
@@ -35,7 +35,7 @@ export default function Compra() {
     const navigate = useNavigate();
     const [enderecoSelecionado, setEnderecoSelecionado] = useState<number | null>(null);
 
-    const total = useMemo(() => saldo - valorTotal, [saldo, valorTotal]);
+    const total = useMemo(() => valorTotal - saldo + 10, [saldo, valorTotal]);
 
     const [enderecos, setEnderecos] = useState<IEndereco[] | null>(null);
 
@@ -117,6 +117,7 @@ export default function Compra() {
 
             <PagamentoContainer>
                 <InputLabel> Forma de Pagamento </InputLabel>
+                
                 <Select
                     value={formaPagamento.id}
                     onChange={(event) => mudarFormaPagamento(Number(event.target.value))}
@@ -134,7 +135,10 @@ export default function Compra() {
             <TotalContainer>
                 <div>
                     <h2>Total no Carrinho: </h2>
-                    <span>R$ {valorTotal.toFixed(2)}</span>
+                    <span>Frete R$ {10}</span>
+                    <span>Valor R$ {valorTotal.toFixed(2)}</span>
+                    <span>Total R$ {total.toFixed(2)}</span>
+
                 </div>
 
             </TotalContainer>

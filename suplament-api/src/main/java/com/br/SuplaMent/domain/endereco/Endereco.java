@@ -3,9 +3,12 @@ package com.br.SuplaMent.domain.endereco;
 import com.br.SuplaMent.domain.endereco.dto.CadastroEnderecoDTO;
 import com.br.SuplaMent.domain.endereco.dto.DtoEndereco;
 import com.br.SuplaMent.domain.pessoa.Cliente;
+import com.br.SuplaMent.utils.aEntity.DomainEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.*;
+
+import java.util.List;
 
 @Entity(name = "Endereco")
 @Table(name = "endereco")
@@ -13,12 +16,8 @@ import lombok.*;
 @Data
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
-public class Endereco {
-   @Setter
-   @Getter
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Endereco extends DomainEntity {
+
     private String complemento;
     private String numero;
     private String logradouro;

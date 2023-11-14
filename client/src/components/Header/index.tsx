@@ -24,8 +24,10 @@ export function Header() {
     let client: boolean = true;
 
     if (isAuthenticated) {
-        usuarioContext.role === Role.ADMIN
-        client = false;
+        if (usuarioContext.role === Role.ADMIN) {
+            client = false;
+        }
+        
     }
 
     const navigate = useNavigate();
@@ -45,13 +47,15 @@ export function Header() {
 
                 <h1 className="logo">
                     <Link to="/">
-                        <img className="logo" src={logo} width={50} alt="Logo da AluraBooks" />
+                        <img className="logo" src={logo} width={50} alt="" />
                     </Link>
                 </h1>
 
 
 
                 <ul className="acoes">
+
+
                     {
 
                         client && (
@@ -91,19 +95,20 @@ export function Header() {
                                     </li>
                                 </ul>
 
+                                
 
-                                <li>
-                                    <IconButton
-                                        onClick={() => navigate('/app/compra')}
-                                        disabled={quantidadeCarrinho === 0}>
-                                        <Badge
-                                            badgeContent={quantidadeCarrinho}
-                                            color="primary"
-                                        >
-                                            <ShoppingCartIcon />
-                                        </Badge>
-                                    </IconButton>
-                                </li>
+                            <li>
+                                <IconButton
+                                    onClick={() => navigate('/app/compra')}
+                                    disabled={quantidadeCarrinho === 0}>
+                                    <Badge
+                                        badgeContent={quantidadeCarrinho}
+                                        color="primary"
+                                    >
+                                        <ShoppingCartIcon />
+                                    </Badge>
+                                </IconButton>
+                            </li>
 
                             </>
                         )
@@ -161,9 +166,11 @@ export function Header() {
                                     <RiShutDownLine />
                                 </Logout>
                             </li>
+
+
+
                         </>
                     }
-
 
 
 

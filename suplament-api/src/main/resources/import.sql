@@ -1,9 +1,3 @@
--- Cliente
-INSERT INTO CLIENTE (ID, dataNascimento, genero, cpf, active, role, email, nome, senha, endereco) VALUES (1, '2000-01-01', 'Masculino', '45214479883', TRUE, 'CLIENT', 'patroa@teste', 'El patroazinha', '1234','Rua 1, 123, 12345678 , São Paulo , Jardim Paulista, SP ,123, Complemento 1');
-
--- endereco
-INSERT INTO ENDERECO (cep, cidade, bairro, uf, numero, logradouro, complemento)
-VALUES ('12345678', 'São Paulo', 'Jardim Paulista', 'SP', '123', 'Rua 1', 'Complemento 1');
 
 -- Inserindo categorias
 INSERT INTO CATEGORIA (ID, DESCRICAO) VALUES (1000, 'Whey');
@@ -42,3 +36,13 @@ INSERT INTO public.produto (active, qtd, valor, fk_categoria, fk_fornecedor, id,
 -- NÃO MECHER NESSE SCRIPT
 DELETE FROM public.usuario WHERE id=1;
 INSERT INTO USUARIO (ID, insertion_date , active, role, email, nome, senha) VALUES (1, CURRENT_TIMESTAMP, TRUE, 0, 'adm@teste', 'El patrão', '123456');
+
+
+
+-- endereco
+INSERT INTO ENDERECO (id, insertion_date , active, cep, cidade, bairro, uf, numero, logradouro, complemento)
+VALUES (1000, CURRENT_TIMESTAMP, TRUE, '12345678', 'São Paulo', 'Jardim Paulista', 'SP', '123', 'Rua 1', 'Complemento 1');
+-- Cliente
+INSERT INTO CLIENTE (ID, data_nascimento, genero, cpf, active, role, email, nome, senha, endereco_id)
+VALUES (1000, '2000-01-01', 'Masculino', '45214479883', TRUE, 2, 'cliente@teste', 'El patroazinha', '123456', 1000);
+

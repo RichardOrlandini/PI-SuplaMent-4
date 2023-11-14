@@ -41,7 +41,7 @@ export function Signln() {
       //api
       usuario.senha = senha;
 
-      const data = await fetch(`http://localhost:${HOST_API}/login/client`, {
+      const data = await fetch(`http://localhost:${HOST_API}/login/cliente`, {
         headers : {
           'Content-Type': 'application/json'
         },

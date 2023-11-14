@@ -4,15 +4,13 @@ import com.br.SuplaMent.domain.endereco.Endereco;
 import com.br.SuplaMent.domain.pessoa.dto.AtualizarUsuarioDTO;
 import com.br.SuplaMent.domain.pessoa.dto.CadastroClienteDTO;
 import com.br.SuplaMent.domain.pessoa.dto.CadastroUsuarioDTO;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import javax.management.relation.Role;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -26,20 +24,24 @@ import java.util.List;
 @NoArgsConstructor
 public class Cliente extends Pessoa {
 
+    private UserRole role;
     private String genero;
     private String cpf;
     private Date dataNascimento;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente")
-    private List<Endereco> enderecos = new ArrayList<>();
+    @OneToOne
+    @JoinColumn(name = "endereco_id")
+    private Endereco endereco;
 
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
+    private List<Endereco> enderecos;
     public Cliente(CadastroClienteDTO dto) {
         this.setNome(dto.nome());
         this.setEmail(dto.email());
         this.setSenha(dto.senha());
         this.setGenero(dto.genero());
         this.setDataNascimento(dto.dataNascimento());
-        this.setEnderecos(Collections.singletonList(dto.endereco()));
+        this.setEndereco(dto.endereco());
 
     }
 
