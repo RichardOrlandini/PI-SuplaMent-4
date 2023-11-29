@@ -12,3 +12,4 @@ public class SuplaMentApplication {
 		SpringApplication.run(SuplaMentApplication.class, args);
 	}
 }
+

@@ -1,6 +1,7 @@
 package com.br.SuplaMent.domain.pessoa;
 
 import com.br.SuplaMent.domain.endereco.Endereco;
+import com.br.SuplaMent.domain.pessoa.dto.AtualizarClienteDTO;
 import com.br.SuplaMent.domain.pessoa.dto.AtualizarUsuarioDTO;
 import com.br.SuplaMent.domain.pessoa.dto.CadastroClienteDTO;
 import com.br.SuplaMent.domain.pessoa.dto.CadastroUsuarioDTO;
@@ -45,7 +46,7 @@ public class Cliente extends Pessoa {
 
     }
 
-    public void atualizarInformacoes(AtualizarUsuarioDTO dto) {
+    public void atualizarInformacoesCliente(AtualizarClienteDTO dto) {
         if (dto.senha() != null) {
             this.setSenha(dto.senha());
         }

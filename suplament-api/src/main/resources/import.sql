@@ -40,9 +40,12 @@ INSERT INTO USUARIO (ID, insertion_date , active, role, email, nome, senha) VALU
 
 
 -- endereco
-INSERT INTO ENDERECO (id, insertion_date , active, cep, cidade, bairro, uf, numero, logradouro, complemento)
-VALUES (1000, CURRENT_TIMESTAMP, TRUE, '12345678', 'São Paulo', 'Jardim Paulista', 'SP', '123', 'Rua 1', 'Complemento 1');
+-- INSERT INTO ENDERECO (id, insertion_date , active, cep, cidade, bairro, uf, numero, logradouro, complemento)
+-- VALUES (1000, CURRENT_TIMESTAMP, TRUE, '12345678', 'São Paulo', 'Jardim Paulista', 'SP', '123', 'Rua 1', 'Complemento 1');
+INSERT INTO ENDERECO (id,cep, cidade, bairro, uf, numero, logradouro, complemento)
+VALUES (4,'12345678', 'São Paulo', 'Jardim Paulista', 'SP', '123', 'Rua 1', 'Complemento 1');
+
 -- Cliente
 INSERT INTO CLIENTE (ID, data_nascimento, genero, cpf, active, role, email, nome, senha, endereco_id)
-VALUES (1000, '2000-01-01', 'Masculino', '45214479883', TRUE, 2, 'cliente@teste', 'El patroazinha', '123456', 1000);
+VALUES (1, '2000-01-01', 'Masculino', '45214479883', TRUE, 2, 'cliente@teste', 'El patroazinha', '123456', 4);
 

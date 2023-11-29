@@ -12,6 +12,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.Optional;
 
 @Service
@@ -20,6 +21,8 @@ public class ClienteService {
 
     private final ClienteRepository clienteRepository;
     private final EnderecoRepository enderecoRepository;
+    @Autowired
+    private  CepService cepService;
 
     public Cliente findByEmail(String email) {
         Cliente existe = clienteRepository.findByEmail(email).orElse(null);
@@ -38,16 +41,19 @@ public class ClienteService {
 //    }
 
     public Cliente cadastrar(CadastroDataCliente dto) {
+        if (!cepService.fazValidaCep(Arrays.toString(dto.enderecos()))) {}
         this.validarDadosCliente(dto.client());
         this.validarDadosEndereco(dto.enderecos());
         var client = this.encriptarSenha(dto.client());
+
+
         return clienteRepository.save(client);
     }
 
     private Cliente encriptarSenha(CadastroClienteDTO dto) {
         var client = new Cliente(dto);
         //logivca para encryptar e passar o objeto pro client.
-        //        cliente.setSenha(bCryptPasswordEncoder.encode(cliente.getSenha()));
+             // client.setSenha(bCryptPasswordEncoder.encode(client.getSenha()));
         return client;
     }
 
@@ -98,37 +104,5 @@ public class ClienteService {
 //        return nome.matches("^([A-Za-z]{3,} ){1,}[A-Za-z]{3,}$");
 //    }
 
-//
-//    teria q passasr no react assimm se n me engano
-//    class RegisterForm extends React.Component {
-//        state = {
-//            email: '',
-//                    cpf: '',
-//                    name: '',
-//                    birthDate: '',
-//                    gender: '',
-//                    cep: '',
-//                    logradouro: '',
-//                    numero: '',
-//                    complemento: '',
-//                    bairro: '',
-//                    cidade: '',
-//                    uf: '',
-//                    enderecos: [],
-//            password: ''
-//        }
-//
-//        handleSubmit = async event => {
-//            event.preventDefault();
-//        const response = await axios.post('/api/clientes/register', this.state);
-    //        se cadastrar correto viria pra ca
-//            if (response.status === 200) {
-//                this.props.history.push('/login');
-//            }
-//        }
-//
-//        render() {
-//
-//        }
-//    }
+
 }
