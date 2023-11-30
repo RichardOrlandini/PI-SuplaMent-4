@@ -1,6 +1,5 @@
 package com.br.SuplaMent.services;
 
-import com.br.SuplaMent.domain.endereco.Endereco;
 import com.br.SuplaMent.domain.endereco.EnderecoRepository;
 import com.br.SuplaMent.domain.pessoa.Cliente;
 import com.br.SuplaMent.domain.pessoa.ClienteRepository;
@@ -9,11 +8,9 @@ import com.br.SuplaMent.domain.pessoa.dto.CadastroDataCliente;
 import com.br.SuplaMent.domain.pessoa.dto.CadastroEnderecosDTO;
 import com.br.SuplaMent.infra.exception.ValidationExcepetion;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
-import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -21,8 +18,7 @@ public class ClienteService {
 
     private final ClienteRepository clienteRepository;
     private final EnderecoRepository enderecoRepository;
-    @Autowired
-    private  CepService cepService;
+    private final  CepService cepService;
 
     public Cliente findByEmail(String email) {
         Cliente existe = clienteRepository.findByEmail(email).orElse(null);
@@ -41,12 +37,9 @@ public class ClienteService {
 //    }
 
     public Cliente cadastrar(CadastroDataCliente dto) {
-        if (!cepService.fazValidaCep(Arrays.toString(dto.enderecos()))) {}
         this.validarDadosCliente(dto.client());
         this.validarDadosEndereco(dto.enderecos());
         var client = this.encriptarSenha(dto.client());
-
-
         return clienteRepository.save(client);
     }
 

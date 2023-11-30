@@ -18,12 +18,12 @@ import lombok.NoArgsConstructor;
 public abstract class Pessoa extends DomainEntity {
     private static final long serialVersionUID = 1L;
 
-    @Column(name = "nome", nullable = true)
+    @Column(name = "nome")
     private String nome;
 
     @Column(name = "email", nullable = false)
     private String email;
 
-    @Column(name = "senha", nullable = true)
+    @Column(name = "senha")
     private String senha;
 }

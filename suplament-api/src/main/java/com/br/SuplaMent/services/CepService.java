@@ -16,7 +16,6 @@ public class CepService {
         String url = UriComponentsBuilder.fromUriString(API_URL)
                 .buildAndExpand(cep)
                 .toUriString();
-
         try {
             restTemplate.getForObject(url, String.class);
             return true;

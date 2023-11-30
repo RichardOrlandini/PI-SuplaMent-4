@@ -18,7 +18,6 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @AllArgsConstructor
-@EqualsAndHashCode(of = "id")
 @Builder
 public class Pedido extends DomainEntity {
 

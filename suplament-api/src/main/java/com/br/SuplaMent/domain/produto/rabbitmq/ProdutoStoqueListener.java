@@ -16,7 +16,6 @@ import org.springframework.stereotype.Component;
 public class ProdutoStoqueListener {
 
     private final ProdutoService produtoService;
-
     @RabbitListener(queues = "${rabbit.queue.product-stock}")
     public void recebeMensagemProdutoEstoque(ProdutoStoqueDTO produtoStoqueDTO) throws JsonProcessingException {
         log.info("Recebendo mensagem com data: {} e TransactionId: {}",

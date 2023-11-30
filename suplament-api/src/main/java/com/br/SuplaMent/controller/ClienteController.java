@@ -9,6 +9,7 @@ import com.br.SuplaMent.domain.pessoa.dto.DetalhamentoClienteDTO;
 import com.br.SuplaMent.services.ClienteService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,11 +18,11 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
 @RequestMapping("cliente")
+@AllArgsConstructor
 public class ClienteController {
-    @Autowired
-    private  ClienteService clienteService;
-    @Autowired
-    private ClienteRepository repository;
+
+    private final  ClienteService clienteService;
+    private final ClienteRepository repository;
 
     @PostMapping
     public ResponseEntity<DetalhamentoClienteDTO> cadastrar(@RequestBody CadastroDataCliente dto,  UriComponentsBuilder uriBuilder) {
