@@ -1,15 +1,18 @@
 package com.br.SuplaMent.services;
 
+import com.br.SuplaMent.domain.pessoa.Cliente;
 import com.br.SuplaMent.domain.pessoa.Usuario;
 import com.br.SuplaMent.domain.pessoa.UsuarioRepository;
 import com.br.SuplaMent.domain.pessoa.dto.CadastroInicialDTO;
 import com.br.SuplaMent.domain.pessoa.dto.ListagemUsuarioDTO;
+import com.br.SuplaMent.domain.produto.Produto;
 import com.br.SuplaMent.infra.exception.ValidationExcepetion;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -60,22 +63,18 @@ public class UsuarioService {
         return repository.findAll(paginacao).map(ListagemUsuarioDTO::new);
     }
 
+    public Usuario ativarDesativarUsuario(Long id) {
+        Usuario usuario = repository.findById(id).orElse(null);
+        if (usuario == null) {
+            return null;
+        }
+        usuario.setAtivo(!usuario.isAtivo());
+        repository.save(usuario);
+        return usuario;
+    }
 
-    //    public Usuario cadastrar(CadastroUsuarioDTO dto) {
-//        if (repository.findByEmail(dto.email()) != null) {
-//            throw new IllegalArgumentException("O email já existe");
-//        }
-//        String passwordEncoder = new BCryptPasswordEncoder().encode(dto.senha());
-//        CadastroUsuarioDTO novoDto = new CadastroUsuarioDTO(
-//                dto.nome(),
-//                dto.email(),
-//                passwordEncoder,
-//                dto.cpf(),
-//                dto.role());
-//
-//        Usuario usuario = new Usuario(novoDto);
-//        return repository.save(usuario);
-//    }
-
+    public List<Usuario> buscarUsuariosPorNome(String nome) {
+        return repository.findByNome(nome);
+    }
 }
 

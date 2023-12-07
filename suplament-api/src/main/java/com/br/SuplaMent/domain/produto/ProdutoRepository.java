@@ -22,7 +22,8 @@ public interface ProdutoRepository extends JpaRepository<Produto, Long> {
     Boolean existsByFornecedorId(Long id);
 
 
-    //  Page<Produto> findAllByActiveTrue(Pageable paginacao);
+
+ //  Page<Produto> findAllByActiveTrue(Pageable paginacao);
 
    // Page<Produto> findAllByOrderByInsertionDateDesc(Pageable paginacao);
 

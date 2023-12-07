@@ -6,6 +6,7 @@ import com.br.SuplaMent.domain.pessoa.ClienteRepository;
 import com.br.SuplaMent.domain.pessoa.dto.AtualizarClienteDTO;
 import com.br.SuplaMent.domain.pessoa.dto.CadastroDataCliente;
 import com.br.SuplaMent.domain.pessoa.dto.DetalhamentoClienteDTO;
+import com.br.SuplaMent.domain.produto.Produto;
 import com.br.SuplaMent.services.ClienteService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -45,20 +46,14 @@ public ResponseEntity atualizar(@RequestBody @Valid AtualizarClienteDTO dto) {
     cliente.atualizarInformacoesCliente(dto);
     return ResponseEntity.ok(new DetalhamentoClienteDTO(cliente));
 }
-    // Nao lembro se cliente pode se desativar
-    @DeleteMapping("/{id}")
-    @Transactional
-    public ResponseEntity excluir(@PathVariable Long id) {
-        var cliente = repository.getReferenceById(id);
-        cliente.excluir();
-        return ResponseEntity.noContent().build();
-    }
-    @PutMapping("/{id}")
-    @Transactional
-    public ResponseEntity ativa(@PathVariable Long id) {
-        var cliente = repository.getReferenceById(id);
-        cliente.ativa();
-        return ResponseEntity.noContent().build();
+
+    @PutMapping("/{id}/ativarDesativar")
+    public ResponseEntity<Cliente> ativarDesativarCliente(@PathVariable Long id) {
+        Cliente cliente = clienteService.ativarDesativarCliente(id);
+        if (cliente == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(cliente);
     }
 //        @GetMapping("/{id}")
 //        public ResponseEntity detalhar(@PathVariable Long id) {

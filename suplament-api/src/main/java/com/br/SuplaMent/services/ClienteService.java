@@ -7,6 +7,7 @@ import com.br.SuplaMent.domain.pessoa.ClienteRepository;
 import com.br.SuplaMent.domain.pessoa.dto.CadastroClienteDTO;
 import com.br.SuplaMent.domain.pessoa.dto.CadastroDataCliente;
 import com.br.SuplaMent.domain.pessoa.dto.CadastroEnderecosDTO;
+import com.br.SuplaMent.domain.produto.Produto;
 import com.br.SuplaMent.infra.exception.ValidationExcepetion;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -74,6 +75,15 @@ public class ClienteService {
         //cliente.setPassword(passwordEncoder.encode(clienteDetalhes.getPassword()));
 
         return clienteRepository.save(cliente);
+    }
+    public Cliente ativarDesativarCliente(Long id) {
+        Cliente cliente = clienteRepository.findById(id).orElse(null);
+        if (cliente == null) {
+            return null;
+        }
+        cliente.setAtivo(!cliente.isAtivo());
+        clienteRepository.save(cliente);
+        return cliente;
     }
 
 //    public Endereco adicionaEndereco(Long clienteId, Endereco adiciona) {

@@ -30,8 +30,6 @@ public class EnderecoController {
         return ResponseEntity.created(uri).body(new DetalhamentoClienteDTO(enderecoSalvo.getCliente()));
     }
 
-
-
     @GetMapping("/consulta")
     public  ResponseEntity consultaEndereco(@RequestBody Cliente clienteEndereco){
         return ResponseEntity.ok(CepService.fazValidaCep(String.valueOf(clienteEndereco)));
@@ -43,9 +41,5 @@ public class EnderecoController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-//    @GetMapping("/status")
-//    public String get(){
-//        return "endereço atual" + enderecoService.getStatus();
-//    }
 
 }

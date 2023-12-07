@@ -30,12 +30,15 @@ public class Cliente extends Pessoa {
     private String cpf;
     private Date dataNascimento;
 
+
     @OneToOne
     @JoinColumn(name = "endereco_id")
     private Endereco endereco;
 
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
     private List<Endereco> enderecos;
+    private boolean ativo;
+
     public Cliente(CadastroClienteDTO dto) {
         this.setNome(dto.nome());
         this.setEmail(dto.email());
@@ -61,6 +64,14 @@ public class Cliente extends Pessoa {
         }
 
     }
+    private String senha;
+    public String getSenha() {
+        return this.senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
 
 //    public boolean isNomeValido() {  // ver como fazer ja q ta passando o parametro nome por pessoa
 //        if (nome == null) {
@@ -82,10 +93,8 @@ public class Cliente extends Pessoa {
 //
 //        return false;
 //    }
-    public void excluir() {
-        this.setActive(false);
-    }
-    public void ativa() {
-        this.setActive(true);
-    }
+public boolean isAtivo() {
+    return this.ativo;
+}
+
 }

@@ -15,6 +15,7 @@ public class Usuario extends Pessoa {
 
     @Column(name = "role", nullable = true)
     private UserRole role;
+    private boolean ativo;
     public Usuario(CadastroUsuarioDTO dto) {
         this.setNome(dto.nome());
         this.setEmail(dto.email());
@@ -34,10 +35,7 @@ public class Usuario extends Pessoa {
         }
     }
 
-    public void excluir() {
-        this.setActive(false);
-    }
-    public void ativa() {
-        this.setActive(true);
+    public boolean isAtivo() {
+        return this.ativo;
     }
 }
