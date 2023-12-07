@@ -37,6 +37,9 @@ INSERT INTO public.produto (active, qtd, valor, fk_categoria, fk_fornecedor, id,
 DELETE FROM public.usuario WHERE id=1;
 INSERT INTO USUARIO (ID, insertion_date , active, role, email, nome, senha) VALUES (1, CURRENT_TIMESTAMP, TRUE, 0, 'adm@teste', 'El patrão', '123456');
 
+-- estoquista
+INSERT INTO USUARIO (ID, insertion_date , active, role, email, nome, senha) VALUES (2, CURRENT_TIMESTAMP, TRUE, 1, 'estoquista@teste', 'tu feio', '123456');
+
 
 
 -- endereco

@@ -14,4 +14,13 @@ public record CadastroEnderecosDTO(
         @NotNull Long clienteId
 ) {
 
+    private static boolean isPrincipal;
+
+    public boolean isPrincipal() {
+        return this.isPrincipal;
+    }
+
+    public void setPrincipal(boolean isPrincipal) {
+        this.isPrincipal = isPrincipal;
+    }
 }

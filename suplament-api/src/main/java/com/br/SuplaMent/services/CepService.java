@@ -11,7 +11,8 @@ import org.springframework.web.util.UriComponentsBuilder;
 public class CepService {
     private static final String API_URL = "https://viacep.com.br/ws/{cep}/json";
 
-    public boolean fazValidaCep(String cep) {
+    //"https://viacep.com.br/ws/" + cep + "/json"
+    public static boolean fazValidaCep(String cep) {
         RestTemplate restTemplate = new RestTemplate();
         String url = UriComponentsBuilder.fromUriString(API_URL)
                 .buildAndExpand(cep)
@@ -24,17 +25,17 @@ public class CepService {
         }
     }
 
-    private void validarDadosEndereco(Endereco endereco) {
-        Boolean cepDetalhes = fazValidaCep(endereco.getCep());
-//        endereco.setLogradouro(cepDetalhes.getLogradouro());
-//        endereco.setBairro(cepDetalhes.getBairro());
-//        endereco.setCidade(cepDetalhes.getCidade());
-//        endereco.setUf(cepDetalhes.getUf());
+    public static Endereco BuscaCepDetalhes(String cep) {
+        RestTemplate restTemplate = new RestTemplate();
+        String url = UriComponentsBuilder.fromUriString(API_URL)
+                .buildAndExpand(cep)
+                .toUriString();
+        try {
+            Endereco endereco = restTemplate.getForObject(url, Endereco.class);
+            return endereco;
+        } catch (Exception e) {
+            // trate a exceção
+            return null;
+        }
     }
-//    private Endereco BuscaCepDetalhes(String cep) {
-//        // colocar a validaçao do cep usando uma api externa
-//        return  null;
-//
-//        //dfds
-//    }
 }

@@ -1,5 +1,6 @@
 package com.br.SuplaMent.services;
 
+import com.br.SuplaMent.domain.endereco.Endereco;
 import com.br.SuplaMent.domain.endereco.EnderecoRepository;
 import com.br.SuplaMent.domain.pessoa.Cliente;
 import com.br.SuplaMent.domain.pessoa.ClienteRepository;
@@ -28,36 +29,27 @@ public class ClienteService {
         throw new ValidationExcepetion("Cliente não encontrado!");
     }
 
-//    public Cliente cadastrarCliente(CadastroClienteDTO dto ) {
-//        if (clienteRepository.findByEmail(dto.email()) != null) {
-//            throw new IllegalArgumentException("O email já existe");
-//        }
-//        Cliente cliente = new Cliente(dto);
-//        return clienteRepository.save(cliente);
-//    }
+    public Cliente cadastrarCliente(CadastroClienteDTO dto ) {
+        if (clienteRepository.findByEmail(dto.email()) != null) {
+            throw new IllegalArgumentException("O email já existe");
+        }
+        Cliente cliente = new Cliente(dto);
+        return clienteRepository.save(cliente);
+    }
 
     public Cliente cadastrar(CadastroDataCliente dto) {
         this.validarDadosCliente(dto.client());
-        this.validarDadosEndereco(dto.enderecos());
         var client = this.encriptarSenha(dto.client());
         return clienteRepository.save(client);
     }
 
     private Cliente encriptarSenha(CadastroClienteDTO dto) {
         var client = new Cliente(dto);
-        //logivca para encryptar e passar o objeto pro client.
+
              // client.setSenha(bCryptPasswordEncoder.encode(client.getSenha()));
         return client;
     }
 
-    private void validarDadosEndereco(CadastroEnderecosDTO[] enderecos) {
-        for (CadastroEnderecosDTO endereco: enderecos) {
-            //logiaa de validação de cep e etc
-            //se algo der errado lançar o erro e para, deixa as validção em metétod separados e lance
-            //as exeções nesses métodos!
-
-        }
-    }
 
     private void validarDadosCliente(CadastroClienteDTO cliente) {
         this.findByEmail(cliente.email());

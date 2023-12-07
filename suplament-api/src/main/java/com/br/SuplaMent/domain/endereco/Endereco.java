@@ -12,6 +12,9 @@ import jakarta.validation.constraints.Size;
 import lombok.*;
 
 import java.util.List;
+import java.util.Objects;
+
+import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
 @Entity(name = "Endereco")
 @Table(name = "endereco")
@@ -40,7 +43,14 @@ public class Endereco extends DomainEntity {
                 .builder()
                 .complemento(dto.complemento())
                 .numero(dto.numero())
-                .build(); //TODO RODRIGO CONTINUAR
+                .logradouro(dto.logradouro())
+                .bairro(dto.bairro())
+                .cep(dto.cep())
+                .cidade(dto.cidade())
+                .uf(dto.uf())
+                .principal(dto.isPrincipal())
+                .build();
+
     }
     public void atualizarInformacoes(CadastroEnderecoDTO dto) {
         if (dto.complemento() != null) {
@@ -75,4 +85,6 @@ public class Endereco extends DomainEntity {
     public void ativa() {
         this.setActive(true);
     }
+
+
 }

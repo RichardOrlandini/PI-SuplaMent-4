@@ -1,5 +1,6 @@
 package com.br.SuplaMent.controller;
 
+import com.br.SuplaMent.domain.produto.Produto;
 import com.br.SuplaMent.domain.produto.dto.*;
 import com.br.SuplaMent.services.ProdutoService;
 import lombok.AllArgsConstructor;
@@ -18,6 +19,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 
 @RestController
@@ -107,17 +109,18 @@ public class ProdutoController {
     }
 
 
-    //   TODO rodrigo faz ai mano:
-//    @PostMapping("inativar/{id}")
-//    public ResponseEntity inativar(@PathVariable Long id) {
-//        return produtoService.inativar(id);
-//    }
-
+    @PutMapping("/{id}/ativarDesativar")
+    public ResponseEntity<Produto> ativarDesativarProduto(@PathVariable Long id) {
+        Produto produto = produtoService.ativarDesativarProduto(id);
+        if (produto == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(produto);
+    }
+    @GetMapping("/busca")
+    public List<Produto> buscarPorNome(@RequestParam String nome) {
+        return produtoService.buscarProdutosPorNome(nome);
+    }
 }
 
-//
-//    @GetMapping("/busca")
-//    public ResponseEntity<Page<ListagemProdutoDTO>> listar(@RequestParam String nome, @PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
-//        var page = repository.findByNomeContaining(nome, paginacao).map(ListagemProdutoDTO::new);
-//        return ResponseEntity.ok(page);
-//    }
+
