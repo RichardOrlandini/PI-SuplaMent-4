@@ -1,18 +1,13 @@
 package com.br.SuplaMent.services;
 
-import com.br.SuplaMent.domain.endereco.Endereco;
 import com.br.SuplaMent.domain.endereco.EnderecoRepository;
 import com.br.SuplaMent.domain.pessoa.Cliente;
 import com.br.SuplaMent.domain.pessoa.ClienteRepository;
 import com.br.SuplaMent.domain.pessoa.dto.CadastroClienteDTO;
 import com.br.SuplaMent.domain.pessoa.dto.CadastroDataCliente;
-import com.br.SuplaMent.domain.pessoa.dto.CadastroEnderecosDTO;
-import com.br.SuplaMent.domain.produto.Produto;
 import com.br.SuplaMent.infra.exception.ValidationExcepetion;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.Arrays;
 
 @Service
 @AllArgsConstructor
