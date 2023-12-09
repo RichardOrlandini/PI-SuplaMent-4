@@ -76,7 +76,9 @@ public class ClienteService {
         if (cliente == null) {
             return null;
         }
-        cliente.setAtivo(!cliente.isAtivo());
+
+        cliente.setActive(!cliente.getActive());
+
         clienteRepository.save(cliente);
         return cliente;
     }

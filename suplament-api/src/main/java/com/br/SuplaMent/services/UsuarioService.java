@@ -68,7 +68,7 @@ public class UsuarioService {
         if (usuario == null) {
             return null;
         }
-        usuario.getActive(!usuario.getActive());
+        usuario.setActive(!usuario.getActive());
         repository.save(usuario);
         return usuario;
     }
