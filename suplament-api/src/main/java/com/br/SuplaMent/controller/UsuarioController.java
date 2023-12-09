@@ -1,10 +1,7 @@
 package com.br.SuplaMent.controller;
 
-import com.br.SuplaMent.domain.pessoa.Cliente;
 import com.br.SuplaMent.domain.pessoa.Usuario;
-import com.br.SuplaMent.domain.pessoa.UsuarioRepository;
 import com.br.SuplaMent.domain.pessoa.dto.*;
-import com.br.SuplaMent.domain.produto.Produto;
 import com.br.SuplaMent.services.UsuarioService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -20,23 +17,35 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/usuario")
+@RequestMapping("usuario")
 public class UsuarioController {
 
     private final UsuarioService service;
 
-
     @PostMapping
-    @Transactional
-    public ResponseEntity create(@RequestBody @Valid CadastroInicialDTO dto, UriComponentsBuilder uriBuilder) {
+    @Transactional("inicial")
+    public ResponseEntity createInitial(@RequestBody @Valid CadastroInicialDTO dto, UriComponentsBuilder uriBuilder) {
         try {
-            Usuario usuario = service.create(dto);
+            Usuario usuario = service.createInitial(dto);
             var uri = uriBuilder.path("/usuarios/{id}").buildAndExpand(usuario.getId()).toUri();
             return ResponseEntity.created(uri).body(new DetalhamentoInicialUsuarioDTO(usuario));
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
+//    @PostMapping
+//    @Transactional
+//    public ResponseEntity create(@RequestBody @Valid CadastroUsuarioDTO dto, UriComponentsBuilder uriBuilder) {
+//        try {
+//            Usuario usuario = service.create(dto);
+//            var uri = uriBuilder.path("/usuarios/{id}").buildAndExpand(usuario.getId()).toUri();
+//            return ResponseEntity.created(uri).body(new DetalhamentoInicialUsuarioDTO(usuario));
+//        } catch (IllegalArgumentException e) {
+//            return ResponseEntity.badRequest().body(e.getMessage());
+//        }
+//    }
+
     @GetMapping("email/{email}")
     public ResponseEntity detalhar(@PathVariable String email) {
         var usuario = service.findByEmail(email);
@@ -48,7 +57,7 @@ public class UsuarioController {
         var page = service.findAll(paginacao);
         return ResponseEntity.ok(page);
     }
-    @PutMapping("/{id}/ativarDesativar")
+    @PutMapping("{id}/ativarDesativar")
     public ResponseEntity<Usuario> ativarDesativarUsuario(@PathVariable Long id) {
         Usuario usuario = service.ativarDesativarUsuario(id);
         if (usuario == null) {
@@ -56,23 +65,22 @@ public class UsuarioController {
         }
         return ResponseEntity.ok(usuario);
     }
-    @GetMapping("/busca")
+    @GetMapping("busca")
     public List<Usuario> buscarPorNome(@RequestParam String nome) {
         return service.buscarUsuariosPorNome(nome);
     }
-//    @PutMapping
-//    @Transactional
-//    public ResponseEntity atualizar(@RequestBody @Valid AtualizarUsuarioDTO dto) {
-//        Usuario usuario = repository.getReferenceById(dto.id());
-//        usuario.atualizarInformacoes(dto);
-//        return ResponseEntity.ok(new DetalhamentoUsuarioDTO(usuario));
-//    }
-//    @GetMapping("/{id}")
-//    public ResponseEntity detalhar(@PathVariable Long id) {
-//        var usuario = repository.getReferenceById(id);
-//        return ResponseEntity.ok(new DetalhamentoUsuarioDTO(usuario));
-//    }
 
+    @PutMapping
+    @Transactional
+    public ResponseEntity atualizar(@RequestBody @Valid AtualizarUsuarioDTO dto) {
+        DetalhamentoUsuarioDTO usuario = service.update(dto);
+        return ResponseEntity.ok(usuario);
+    }
 
+    @GetMapping("{id}")
+    public ResponseEntity detalhar(@PathVariable Long id) {
+        DetalhamentoUsuarioDTO usuario = service.details(id);
+        return ResponseEntity.ok(usuario);
+    }
 
 }

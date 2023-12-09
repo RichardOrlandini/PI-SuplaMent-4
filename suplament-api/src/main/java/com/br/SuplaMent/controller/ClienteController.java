@@ -37,13 +37,14 @@ public class ClienteController {
 //            var page = repository.findAll(paginacao).map(ListagemClienteDTO::new);
 //            return ResponseEntity.ok(page);
 //        }
-@PutMapping
-@Transactional
-public ResponseEntity atualizar(@RequestBody @Valid AtualizarClienteDTO dto) {
-    Cliente cliente = repository.getReferenceById(dto.id());
-    cliente.atualizarInformacoesCliente(dto);
-    return ResponseEntity.ok(new DetalhamentoClienteDTO(cliente));
-}
+    @PutMapping
+    @Transactional
+    public ResponseEntity update(@RequestBody @Valid AtualizarClienteDTO dto) {
+        DetalhamentoClienteDTO cliente = clienteService.uptade(dto);
+         return ResponseEntity.ok(cliente);
+    }
+
+
     // Nao lembro se cliente pode se desativar
     @DeleteMapping("{id}")
     @Transactional

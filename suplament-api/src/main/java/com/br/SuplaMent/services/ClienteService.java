@@ -3,8 +3,10 @@ package com.br.SuplaMent.services;
 import com.br.SuplaMent.domain.endereco.EnderecoRepository;
 import com.br.SuplaMent.domain.pessoa.Cliente;
 import com.br.SuplaMent.domain.pessoa.ClienteRepository;
+import com.br.SuplaMent.domain.pessoa.dto.AtualizarClienteDTO;
 import com.br.SuplaMent.domain.pessoa.dto.CadastroClienteDTO;
 import com.br.SuplaMent.domain.pessoa.dto.CadastroDataCliente;
+import com.br.SuplaMent.domain.pessoa.dto.DetalhamentoClienteDTO;
 import com.br.SuplaMent.infra.exception.ValidationExcepetion;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -35,15 +37,18 @@ public class ClienteService {
 
     public Cliente cadastrar(CadastroDataCliente dto) {
         this.validarDadosCliente(dto.client());
-        var client = this.encriptarSenha(dto.client());
-        return clienteRepository.save(client);
+        this.encriptarSenha(dto.client().senha());
+
+        Cliente cliente = new Cliente(dto.client());
+
+        return clienteRepository.save(cliente);
     }
 
-    private Cliente encriptarSenha(CadastroClienteDTO dto) {
-        var client = new Cliente(dto);
-
+    private String encriptarSenha(String  senhaAntiga) {
              // client.setSenha(bCryptPasswordEncoder.encode(client.getSenha()));
-        return client;
+
+        String senhaEncryptada = "";
+        return senhaEncryptada;
     }
 
 
@@ -53,23 +58,19 @@ public class ClienteService {
         if (clienteRepository.findByCpf(cliente.cpf())) {
             throw new RuntimeException("CPF já cadastrado");
         }
-
         //..
-
         // if (!cliente.isNomeValido()) {
         //  throw new NomeInvalidoException("O nome do cliente deve ter duas palavras com pelo menos 3 letras cada.");
         //   }
     }
-    public Cliente uptade(Long id, Cliente clienteDetalhes) {
-        Cliente cliente = clienteRepository.findById(id)
-                .orElseThrow(() -> new ValidationExcepetion("Cliente id" + id));
 
-        cliente.setNome(clienteDetalhes.getNome());
-        cliente.setDataNascimento(clienteDetalhes.getDataNascimento());
-        cliente.setGenero(clienteDetalhes.getGenero());
+    public DetalhamentoClienteDTO uptade(AtualizarClienteDTO dto) {
+        Cliente cliente = clienteRepository.findById(dto.id()).orElseThrow(() -> new ValidationExcepetion("Cliente id" + dto.id()));
+        cliente.atualizarInformacoesCliente(dto);
+        //TODO ecriptar a senha
         //cliente.setPassword(passwordEncoder.encode(clienteDetalhes.getPassword()));
 
-        return clienteRepository.save(cliente);
+        return new DetalhamentoClienteDTO(clienteRepository.save(cliente));
     }
     public Cliente ativarDesativarCliente(Long id) {
         Cliente cliente = clienteRepository.findById(id).orElse(null);

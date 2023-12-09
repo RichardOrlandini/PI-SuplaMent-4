@@ -1,11 +1,8 @@
 package com.br.SuplaMent.services;
 
-import com.br.SuplaMent.domain.pessoa.Cliente;
 import com.br.SuplaMent.domain.pessoa.Usuario;
 import com.br.SuplaMent.domain.pessoa.UsuarioRepository;
-import com.br.SuplaMent.domain.pessoa.dto.CadastroInicialDTO;
-import com.br.SuplaMent.domain.pessoa.dto.ListagemUsuarioDTO;
-import com.br.SuplaMent.domain.produto.Produto;
+import com.br.SuplaMent.domain.pessoa.dto.*;
 import com.br.SuplaMent.infra.exception.ValidationExcepetion;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -21,13 +18,20 @@ public class UsuarioService {
 
     private final UsuarioRepository repository;
 
-    public Usuario create(CadastroInicialDTO dto) {
-        ////        String passwordEncoder = new BCryptPasswordEncoder().encode(dto.senha());
+    public Usuario createInitial(CadastroInicialDTO dto) {
         this.validaIdExistente(Long.valueOf(dto.id()));
         this.validaEmailxistente(dto.email());
         var usuario = new Usuario();
         usuario.setId(dto.id());
         usuario.setEmail(dto.email());
+        ////        String passwordEncoder = new BCryptPasswordEncoder().encode(dto.senha());
+        return repository.save(usuario);
+    }
+
+    public Usuario create(CadastroUsuarioDTO dto) {
+        this.validaEmailxistente(dto.email());
+        var usuario = new Usuario(dto);
+        ////        String passwordEncoder = new BCryptPasswordEncoder().encode(dto.senha());
         return repository.save(usuario);
     }
 
@@ -75,6 +79,24 @@ public class UsuarioService {
 
     public List<Usuario> buscarUsuariosPorNome(String nome) {
         return repository.findByNome(nome);
+    }
+
+    public DetalhamentoUsuarioDTO update(AtualizarUsuarioDTO dto) {
+
+        Usuario usuario = repository.getReferenceById(dto.id());
+        usuario.atualizarInformacoes(dto);
+
+        return new DetalhamentoUsuarioDTO(usuario);
+    }
+
+    public DetalhamentoUsuarioDTO details(Long id) {
+        Usuario usuario = repository.getReferenceById(id);
+
+        if (usuario != null) {
+            return new DetalhamentoUsuarioDTO(usuario);
+        }
+
+        throw new ValidationExcepetion("Nenhum Usuario encontrado!");
     }
 }
 

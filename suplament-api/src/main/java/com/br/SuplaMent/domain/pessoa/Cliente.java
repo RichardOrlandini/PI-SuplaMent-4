@@ -59,7 +59,7 @@ public class Cliente extends Pessoa {
         if (dto.dataNascimento() != null) {
             this.setDataNascimento(dto.dataNascimento());
         }
-
+        //TODO ver se não tem mais metedos para colocar aqui
     }
 
 //    public boolean isNomeValido() {  // ver como fazer ja q ta passando o parametro nome por pessoa
