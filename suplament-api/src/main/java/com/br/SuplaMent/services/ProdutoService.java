@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static com.br.SuplaMent.infra.security.GetRequestUtil.getCurrentRequest;
 import static org.springframework.util.ObjectUtils.isEmpty;
@@ -197,7 +198,7 @@ public class ProdutoService {
         }
     }
     @Transactional
-    private void validaStoqueDadosAtualizada(ProdutoStoqueDTO dto) {
+    public void validaStoqueDadosAtualizada(ProdutoStoqueDTO dto) {
 
         if (isEmpty(dto) || isEmpty(dto.getSalesId())) {
             throw new ValidationExcepetion("O produto e a venda id não pode ser vazia");
@@ -263,6 +264,18 @@ public class ProdutoService {
             log.error("Erro ao tentar chamar Sales-API: {}", ex.getMessage());
             throw new ValidationExcepetion("As vendas não foram encontradas.");
         }
+    }
+    public Produto ativarDesativarProduto(Long id) {
+        Produto produto = produtoRepository.findById(id).orElse(null);
+        if (produto == null) {
+            return null;
+        }
+        produto.setActive(!produto.getActive());
+        produtoRepository.save(produto);
+        return produto;
+    }
+    public List<Produto> buscarProdutosPorNome(String nome) {
+        return produtoRepository.findByNome(nome);
     }
 
 }

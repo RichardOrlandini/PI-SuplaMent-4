@@ -33,11 +33,4 @@ public class Usuario extends Pessoa {
             this.role = dto.role();
         }
     }
-
-    public void excluir() {
-        this.setActive(false);
-    }
-    public void ativa() {
-        this.setActive(true);
-    }
 }

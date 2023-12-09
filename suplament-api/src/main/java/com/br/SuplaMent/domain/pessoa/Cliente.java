@@ -42,7 +42,7 @@ public class Cliente extends Pessoa {
         this.setSenha(dto.senha());
         this.setGenero(dto.genero());
         this.setDataNascimento(dto.dataNascimento());
-     //   this.setEndereco(dto.endereco());
+       //this.setEndereco(dto.endereco());
 
     }
 

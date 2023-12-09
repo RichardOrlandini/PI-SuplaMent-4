@@ -12,9 +12,3 @@ public record DetalhamentoUsuarioDTO(Long id, String nome, String email, UserRol
     }
 }
 
-
-// usar no proximop detalhamento
-
-//        public record DetalhamentoUsuarioDTO(Long id, String nome, String email, String senha, String Cpf, String telefone, UserRole role, Endereco endereco) {
-//            public DetalhamentoUsuarioDTO(Usuario usuario) {
-//                this(usuario.getId(), usuario.getNome(), usuario.getEmail(), usuario.getSenha(), usuario.getCpf(), usuario.getTelefone(),usuario.getRole(), usuario.getEndereco());

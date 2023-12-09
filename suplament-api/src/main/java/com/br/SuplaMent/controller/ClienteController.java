@@ -45,7 +45,7 @@ public ResponseEntity atualizar(@RequestBody @Valid AtualizarClienteDTO dto) {
     return ResponseEntity.ok(new DetalhamentoClienteDTO(cliente));
 }
     // Nao lembro se cliente pode se desativar
-    @DeleteMapping("/{id}")
+    @DeleteMapping("{id}")
     @Transactional
     public ResponseEntity excluir(@PathVariable Long id) {
         var cliente = repository.getReferenceById(id);
@@ -53,7 +53,7 @@ public ResponseEntity atualizar(@RequestBody @Valid AtualizarClienteDTO dto) {
         return ResponseEntity.noContent().build();
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("{id}/ativa")
     @Transactional
     public ResponseEntity ativa(@PathVariable Long id) {
         var cliente = repository.getReferenceById(id);

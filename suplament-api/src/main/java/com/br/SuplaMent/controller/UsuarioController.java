@@ -1,10 +1,10 @@
 package com.br.SuplaMent.controller;
 
+import com.br.SuplaMent.domain.pessoa.Cliente;
 import com.br.SuplaMent.domain.pessoa.Usuario;
-import com.br.SuplaMent.domain.pessoa.dto.CadastroInicialDTO;
-import com.br.SuplaMent.domain.pessoa.dto.DetalhamentoInicialUsuarioDTO;
-import com.br.SuplaMent.domain.pessoa.dto.DetalhamentoUsuarioDTO;
-import com.br.SuplaMent.domain.pessoa.dto.ListagemUsuarioDTO;
+import com.br.SuplaMent.domain.pessoa.UsuarioRepository;
+import com.br.SuplaMent.domain.pessoa.dto.*;
+import com.br.SuplaMent.domain.produto.Produto;
 import com.br.SuplaMent.services.UsuarioService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -16,12 +16,15 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.util.List;
+
 @RestController
 @AllArgsConstructor
 @RequestMapping("/usuario")
 public class UsuarioController {
 
     private final UsuarioService service;
+
 
     @PostMapping
     @Transactional
@@ -45,7 +48,18 @@ public class UsuarioController {
         var page = service.findAll(paginacao);
         return ResponseEntity.ok(page);
     }
-
+    @PutMapping("/{id}/ativarDesativar")
+    public ResponseEntity<Usuario> ativarDesativarUsuario(@PathVariable Long id) {
+        Usuario usuario = service.ativarDesativarUsuario(id);
+        if (usuario == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(usuario);
+    }
+    @GetMapping("/busca")
+    public List<Usuario> buscarPorNome(@RequestParam String nome) {
+        return service.buscarUsuariosPorNome(nome);
+    }
 //    @PutMapping
 //    @Transactional
 //    public ResponseEntity atualizar(@RequestBody @Valid AtualizarUsuarioDTO dto) {
@@ -53,36 +67,12 @@ public class UsuarioController {
 //        usuario.atualizarInformacoes(dto);
 //        return ResponseEntity.ok(new DetalhamentoUsuarioDTO(usuario));
 //    }
-//    @DeleteMapping("/{id}")
-//    @Transactional
-//    public ResponseEntity excluir(@PathVariable Long id) {
-//        var usuario = repository.getReferenceById(id);
-//        usuario.excluir();
-//        return ResponseEntity.noContent().build();
-//    }
-//    @PutMapping("/{id}")
-//    @Transactional
-//    public ResponseEntity ativa(@PathVariable Long id) {
-//        var usuario = repository.getReferenceById(id);
-//        usuario.ativa();
-//        return ResponseEntity.noContent().build();
-//    }
 //    @GetMapping("/{id}")
 //    public ResponseEntity detalhar(@PathVariable Long id) {
 //        var usuario = repository.getReferenceById(id);
 //        return ResponseEntity.ok(new DetalhamentoUsuarioDTO(usuario));
 //    }
-//
-//    @GetMapping("/busca")
-//    @ResponseBody
-//    public ResponseEntity<Page<ListagemUsuarioDTO>> listar(@RequestParam String nome, @PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
-//        var page = repository.findByNomeContaining(nome, paginacao).map(ListagemUsuarioDTO::new);
-//        return ResponseEntity.ok(page);
-//    }
-//    @GetMapping("/busca/ativos")
-//    @ResponseBody
-//    public ResponseEntity<Page<ListagemUsuarioDTO>> listarAtivos(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
-//        var page = repository.findAllByActiveTrue(paginacao).map(ListagemUsuarioDTO::new);
-//        return ResponseEntity.ok(page);
-//    }
+
+
+
 }
