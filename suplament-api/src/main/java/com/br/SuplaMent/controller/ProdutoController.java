@@ -24,7 +24,6 @@ import java.time.format.DateTimeFormatter;
 @AllArgsConstructor
 @RequestMapping("produto")
 public class ProdutoController {
-
     private static String pathImages = "client/public/images/";
 
     private final ProdutoService produtoService;

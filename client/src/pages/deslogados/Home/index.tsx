@@ -18,7 +18,6 @@ import { IPaginacao } from "shared/interfaces/IPaginacao"
 import { AxiosRequestConfig } from "axios"
 import Produto from "components/Produto"
 
-
 export function HomeDeslogado() {
 
   const [produtos, setProdutos] = useState<IProduto[]>([]);
@@ -27,6 +26,7 @@ export function HomeDeslogado() {
   const [busca, setBusca] = useState('');
 
   const getDados = (url: string, opcoes: AxiosRequestConfig = {}) => {
+    
     api.get<IPaginacao<IProduto>>(url, opcoes)
       .then(resp => {
         setProdutos([...resp.data.content]);

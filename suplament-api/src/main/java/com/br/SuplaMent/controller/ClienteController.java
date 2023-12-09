@@ -10,7 +10,6 @@ import com.br.SuplaMent.services.ClienteService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -53,6 +52,7 @@ public ResponseEntity atualizar(@RequestBody @Valid AtualizarClienteDTO dto) {
         cliente.excluir();
         return ResponseEntity.noContent().build();
     }
+
     @PutMapping("/{id}")
     @Transactional
     public ResponseEntity ativa(@PathVariable Long id) {

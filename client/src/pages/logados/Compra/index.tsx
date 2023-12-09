@@ -16,7 +16,6 @@ import { useEnderecos } from "./compra.helpers";
 import { IEndereco } from "shared/interfaces/IUsuario";
 import autenticaStore from "common/stores/authentica.store";
 
-
 export default function Compra() {
     const {
         carrinho,

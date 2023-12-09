@@ -100,7 +100,7 @@ export function Cadastro() {
                     alert(erro);
                 }
 
-                cadastrarDados({ host: HOST_API, url: 'cliente', dados: cliente });
+                cadastrarDados({ host: HOST_API, url: '/cliente', dados: cliente });
                 if (sucesso) {
                     alert(sucesso);
                 }
