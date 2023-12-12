@@ -1,5 +1,7 @@
-package com.br.SuplaMent.domain.pedido;
+package com.br.SuplaMent.services;
 
+import com.br.SuplaMent.domain.pedido.Pedido;
+import com.br.SuplaMent.domain.pedido.PedidoRepository;
 import com.br.SuplaMent.domain.pedido.dto.AvisoRetornoPedidoDTO;
 import com.br.SuplaMent.domain.pedido.dto.CreatePedidoDTO;
 import com.br.SuplaMent.domain.pedido.dto.ListagemPedidosDTO;
