@@ -1,12 +1,10 @@
 package com.br.SuplaMent.services;
 
+import com.br.SuplaMent.domain.endereco.Endereco;
 import com.br.SuplaMent.domain.endereco.EnderecoRepository;
 import com.br.SuplaMent.domain.pessoa.Cliente;
 import com.br.SuplaMent.domain.pessoa.ClienteRepository;
-import com.br.SuplaMent.domain.pessoa.dto.AtualizarClienteDTO;
-import com.br.SuplaMent.domain.pessoa.dto.CadastroClienteDTO;
-import com.br.SuplaMent.domain.pessoa.dto.CadastroDataCliente;
-import com.br.SuplaMent.domain.pessoa.dto.DetalhamentoClienteDTO;
+import com.br.SuplaMent.domain.pessoa.dto.*;
 import com.br.SuplaMent.infra.exception.ValidationExcepetion;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,6 +16,8 @@ public class ClienteService {
     private final ClienteRepository clienteRepository;
     private final EnderecoRepository enderecoRepository;
     private final  CepService cepService;
+
+
 
     public Cliente findByEmail(String email) {
         Cliente existe = clienteRepository.findByEmail(email).orElse(null);
@@ -40,6 +40,10 @@ public class ClienteService {
         this.encriptarSenha(dto.client().senha());
 
         Cliente cliente = new Cliente(dto.client());
+
+        //TODO cadastrar lista de enreços
+        //fazer um for pra cada endreços, e validar ele.
+
 
         return clienteRepository.save(cliente);
     }
@@ -68,6 +72,9 @@ public class ClienteService {
         Cliente cliente = clienteRepository.findById(dto.id()).orElseThrow(() -> new ValidationExcepetion("Cliente id" + dto.id()));
         cliente.atualizarInformacoesCliente(dto);
         //TODO ecriptar a senha
+
+
+
         //cliente.setPassword(passwordEncoder.encode(clienteDetalhes.getPassword()));
 
         return new DetalhamentoClienteDTO(clienteRepository.save(cliente));

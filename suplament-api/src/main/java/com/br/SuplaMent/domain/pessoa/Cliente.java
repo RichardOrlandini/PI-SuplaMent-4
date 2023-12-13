@@ -30,12 +30,9 @@ public class Cliente extends Pessoa {
     private String cpf;
     private Date dataNascimento;
 
-    @OneToOne
-    @JoinColumn(name = "endereco_id")
-    private Endereco endereco;
-
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
     private List<Endereco> enderecos;
+
     public Cliente(CadastroClienteDTO dto) {
         this.setNome(dto.nome());
         this.setEmail(dto.email());
