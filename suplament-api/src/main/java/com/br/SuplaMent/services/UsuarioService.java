@@ -18,21 +18,10 @@ public class UsuarioService {
 
     private final UsuarioRepository repository;
 
-    public Usuario createInitial(CadastroInicialDTO dto) {
-        this.validaIdExistente(Long.valueOf(dto.id()));
-        this.validaEmailxistente(dto.email());
-        var usuario = new Usuario();
-        usuario.setId(dto.id());
-        usuario.setEmail(dto.email());
+    public Usuario create(Usuario dto) {
+        this.validaEmailxistente(dto.getEmail());
         ////        String passwordEncoder = new BCryptPasswordEncoder().encode(dto.senha());
-        return repository.save(usuario);
-    }
-
-    public Usuario create(CadastroUsuarioDTO dto) {
-        this.validaEmailxistente(dto.email());
-        var usuario = new Usuario(dto);
-        ////        String passwordEncoder = new BCryptPasswordEncoder().encode(dto.senha());
-        return repository.save(usuario);
+        return repository.save(dto);
     }
 
     public Usuario findByEmail(String email) {

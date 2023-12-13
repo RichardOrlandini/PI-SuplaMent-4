@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -22,29 +23,17 @@ public class UsuarioController {
 
     private final UsuarioService service;
 
-    @PostMapping
-    @Transactional("inicial")
-    public ResponseEntity createInitial(@RequestBody @Valid CadastroInicialDTO dto, UriComponentsBuilder uriBuilder) {
+    @PostMapping()
+    @Transactional
+    public ResponseEntity createInitial(@RequestBody @Valid Usuario dto, UriComponentsBuilder uriBuilder) {
         try {
-            Usuario usuario = service.createInitial(dto);
+            Usuario usuario = service.create(dto);
             var uri = uriBuilder.path("/usuarios/{id}").buildAndExpand(usuario.getId()).toUri();
             return ResponseEntity.created(uri).body(new DetalhamentoInicialUsuarioDTO(usuario));
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
-
-//    @PostMapping
-//    @Transactional
-//    public ResponseEntity create(@RequestBody @Valid CadastroUsuarioDTO dto, UriComponentsBuilder uriBuilder) {
-//        try {
-//            Usuario usuario = service.create(dto);
-//            var uri = uriBuilder.path("/usuarios/{id}").buildAndExpand(usuario.getId()).toUri();
-//            return ResponseEntity.created(uri).body(new DetalhamentoInicialUsuarioDTO(usuario));
-//        } catch (IllegalArgumentException e) {
-//            return ResponseEntity.badRequest().body(e.getMessage());
-//        }
-//    }
 
     @GetMapping("email/{email}")
     public ResponseEntity detalhar(@PathVariable String email) {

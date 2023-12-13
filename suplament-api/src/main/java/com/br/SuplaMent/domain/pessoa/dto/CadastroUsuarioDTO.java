@@ -12,7 +12,6 @@ public record CadastroUsuarioDTO(
         @NotBlank String nome,
         @NotBlank @Email String email,
         @NotBlank String senha,
-        @CPF @NotBlank String cpf,
         @NotNull UserRole role
 ) {
 }

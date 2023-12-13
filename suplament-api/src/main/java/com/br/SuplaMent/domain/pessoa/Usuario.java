@@ -13,7 +13,7 @@ import lombok.*;
 @NoArgsConstructor
 public class Usuario extends Pessoa {
 
-    @Column(name = "role", nullable = true)
+    @Column(name = "role")
     private UserRole role;
     public Usuario(CadastroUsuarioDTO dto) {
         this.setNome(dto.nome());
