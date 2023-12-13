@@ -13,7 +13,6 @@ public record CadastroEnderecosDTO(
         @NotBlank String uf,
         @NotNull Long clienteId
 ) {
-
     private static boolean isPrincipal;
 
     public boolean isPrincipal() {
@@ -22,5 +21,39 @@ public record CadastroEnderecosDTO(
 
     public void setPrincipal(boolean isPrincipal) {
         this.isPrincipal = isPrincipal;
+    }
+
+
+
+    public String getComplemento() {
+        return complemento;
+    }
+
+    public String getNumero() {
+        return numero;
+    }
+
+    public String getLogradouro() {
+        return logradouro;
+    }
+
+    public String getBairro() {
+        return bairro;
+    }
+
+    public String getCep() {
+        return cep;
+    }
+
+    public String getCidade() {
+        return cidade;
+    }
+
+    public String getUf() {
+        return uf;
+    }
+
+    public Object getClienteId() {
+        return clienteId;
     }
 }

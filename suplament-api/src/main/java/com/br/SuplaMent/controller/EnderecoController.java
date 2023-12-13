@@ -21,14 +21,14 @@ public class EnderecoController {
 
     final EnderecoService enderecoService;
 
-    @PostMapping
-    public ResponseEntity<DetalhamentoClienteDTO> save(@RequestBody List<CadastroEnderecosDTO> enderecosDTOS, UriComponentsBuilder uriBuilder) {
-        CadastroEnderecosDTO dto = enderecosDTOS.get(0);
-        Endereco enderecoSalvo = (Endereco) CepService.BuscaCepDetalhes(String.valueOf(dto));
-        enderecoService.save(enderecosDTOS);
-        var uri = uriBuilder.path("/cliente/{id}").buildAndExpand(enderecoSalvo.getId()).toUri();
-        return ResponseEntity.created(uri).body(new DetalhamentoClienteDTO(enderecoSalvo.getCliente()));
-    }
+//    @PostMapping
+//    public ResponseEntity<DetalhamentoClienteDTO> save(@RequestBody List<CadastroEnderecosDTO> enderecosDTOS, UriComponentsBuilder uriBuilder) {
+//        CadastroEnderecosDTO dto = enderecosDTOS.get(0);
+//        Endereco enderecoSalvo = (Endereco) CepService.BuscaCepDetalhes(String.valueOf(dto));
+//        enderecoService.save(enderecosDTOS);
+//        var uri = uriBuilder.path("/cliente/{id}").buildAndExpand(enderecoSalvo.getId()).toUri();
+//        return ResponseEntity.created(uri).body(new DetalhamentoClienteDTO(enderecoSalvo.getCliente()));
+//    }
 
     @GetMapping("/consulta")
     public  ResponseEntity consultaEndereco(@RequestBody Cliente clienteEndereco){

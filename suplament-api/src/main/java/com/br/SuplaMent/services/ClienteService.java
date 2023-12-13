@@ -2,12 +2,15 @@ package com.br.SuplaMent.services;
 
 import com.br.SuplaMent.domain.endereco.Endereco;
 import com.br.SuplaMent.domain.endereco.EnderecoRepository;
+import com.br.SuplaMent.domain.endereco.dto.CadastroEnderecoDTO;
 import com.br.SuplaMent.domain.pessoa.Cliente;
 import com.br.SuplaMent.domain.pessoa.ClienteRepository;
 import com.br.SuplaMent.domain.pessoa.dto.*;
 import com.br.SuplaMent.infra.exception.ValidationExcepetion;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -16,7 +19,7 @@ public class ClienteService {
     private final ClienteRepository clienteRepository;
     private final EnderecoRepository enderecoRepository;
     private final  CepService cepService;
-
+    final EnderecoService enderecoService;
 
 
     public Cliente findByEmail(String email) {
@@ -35,17 +38,27 @@ public class ClienteService {
         return clienteRepository.save(cliente);
     }
 
-    public Cliente cadastrar(CadastroDataCliente dto) {
-        this.validarDadosCliente(dto.client());
-        this.encriptarSenha(dto.client().senha());
+    public Cliente cadastrar(CadastroDataCliente dto, List<CadastroEnderecosDTO> enderecosDTOS) {
+        try {
+            this.validarDadosCliente(dto.client());
+            this.encriptarSenha(dto.client().senha());
 
-        Cliente cliente = new Cliente(dto.client());
+            Cliente cliente = new Cliente(dto.client());
 
-        //TODO cadastrar lista de enreços
-        //fazer um for pra cada endreços, e validar ele.
+            for (CadastroEnderecosDTO dtoEndereco : enderecosDTOS) {
+                Endereco endereco = new Endereco(dtoEndereco);
+                endereco.setCliente(cliente);
+                enderecoService.save((List<CadastroEnderecosDTO>) endereco);
+            }
 
+            return clienteRepository.save(cliente);
 
-        return clienteRepository.save(cliente);
+        } catch (Exception e) {
+
+            System.err.println(e.getMessage());
+
+            throw e;
+        }
     }
 
     private String encriptarSenha(String  senhaAntiga) {

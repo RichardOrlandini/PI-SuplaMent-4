@@ -1,18 +1,25 @@
 package com.br.SuplaMent.controller;
 
 
+import com.br.SuplaMent.domain.endereco.Endereco;
 import com.br.SuplaMent.domain.pessoa.Cliente;
 import com.br.SuplaMent.domain.pessoa.ClienteRepository;
 import com.br.SuplaMent.domain.pessoa.dto.AtualizarClienteDTO;
 import com.br.SuplaMent.domain.pessoa.dto.CadastroDataCliente;
+import com.br.SuplaMent.domain.pessoa.dto.CadastroEnderecosDTO;
 import com.br.SuplaMent.domain.pessoa.dto.DetalhamentoClienteDTO;
+import com.br.SuplaMent.services.CepService;
 import com.br.SuplaMent.services.ClienteService;
+import com.br.SuplaMent.services.EnderecoService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
+
+import java.util.List;
 
 
 @RestController
@@ -22,13 +29,25 @@ public class ClienteController {
 
     private final  ClienteService clienteService;
     private final ClienteRepository repository;
+    final EnderecoService enderecoService;
 
     @PostMapping
-    public ResponseEntity<DetalhamentoClienteDTO> cadastrar(@RequestBody CadastroDataCliente dto,  UriComponentsBuilder uriBuilder) {
-        Cliente clienteSalvo = clienteService.cadastrar(dto);
+    @Transactional
+    public ResponseEntity<DetalhamentoClienteDTO> cadastrar(@RequestBody CadastroDataCliente dto,
+                                                            @RequestBody List<CadastroEnderecosDTO> enderecosDTOS,
+                                                            UriComponentsBuilder uriBuilder) {
+        try {
+            Cliente clienteSalvo = clienteService.cadastrar(dto,enderecosDTOS);
+            CadastroEnderecosDTO dtoEndereco = enderecosDTOS.get(0);
+            Endereco enderecoSalvo = (Endereco) CepService.BuscaCepDetalhes(String.valueOf(dtoEndereco));
+            enderecoSalvo.setCliente(clienteSalvo);
+            enderecoService.save((List<CadastroEnderecosDTO>) enderecoSalvo);
 
-        var uri = uriBuilder.path("/cliente/{id}").buildAndExpand(clienteSalvo.getId()).toUri();
-        return ResponseEntity.created(uri).body(new DetalhamentoClienteDTO(clienteSalvo));
+            var uri = uriBuilder.path("/cliente/{id}").buildAndExpand(clienteSalvo.getId()).toUri();
+            return ResponseEntity.created(uri).body(new DetalhamentoClienteDTO(clienteSalvo));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
     }
 
 

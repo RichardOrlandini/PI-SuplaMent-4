@@ -1,20 +1,12 @@
 package com.br.SuplaMent.domain.endereco;
 
 import com.br.SuplaMent.domain.endereco.dto.CadastroEnderecoDTO;
-import com.br.SuplaMent.domain.endereco.dto.DtoEndereco;
 import com.br.SuplaMent.domain.pessoa.Cliente;
 import com.br.SuplaMent.domain.pessoa.dto.CadastroEnderecosDTO;
-import com.br.SuplaMent.domain.pessoa.dto.CadastroUsuarioDTO;
-import com.br.SuplaMent.domain.produto.Produto;
 import com.br.SuplaMent.utils.aEntity.DomainEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.*;
-
-import java.util.List;
-import java.util.Objects;
-
-import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
 @Entity(name = "Endereco")
 @Table(name = "endereco")
@@ -23,6 +15,7 @@ import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 @Builder
 @Data
 public class Endereco extends DomainEntity {
+
 
     private String complemento;
     private String numero;
@@ -38,6 +31,8 @@ public class Endereco extends DomainEntity {
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
 
+
+
     public static Endereco of (CadastroEnderecosDTO dto) {
         return Endereco
                 .builder()
@@ -52,6 +47,18 @@ public class Endereco extends DomainEntity {
                 .build();
 
     }
+    public Endereco(CadastroEnderecosDTO dtoEndereco) {
+        this.complemento = dtoEndereco.getComplemento();
+        this.numero = dtoEndereco.getNumero();
+        this.logradouro = dtoEndereco.getLogradouro();
+        this.bairro = dtoEndereco.getBairro();
+        this.cep = dtoEndereco.getCep();
+        this.cidade = dtoEndereco.getCidade();
+        this.uf = dtoEndereco.getUf();
+       // this.clienteId = dtoEndereco.getClienteId();
+    }
+
+
     public void atualizarInformacoes(CadastroEnderecoDTO dto) {
         if (dto.complemento() != null) {
             this.complemento = dto.complemento();
