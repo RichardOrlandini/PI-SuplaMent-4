@@ -36,7 +36,7 @@ public class Produto extends DomainEntity {
     @Column(name = "valor", nullable = false)
     private double valor;
 
-    private int popularidade;
+    //private int popularidade;
 
     private String descricao;
 
@@ -55,9 +55,9 @@ public class Produto extends DomainEntity {
         this.qtd -= qtd;
     }
 
-    public double getAvaliacao() {
-        return (double) popularidade / 100;
-    }
+//    public double getAvaliacao() {
+//        return (double) popularidade / 100;
+//    }
 }
 
 

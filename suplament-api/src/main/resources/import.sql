@@ -1,4 +1,3 @@
-
 -- Inserindo categorias
 INSERT INTO CATEGORIA (ID, DESCRICAO) VALUES (1000, 'Whey');
 INSERT INTO CATEGORIA (ID, DESCRICAO) VALUES (1001, 'Barras');
@@ -23,6 +22,7 @@ INSERT INTO public.produto (active, qtd, valor, fk_categoria, fk_fornecedor, id,
 INSERT INTO public.produto (active, qtd, valor, fk_categoria, fk_fornecedor, id, insertion_date, nome, nome_imagem) VALUES (true, 20, 20.0, 1001, 1000, 1007, now(), 'Barra 3', 'barra3.jpg');
 INSERT INTO public.produto (active, qtd, valor, fk_categoria, fk_fornecedor, id, insertion_date, nome, nome_imagem) VALUES (true, 20, 25.0, 1001, 1000, 1008, now(), 'Barra 4', 'barra4.jpg');
 INSERT INTO public.produto (active, qtd, valor, fk_categoria, fk_fornecedor, id, insertion_date, nome, nome_imagem) VALUES (true, 20, 30.0, 1001, 1000, 1009, now(), 'Barra 5', 'barra5.jpg');
+
 -- Camisetas
 
 INSERT INTO public.produto (active, qtd, valor, fk_categoria, fk_fornecedor, id, insertion_date, nome, nome_imagem) VALUES (true, 20, 50.0, 1002, 1000, 1010, now(), 'Camiseta 1', 'camiseta1.jpg');
@@ -32,23 +32,16 @@ INSERT INTO public.produto (active, qtd, valor, fk_categoria, fk_fornecedor, id,
 INSERT INTO public.produto (active, qtd, valor, fk_categoria, fk_fornecedor, id, insertion_date,nome, nome_imagem) VALUES (true, 20, 70.0, 1002, 1000, 1014, now(), 'Camiseta 5', 'camiseta5.jpg');
 
 
-
 -- NÃO MECHER NESSE SCRIPT
 DELETE FROM public.usuario WHERE id=1;
 INSERT INTO USUARIO (ID, insertion_date , active, role, email, nome, senha) VALUES (1, CURRENT_TIMESTAMP, TRUE, 0, 'adm@teste', 'El patrão', '123456');
 
 -- estoquista
-INSERT INTO USUARIO (ID, insertion_date , active, role, email, nome, senha) VALUES (2, CURRENT_TIMESTAMP, TRUE, 1, 'estoquista@teste', 'tu feio', '123456');
+INSERT INTO USUARIO (ID, insertion_date , active, role, email, nome, senha) VALUES (2, CURRENT_TIMESTAMP, TRUE, 2, 'estoquista@teste', 'tu feio', '123456');
 
-
-
--- endereco
--- INSERT INTO ENDERECO (id, insertion_date , active, cep, cidade, bairro, uf, numero, logradouro, complemento)
--- VALUES (1000, CURRENT_TIMESTAMP, TRUE, '12345678', 'São Paulo', 'Jardim Paulista', 'SP', '123', 'Rua 1', 'Complemento 1');
---INSERT INTO ENDERECO (id,cep, cidade, bairro, uf, numero, logradouro, complemento, principal)
---VALUES (4,'12345678', 'São Paulo', 'Jardim Paulista', 'SP', '123', 'Rua 1', 'Complemento 1', true);
+ -- endereco
+ INSERT INTO ENDERECO (id, insertion_date , active, cep, cidade, bairro, uf, numero, logradouro, complemento, principal) VALUES (1000, CURRENT_TIMESTAMP, TRUE, '12345678', 'São Paulo', 'Jardim Paulista', 'SP', '123', 'Rua 1', 'Complemento 1', true);
+ INSERT INTO ENDERECO (id, insertion_date , active, cep, cidade, bairro, uf, numero, logradouro, complemento, principal) VALUES (1001, CURRENT_TIMESTAMP, TRUE, '12345678', 'Rio de Janeiro', 'maraca', 'RJ', '789', 'Rua 932', 'Complemento 232', false);
 
 -- Cliente
-INSERT INTO CLIENTE (ID, data_nascimento, genero, cpf, active, role, email, nome, senha, endereco_id)
-VALUES (1, '2000-01-01', 'Masculino', '45214479883', TRUE, 2, 'cliente@teste', 'El patroazinha', '123456', null);
-
+INSERT INTO CLIENTE (ID, data_nascimento, genero, cpf, active, role, email, nome, senha, endereco_id) VALUES (1000, '2000-01-01', 'Masculino', '45214479883', TRUE, 1, 'cliente@teste', 'El patroazinha', '123456', 1000);
