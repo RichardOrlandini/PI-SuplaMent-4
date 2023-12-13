@@ -36,8 +36,7 @@ public class Produto extends DomainEntity {
     @Column(name = "valor", nullable = false)
     private double valor;
 
-    //private int popularidade;
-
+    @Column(name = "descricao")
     private String descricao;
 
     public static Produto of (ProdutoCreateDTO request, Fornecedor fornecedor, Categoria categoria) {
@@ -54,10 +53,6 @@ public class Produto extends DomainEntity {
     public void updateStock(Integer qtd) {
         this.qtd -= qtd;
     }
-
-//    public double getAvaliacao() {
-//        return (double) popularidade / 100;
-//    }
 }
 
 

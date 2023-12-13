@@ -1,8 +1,8 @@
 package com.br.SuplaMent.domain.pedido;
 
 import com.br.SuplaMent.domain.pedido.dto.CreatePedidoDTO;
+import com.br.SuplaMent.domain.pedidoProduto.PedidoProduto;
 import com.br.SuplaMent.domain.pessoa.Cliente;
-import com.br.SuplaMent.domain.produto.Produto;
 import com.br.SuplaMent.utils.aEntity.DomainEntity;
 import com.br.SuplaMent.utils.enums.FormaPagamento;
 import com.br.SuplaMent.utils.enums.StatusPedido;
@@ -25,13 +25,13 @@ public class Pedido extends DomainEntity {
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "pedido_produto",
             joinColumns = @JoinColumn(name = "pedido_id"),
             inverseJoinColumns = @JoinColumn(name = "produto_id")
     )
-    private List<Produto> produtos;
+    private List<PedidoProduto> produtos;
 
     @Column
     private Double valorTotal;
@@ -60,7 +60,6 @@ public class Pedido extends DomainEntity {
     public static Pedido of (CreatePedidoDTO createPedidoDTO, Cliente cliente, FormaPagamento formaPagamento) {
         return Pedido
                 .builder()
-                .produtos(createPedidoDTO.produtos())
                 .valorTotal(createPedidoDTO.valorTotal())
                 .valorFrete(createPedidoDTO.valorFrete())
                 .enderecoEntrega(createPedidoDTO.enderecoEntrega())
@@ -70,6 +69,10 @@ public class Pedido extends DomainEntity {
                 .statusPedido(StatusPedido.AGUARDANDO_PAGAMENTO)
                 .formaPagamento(formaPagamento)
                 .build();
+    }
+
+    public void setProdutos(List<PedidoProduto> produtos) {
+        this.produtos = produtos;
     }
 }
 

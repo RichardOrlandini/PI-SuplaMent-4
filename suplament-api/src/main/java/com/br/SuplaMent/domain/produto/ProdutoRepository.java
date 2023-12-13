@@ -13,19 +13,7 @@ public interface ProdutoRepository extends JpaRepository<Produto, Long> {
     List<Produto> findByNome(String nome);
     Page<Produto> findByCategoriaId(Pageable pageable, Long id);
     Page<Produto> findByFornecedorId(Pageable pageable, Long id);
-
     Page<Produto> findByNomeIgnoreCaseContaining(Pageable pageable, String nome);
-
     Boolean existsByCategoriaId(Long categoriaId);
-
     Boolean existsByFornecedorId(Long id);
-
-
- //  Page<Produto> findAllByActiveTrue(Pageable paginacao);
-
-   // Page<Produto> findAllByOrderByInsertionDateDesc(Pageable paginacao);
-
-  //  Page<Produto> findByNomeContaining(String nome, Pageable paginacao);
-
-   // Page<Produto> findByNomeImagem(String nomeImagem, Pageable paginacao);
 }

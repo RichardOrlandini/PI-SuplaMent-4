@@ -1,6 +1,7 @@
 package com.br.SuplaMent.domain.pedido.dto;
 
 import com.br.SuplaMent.domain.produto.Produto;
+import com.br.SuplaMent.domain.produto.dto.ProdutoNoCarrinho;
 import com.br.SuplaMent.utils.enums.FormaPagamento;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotBlank;
@@ -14,7 +15,7 @@ public record CreatePedidoDTO(
         @NotNull
         Long idCliente,
         @NotNull
-        List<Produto> produtos,
+        List<ProdutoNoCarrinho> produtos,
         @NotNull
         Double valorTotal,
         @NotBlank

@@ -21,7 +21,7 @@ public class PedidoController {
 
     @PostMapping
     @Transactional
-    public AvisoRetornoPedidoDTO save(@RequestBody CreatePedidoDTO createPedidoDTO ){
+    public AvisoRetornoPedidoDTO save(@RequestBody CreatePedidoDTO createPedidoDTO){
         AvisoRetornoPedidoDTO avisoRetornoPedidoDTO = pedidoService.save(createPedidoDTO);
         return avisoRetornoPedidoDTO;
     }
