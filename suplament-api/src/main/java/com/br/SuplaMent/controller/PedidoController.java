@@ -1,5 +1,7 @@
 package com.br.SuplaMent.controller;
 
+import com.br.SuplaMent.domain.pedido.dto.DetalhamentoPedidoDTO;
+import com.br.SuplaMent.domain.pedido.dto.DetalhamentoPedidoDTO;
 import com.br.SuplaMent.services.PedidoService;
 import com.br.SuplaMent.domain.pedido.dto.AvisoRetornoPedidoDTO;
 import com.br.SuplaMent.domain.pedido.dto.CreatePedidoDTO;
@@ -24,9 +26,12 @@ public class PedidoController {
     public void save(@RequestBody CreatePedidoDTO createPedidoDTO){
         pedidoService.save(createPedidoDTO);
     }
-    @GetMapping("{id}")
+    @GetMapping("{id}")            //mandar id do cliente
     public List<ListagemPedidosDTO> findAll(@PathVariable Long id){
-        List<ListagemPedidosDTO> listaPedidos = pedidoService.buscarPedidosDoCliente(id);
-        return listaPedidos;
+        return pedidoService.buscarPedidosDoCliente(id);
+    }
+    @GetMapping("detalhe/{id}")     //mandar id/numero do pedido
+    public DetalhamentoPedidoDTO buscarResumoPedido(@PathVariable Long id){
+        return pedidoService.buscarResumoPedido(id);
     }
 }

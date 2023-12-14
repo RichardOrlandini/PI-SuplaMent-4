@@ -1,5 +1,6 @@
 package com.br.SuplaMent.services;
 import com.br.SuplaMent.domain.pedido.Pedido;
+import com.br.SuplaMent.domain.pedido.dto.DetalhamentoPedidoDTO;
 import com.br.SuplaMent.domain.pedidoProduto.PedidoProduto;
 import com.br.SuplaMent.domain.pedido.PedidoRepository;
 import com.br.SuplaMent.domain.pedido.dto.AvisoRetornoPedidoDTO;
@@ -10,6 +11,7 @@ import com.br.SuplaMent.domain.pessoa.Cliente;
 import com.br.SuplaMent.domain.pessoa.ClienteRepository;
 import com.br.SuplaMent.domain.produto.Produto;
 import com.br.SuplaMent.domain.produto.ProdutoRepository;
+import com.br.SuplaMent.domain.produto.dto.DetalhamentoProdutoDTO;
 import com.br.SuplaMent.domain.produto.dto.ProdutoNoCarrinho;
 import com.br.SuplaMent.infra.exception.ValidationExcepetion;
 import com.br.SuplaMent.utils.enums.FormaPagamento;
@@ -84,5 +86,32 @@ public class PedidoService {
             }
         }
         return pedidoProdutos;
+    }
+
+    public DetalhamentoPedidoDTO buscarResumoPedido(Long idDoPedido){
+        Pedido pedido = pedidoRepository.findById(idDoPedido).orElse(null);
+        List<DetalhamentoProdutoDTO> detalhamentoProdutoDTOS = new ArrayList<>();
+        if(pedido != null){
+            List<PedidoProduto> pedidoProdutos = pedidoProdutoRepository.findAllByPedido_Id(idDoPedido);
+            if(!pedidoProdutos.isEmpty()){
+                for (PedidoProduto pedidoProduto : pedidoProdutos) {
+                    Produto produto = produtoRepository.findById(pedidoProduto.getProduto().getId()).orElse(null);
+                    detalhamentoProdutoDTOS.add(new DetalhamentoProdutoDTO(produto,
+                                                                           calculaValorTotal(pedidoProduto, produto),
+                                                                           pedidoProduto.getQuantidade()));
+                }
+            }
+        }else{
+            throw new ValidationExcepetion("O id do pedido não foi encontrado!");
+        }
+        return montaDetalhamentoPedidoDTO(detalhamentoProdutoDTOS, pedido);
+    }
+
+    public static double calculaValorTotal(PedidoProduto pedidoProduto, Produto produto){
+        return pedidoProduto.getQuantidade() *  produto.getValor();
+    }
+    public static DetalhamentoPedidoDTO montaDetalhamentoPedidoDTO(List<DetalhamentoProdutoDTO> detalhamentoProdutoDTOS, Pedido pedido){
+        return new DetalhamentoPedidoDTO(detalhamentoProdutoDTOS, pedido.getValorFrete(), pedido.getValorTotal(), pedido.getEnderecoEntrega(), pedido.getFormaPagamento().toString());
+
     }
 }
