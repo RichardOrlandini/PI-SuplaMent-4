@@ -1,5 +1,6 @@
 package com.br.SuplaMent.controller;
 
+import com.br.SuplaMent.domain.pessoa.Cliente;
 import com.br.SuplaMent.domain.pessoa.dto.DetalhamentoClienteDTO;
 import com.br.SuplaMent.domain.pessoa.dto.DetalhamentoUsuarioDTO;
 import com.br.SuplaMent.domain.pessoa.dto.LoginDTO;
@@ -8,6 +9,8 @@ import com.br.SuplaMent.services.UsuarioService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @RestController
 @AllArgsConstructor
@@ -27,12 +30,13 @@ public class LoginController {
         return ResponseEntity.ok(new DetalhamentoUsuarioDTO(usuario));
     }
 
-    @PostMapping("cliente")
+  @PostMapping("cliente")
     public ResponseEntity detalharClient(@RequestBody LoginDTO dto ) {
-        var client = clienteService.findByEmail(dto.email());
-        if (client == null ){
-            return  ResponseEntity.ok("nenhum usuario encontrado");
+        boolean exists = clienteService.existsByEmail(dto.email());
+        if (!exists){
+            return ResponseEntity.ok("nenhum usuario encontrado");
         }
-        return ResponseEntity.ok(new DetalhamentoClienteDTO(client));
+        Optional<Cliente> client = clienteService.findByEmail(dto.email());
+        return ResponseEntity.ok(new DetalhamentoClienteDTO(client.get()));
     }
 }
