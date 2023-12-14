@@ -1,6 +1,7 @@
 package com.br.SuplaMent.domain.pessoa.dto;
 
 
+
 import com.br.SuplaMent.domain.endereco.Endereco;
 import com.br.SuplaMent.domain.pessoa.Cliente;
 
