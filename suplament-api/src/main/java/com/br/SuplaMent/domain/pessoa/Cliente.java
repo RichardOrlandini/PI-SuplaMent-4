@@ -1,10 +1,7 @@
 package com.br.SuplaMent.domain.pessoa;
 
 import com.br.SuplaMent.domain.endereco.Endereco;
-import com.br.SuplaMent.domain.pessoa.dto.AtualizarClienteDTO;
-import com.br.SuplaMent.domain.pessoa.dto.AtualizarUsuarioDTO;
-import com.br.SuplaMent.domain.pessoa.dto.CadastroClienteDTO;
-import com.br.SuplaMent.domain.pessoa.dto.CadastroUsuarioDTO;
+import com.br.SuplaMent.domain.pessoa.dto.*;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,10 +9,8 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.management.relation.Role;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity(name = "Cliente")
@@ -33,15 +28,19 @@ public class Cliente extends Pessoa {
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
     private List<Endereco> enderecos;
 
-    public Cliente(CadastroClienteDTO dto) {
-        this.setNome(dto.nome());
-        this.setEmail(dto.email());
-        this.setSenha(dto.senha());
-        this.setGenero(dto.genero());
-        this.setDataNascimento(dto.dataNascimento());
-       //this.setEndereco(dto.endereco());
-
+    public Cliente(CadastroDataCliente dto) {
+        this.setNome(dto.client().nome());
+        this.setEmail(dto.client().email());
+        this.setSenha(dto.client().senha());
+        this.setGenero(dto.client().genero());
+        this.setRole(dto.client().role());
+        this.setCpf(dto.client().cpf());
+        this.setDataNascimento(dto.client().dataNascimento());
+        this.setEnderecos(Arrays.asList(dto.enderecos()).stream()
+                .map(enderecoDTO -> new Endereco(enderecoDTO))
+                .collect(Collectors.toList()));
     }
+
 
     public void atualizarInformacoesCliente(AtualizarClienteDTO dto) {
         if (dto.senha() != null) {
