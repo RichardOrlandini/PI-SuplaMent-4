@@ -74,5 +74,9 @@ public class Pedido extends DomainEntity {
     public void setProdutos(List<PedidoProduto> produtos) {
         this.produtos = produtos;
     }
+
+    public void setStatusPedido(StatusPedido statusPedido) {
+        this.statusPedido = statusPedido;
+    }
 }
 
