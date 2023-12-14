@@ -21,11 +21,11 @@ public class PedidoProduto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne // Alteração para @ManyToOne
     @JoinColumn(name = "pedido_id")
     private Pedido pedido;
 
-    @ManyToOne
+    @ManyToOne // Alteração para @ManyToOne
     @JoinColumn(name = "produto_id", referencedColumnName = "id")
     private Produto produto;
 

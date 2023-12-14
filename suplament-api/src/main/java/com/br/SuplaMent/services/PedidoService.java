@@ -1,5 +1,4 @@
 package com.br.SuplaMent.services;
-
 import com.br.SuplaMent.domain.pedido.Pedido;
 import com.br.SuplaMent.domain.pedidoProduto.PedidoProduto;
 import com.br.SuplaMent.domain.pedido.PedidoRepository;
@@ -34,7 +33,7 @@ public class PedidoService {
 
     @Autowired
     private ClienteRepository clienteRepository;
-    public AvisoRetornoPedidoDTO save(CreatePedidoDTO createPedidoDTO) {
+    public void save(CreatePedidoDTO createPedidoDTO) {
         FormaPagamento formaPagamento;
         String mensagem = null;
         try {
@@ -42,22 +41,17 @@ public class PedidoService {
         } catch (IllegalArgumentException e) {
             formaPagamento = null;
             mensagem = "\nA FORMA DE PAGAMENTO INFORMADA NÃO EXISTE!\n";
-            return new AvisoRetornoPedidoDTO(ThreadLocalRandom.current().nextLong(), createPedidoDTO.valorTotal(), mensagem);
         }
 
         Cliente cliente = this.validateClient(createPedidoDTO.idCliente());
-
         Pedido pedido = Pedido.of(createPedidoDTO, cliente, formaPagamento);
-
         pedido = pedidoRepository.save(pedido);
-
         List<PedidoProduto> pedidoProdutos = criarPedidoProdutos(createPedidoDTO.produtos(), pedido);
 
         pedido.setProdutos(pedidoProdutos);
-        pedidoRepository.save(pedido);
 
+        pedidoRepository.save(pedido);
         pedidoProdutoRepository.saveAll(pedidoProdutos);
-        return new AvisoRetornoPedidoDTO(pedido.getId(), pedido.getValorTotal(), mensagem);
     }
 
     private Cliente validateClient(Long clienteId) {
@@ -89,7 +83,6 @@ public class PedidoService {
                 throw new ValidationExcepetion("O id do produto no pedido não foi encontrado!");
             }
         }
-
         return pedidoProdutos;
     }
 }

@@ -21,9 +21,8 @@ public class PedidoController {
 
     @PostMapping
     @Transactional
-    public AvisoRetornoPedidoDTO save(@RequestBody CreatePedidoDTO createPedidoDTO){
-        AvisoRetornoPedidoDTO avisoRetornoPedidoDTO = pedidoService.save(createPedidoDTO);
-        return avisoRetornoPedidoDTO;
+    public void save(@RequestBody CreatePedidoDTO createPedidoDTO){
+        pedidoService.save(createPedidoDTO);
     }
     @GetMapping("{id}")
     public List<ListagemPedidosDTO> findAll(@PathVariable Long id){

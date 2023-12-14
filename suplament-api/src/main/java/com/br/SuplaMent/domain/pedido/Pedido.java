@@ -25,12 +25,7 @@ public class Pedido extends DomainEntity {
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "pedido_produto",
-            joinColumns = @JoinColumn(name = "pedido_id"),
-            inverseJoinColumns = @JoinColumn(name = "produto_id")
-    )
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "pedido")
     private List<PedidoProduto> produtos;
 
     @Column
