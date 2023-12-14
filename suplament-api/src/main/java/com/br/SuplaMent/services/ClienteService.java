@@ -1,16 +1,19 @@
 package com.br.SuplaMent.services;
 
+
 import com.br.SuplaMent.domain.endereco.Endereco;
 import com.br.SuplaMent.domain.endereco.EnderecoRepository;
-import com.br.SuplaMent.domain.endereco.dto.CadastroEnderecoDTO;
 import com.br.SuplaMent.domain.pessoa.Cliente;
 import com.br.SuplaMent.domain.pessoa.ClienteRepository;
+import com.br.SuplaMent.domain.pessoa.Usuario;
 import com.br.SuplaMent.domain.pessoa.dto.*;
 import com.br.SuplaMent.infra.exception.ValidationExcepetion;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -22,45 +25,82 @@ public class ClienteService {
     final EnderecoService enderecoService;
 
 
-    public Cliente findByEmail(String email) {
-        Cliente existe = clienteRepository.findByEmail(email).orElse(null);
-        if (existe != null) {
-            return  existe;
-        }
-        throw new ValidationExcepetion("Cliente não encontrado!");
+    public boolean existsByEmail(String email) {
+        return clienteRepository.existsByEmail(email);
     }
-
-    public Cliente cadastrarCliente(CadastroClienteDTO dto ) {
-        if (clienteRepository.findByEmail(dto.email()) != null) {
-            throw new IllegalArgumentException("O email já existe");
-        }
-        Cliente cliente = new Cliente(dto);
-        return clienteRepository.save(cliente);
-    }
-
-    public Cliente cadastrar(CadastroDataCliente dto, List<CadastroEnderecosDTO> enderecosDTOS) {
+    public Optional<Cliente> findByEmail(String email) {
         try {
+            return clienteRepository.findByEmail(email);
+        } catch (Exception e) {
+            return Optional.empty();
+        }
+    }
+    public boolean existsByCpf(String cpf) {
+        return clienteRepository.existsByCpf(cpf);
+    }
+    public Cliente findById(Long id) {
+        return clienteRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
+    }
+
+    public Cliente cadastrar(CadastroDataCliente dto) {
+        try {
+            if (dto == null || dto.client() == null) {
+                throw new IllegalArgumentException("Dados do cliente não podem ser null");
+            }
+            Optional<Cliente> clienteExistente = clienteRepository.findByEmail(dto.client().email());
+            if (clienteExistente.isPresent()) {
+                throw new IllegalArgumentException("O email já existe");
+            }
             this.validarDadosCliente(dto.client());
             this.encriptarSenha(dto.client().senha());
 
-            Cliente cliente = new Cliente(dto.client());
+            Cliente cliente = new Cliente(dto);
 
-            for (CadastroEnderecosDTO dtoEndereco : enderecosDTOS) {
-                Endereco endereco = new Endereco(dtoEndereco);
+            for (CadastroEnderecosDTO dtoEndereco : dto.enderecos()) {
+                Endereco endereco = Endereco.of(dtoEndereco);
                 endereco.setCliente(cliente);
-                enderecoService.save((List<CadastroEnderecosDTO>) endereco);
+                enderecoService.save(endereco);
             }
 
             return clienteRepository.save(cliente);
 
         } catch (Exception e) {
-
             System.err.println(e.getMessage());
-
             throw e;
         }
     }
 
+
+
+
+    //    public Cliente cadastrarCliente(CadastroDataCliente dto) {
+//        if (clienteRepository.findByEmail(dto.client().email()) != null) {
+//            throw new IllegalArgumentException("O email já existe");
+//        }
+//        Cliente cliente = new Cliente(dto);
+//        return clienteRepository.save(cliente);
+//    }
+//    public Cliente cadastrar(CadastroClienteDTO client, CadastroEnderecosDTO[] enderecos) {
+//        try {
+//            this.validarDadosCliente(client);
+//            this.encriptarSenha(client.senha());
+//
+//            Cliente cliente = new Cliente(client);
+//
+//            for (CadastroEnderecosDTO dtoEndereco : enderecos) {
+//                Endereco endereco = new Endereco(dtoEndereco);
+//                endereco.setCliente(cliente);
+//                enderecoService.save(endereco);
+//            }
+//
+//            return clienteRepository.save(cliente);
+//
+//        } catch (Exception e) {
+//            System.err.println(e.getMessage());
+//            throw e;
+//        }
+//    }
     private String encriptarSenha(String  senhaAntiga) {
              // client.setSenha(bCryptPasswordEncoder.encode(client.getSenha()));
 
@@ -70,16 +110,16 @@ public class ClienteService {
 
 
     private void validarDadosCliente(CadastroClienteDTO cliente) {
-        this.findByEmail(cliente.email());
+        Optional<Cliente> clienteExistente = clienteRepository.findByEmail(cliente.email());
+        if (clienteExistente.isPresent()) {
+            throw new RuntimeException("Email já cadastrado");
+        }
 
-        if (clienteRepository.findByCpf(cliente.cpf())) {
+        if (clienteRepository.existsByCpf(cliente.cpf())) {
             throw new RuntimeException("CPF já cadastrado");
         }
-        //..
-        // if (!cliente.isNomeValido()) {
-        //  throw new NomeInvalidoException("O nome do cliente deve ter duas palavras com pelo menos 3 letras cada.");
-        //   }
     }
+
 
     public DetalhamentoClienteDTO uptade(AtualizarClienteDTO dto) {
         Cliente cliente = clienteRepository.findById(dto.id()).orElseThrow(() -> new ValidationExcepetion("Cliente id" + dto.id()));
@@ -103,6 +143,7 @@ public class ClienteService {
         clienteRepository.save(cliente);
         return cliente;
     }
+
 
 //    public Endereco adicionaEndereco(Long clienteId, Endereco adiciona) {
 //        Cliente cliente = clienteRepository.findById(clienteId)
