@@ -17,7 +17,7 @@ const Produto: React.FC<IProduto> = (produto: IProduto) => {
 
 
   const handleDetailsProdutos = (id : number) => {
-    navigate(`/${id}`);
+    navigate(`/produto/${id}`);
   }
 
   return (
@@ -44,6 +44,7 @@ const Produto: React.FC<IProduto> = (produto: IProduto) => {
           <RemoveIcon />
         </IconButton>
         <IconButton
+        title='Comprar'
           onClick={() => adicionarProduto({
             nome: produto.nome,
             nomeImagem: produto.nomeImagem,

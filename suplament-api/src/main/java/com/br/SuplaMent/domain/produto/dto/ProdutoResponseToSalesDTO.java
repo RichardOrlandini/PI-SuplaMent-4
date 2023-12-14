@@ -32,12 +32,16 @@ public class ProdutoResponseToSalesDTO {
 
     private String nomeImagem;
 
+    private double valor;
+
     public static ProdutoResponseToSalesDTO of(Produto produto) {
         return ProdutoResponseToSalesDTO
                 .builder()
                 .id(produto.getId())
                 .nome(produto.getNome())
                 .qtd(produto.getQtd())
+                .nomeImagem(produto.getNomeImagem())
+                .valor(produto.getValor())
                 .insertionDate(produto.getInsertionDate())
                 .fornecedor(FornecedorResponseDTO.of(produto.getFornecedor()))
                 .categoria(CategoriaResponse.of(produto.getCategoria()))

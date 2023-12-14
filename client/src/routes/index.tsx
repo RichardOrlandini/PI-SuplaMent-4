@@ -23,6 +23,7 @@ import { Error404Container } from 'pages/common/Error404Container';
 import { AddIcCall } from '@material-ui/icons';
 import { CarrinhoProvider } from 'common/contexts/Carrinho';
 import { PageAdmin } from 'pages/admin/PageHeaderAdmin';
+import ProdutoDetalhe from 'pages/common/ProdutoDetalhe';
 
 
 export function RoutesApp() {
@@ -44,7 +45,7 @@ export function RoutesApp() {
                 <Route element={<BasePage />}>
                     <Route index path='/' element={< HomeDeslogado />} />
                     <Route path="/app/compra" element={<Compra />} />
-
+                    <Route path="/produto/:id" element={<ProdutoDetalhe />} />
 
 
                     <Route element={<RoutePrivateGlobal />}>
