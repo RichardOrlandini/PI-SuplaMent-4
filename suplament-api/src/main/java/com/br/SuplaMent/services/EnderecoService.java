@@ -1,5 +1,6 @@
 package com.br.SuplaMent.services;
 
+
 import com.br.SuplaMent.domain.endereco.Endereco;
 import com.br.SuplaMent.domain.endereco.EnderecoRepository;
 import com.br.SuplaMent.domain.pessoa.dto.CadastroEnderecosDTO;
@@ -44,6 +45,7 @@ public class EnderecoService {
         }
 
         enderecoRepository.saveAll(newAndress);
+
     }
 
 
@@ -60,4 +62,7 @@ public class EnderecoService {
     }
 
 
+    public void save(Endereco endereco) {
+        enderecoRepository.save(endereco);
+    }
 }
