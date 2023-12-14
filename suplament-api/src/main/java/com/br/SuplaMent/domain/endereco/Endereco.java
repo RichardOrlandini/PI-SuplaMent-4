@@ -16,7 +16,6 @@ import lombok.*;
 @Data
 public class Endereco extends DomainEntity {
 
-
     private String complemento;
     private String numero;
     private String logradouro;
@@ -31,8 +30,6 @@ public class Endereco extends DomainEntity {
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
 
-
-
     public static Endereco of (CadastroEnderecosDTO dto) {
         return Endereco
                 .builder()
@@ -45,8 +42,8 @@ public class Endereco extends DomainEntity {
                 .uf(dto.uf())
                 .principal(dto.isPrincipal())
                 .build();
-
     }
+
     public Endereco(CadastroEnderecosDTO dtoEndereco) {
         this.complemento = dtoEndereco.getComplemento();
         this.numero = dtoEndereco.getNumero();
@@ -55,9 +52,9 @@ public class Endereco extends DomainEntity {
         this.cep = dtoEndereco.getCep();
         this.cidade = dtoEndereco.getCidade();
         this.uf = dtoEndereco.getUf();
-       // this.clienteId = dtoEndereco.getClienteId();
+        this.principal = dtoEndereco.isPrincipal();
+        this.cliente = (Cliente) dtoEndereco.getClienteId();
     }
-
 
     public void atualizarInformacoes(CadastroEnderecoDTO dto) {
         if (dto.complemento() != null) {
@@ -81,17 +78,13 @@ public class Endereco extends DomainEntity {
         if (dto.uf() != null) {
             this.uf = dto.uf();
         }
+        if (dto.principal() != null) {
+            this.principal = dto.principal();
+        }
     }
-    public void excluir() {
-        this.setActive(false);
-    }
-
     private void setActive(boolean b) {
     }
 
-    public void ativa() {
-        this.setActive(true);
-    }
 
 
 }
