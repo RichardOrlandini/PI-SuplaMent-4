@@ -44,4 +44,4 @@ INSERT INTO USUARIO (ID, insertion_date , active, role, email, nome, senha) VALU
  INSERT INTO ENDERECO (id, insertion_date , active, cep, cidade, bairro, uf, numero, logradouro, complemento, principal) VALUES (1001, CURRENT_TIMESTAMP, TRUE, '12345678', 'Rio de Janeiro', 'maraca', 'RJ', '789', 'Rua 932', 'Complemento 232', false);
 
 -- Cliente
-INSERT INTO CLIENTE (ID, data_nascimento, genero, cpf, active, role, email, nome, senha, endereco_id) VALUES (1000, '2000-01-01', 'Masculino', '45214479883', TRUE, 1, 'cliente@teste', 'El patroazinha', '123456', 1000);
+INSERT INTO CLIENTE (ID, data_nascimento, genero, cpf, active, role, email, nome, senha) VALUES (1000, '2000-01-01', 'Masculino', '45214479883', TRUE, 1, 'cliente@teste', 'El patroazinha', '123456');
