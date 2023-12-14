@@ -1,5 +1,6 @@
 package com.br.SuplaMent.domain.pessoa.dto;
 
+
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -11,6 +12,7 @@ public record CadastroEnderecosDTO(
         @NotBlank String cep,
         @NotBlank String cidade,
         @NotBlank String uf,
+        @NotBlank Boolean principal,
         @NotNull Long clienteId
 ) {
     private static boolean isPrincipal;
