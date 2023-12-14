@@ -15,4 +15,8 @@ public interface ClienteRepository extends JpaRepository<Cliente, Long >{
     Page<Cliente> findByNomeContaining(String nome, Pageable paginacao);
 
     boolean findByCpf(String cpf);
+
+    boolean existsByEmail(String email);
+
+    boolean existsByCpf(String cpf);
 }
