@@ -24,7 +24,9 @@ public record CadastroEnderecoDTO(
 
         @NotBlank
         @NotNull(message = "uf não pode ser vazio")
-        String uf
+        String uf,
+        @NotBlank
+        Boolean principal
+
     ) {
 }
-
