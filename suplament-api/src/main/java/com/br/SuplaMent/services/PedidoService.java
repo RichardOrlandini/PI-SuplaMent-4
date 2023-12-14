@@ -45,14 +45,14 @@ public class PedidoService {
             return new AvisoRetornoPedidoDTO(ThreadLocalRandom.current().nextLong(), createPedidoDTO.valorTotal(), mensagem);
         }
 
-        //Buscar o cliente que está fazendo o pedido
         Cliente cliente = this.validateClient(createPedidoDTO.idCliente());
-        //Criar o pedido sem a lista dos produtos
+
         Pedido pedido = Pedido.of(createPedidoDTO, cliente, formaPagamento);
+
         pedido = pedidoRepository.save(pedido);
-        //Criar a lista de produtos que terá no pedido(informa quantidade de cada produto no pedido)
+
         List<PedidoProduto> pedidoProdutos = criarPedidoProdutos(createPedidoDTO.produtos(), pedido);
-        //Setar a lista dos produtos com suas quantidades no pedido e atualiza na base
+
         pedido.setProdutos(pedidoProdutos);
         pedidoRepository.save(pedido);
 
@@ -79,13 +79,17 @@ public class PedidoService {
 
     public List<PedidoProduto> criarPedidoProdutos(List<ProdutoNoCarrinho> produtos, Pedido pedido){
         List<PedidoProduto> pedidoProdutos = new ArrayList<>();
+
         for (ProdutoNoCarrinho produtoNoCarrinho : produtos) {
-            Optional<Produto> produtoOptional = produtoRepository.findByNome(produtoNoCarrinho.nome()).stream().findFirst();
-            if (produtoOptional.isPresent()) {
-                Produto produto = produtoOptional.get();
+            Produto produto = produtoRepository.findById(produtoNoCarrinho.id()).orElse(null);
+
+            if (produto != null) {
                 pedidoProdutos.add(PedidoProduto.of(pedido, produto, produtoNoCarrinho.quantidade()));
+            } else {
+                throw new ValidationExcepetion("O id do produto no pedido não foi encontrado!");
             }
         }
+
         return pedidoProdutos;
     }
 }
