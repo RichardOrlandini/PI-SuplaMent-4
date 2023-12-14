@@ -1,6 +1,5 @@
 package com.br.SuplaMent.controller;
 
-
 import com.br.SuplaMent.domain.endereco.Endereco;
 import com.br.SuplaMent.domain.pessoa.Cliente;
 import com.br.SuplaMent.domain.pessoa.dto.CadastroEnderecosDTO;
@@ -8,6 +7,7 @@ import com.br.SuplaMent.domain.pessoa.dto.DetalhamentoClienteDTO;
 import com.br.SuplaMent.services.CepService;
 import com.br.SuplaMent.services.EnderecoService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,8 +19,8 @@ import java.util.List;
 @RestController
 @RequestMapping("endereco")
 public class EnderecoController {
-
-    final EnderecoService enderecoService;
+    @Autowired
+    private final EnderecoService enderecoService;
 
     @GetMapping("consulta")
     public  ResponseEntity consultaEndereco(@RequestBody Cliente clienteEndereco){
@@ -31,6 +31,11 @@ public class EnderecoController {
     public ResponseEntity<Endereco> setPrincipalAddress(@RequestBody Long addId) {
         enderecoService.setPrincipalAddress(addId);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}")
+    public List<Endereco> buscarEnderecosCliente(@PathVariable Long id){
+        return enderecoService.buscarEnderecosCliente(id);
     }
 
 

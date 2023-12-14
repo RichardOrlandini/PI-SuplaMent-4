@@ -61,8 +61,11 @@ public class EnderecoService {
         enderecoRepository.saveAll(enderecos);
     }
 
-
     public void save(Endereco endereco) {
         enderecoRepository.save(endereco);
+    }
+
+    public List<Endereco> buscarEnderecosCliente(Long clienteId){
+        return enderecoRepository.findByClienteId(clienteId);
     }
 }

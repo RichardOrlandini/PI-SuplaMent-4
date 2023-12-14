@@ -4,6 +4,7 @@ import com.br.SuplaMent.domain.endereco.dto.CadastroEnderecoDTO;
 import com.br.SuplaMent.domain.pessoa.Cliente;
 import com.br.SuplaMent.domain.pessoa.dto.CadastroEnderecosDTO;
 import com.br.SuplaMent.utils.aEntity.DomainEntity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.*;
@@ -26,6 +27,7 @@ public class Endereco extends DomainEntity {
     private String uf;
     private boolean principal;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
